@@ -32,6 +32,9 @@
                     echo("<li>Rua: ". $dados["Rua"]. "</li>");
                     echo("<li>Numero: ". $dados["Numero"]. "</li>");
                     echo("</ul>");
+
+                    header("location: cadastro.php", true);
+                    exit();
                 }
                 else echo("Senha incorreta");
             }

@@ -2,26 +2,26 @@ CREATE DATABASE TimeupDB;
 
 CREATE TABLE Cliente (
     ID INT NOT NULL auto_increment,
-    Nome VARCHAR(50) NOT NULL,
+    Nome VARCHAR (50) NOT NULL,
     Data_Nascimento DATE NOT NULL,
-    CPF VARCHAR(11) NOT NULL,
-    Telefone VARCHAR(11) NOT NULL,
-    Email VARCHAR(50) NOT NULL,
-    Senha VARCHAR(20) NOT NULL,
-    Rua VARCHAR(30) NOT NULL,
+    CPF VARCHAR (11) NOT NULL,
+    Telefone VARCHAR (11) NOT NULL,
+    Email VARCHAR (50) NOT NULL,
+    Senha VARCHAR (20) NOT NULL,
+    Rua VARCHAR (30) NOT NULL,
     Numero INT NOT NULL,
     PRIMARY KEY (ID)
 );
 
 CREATE TABLE Vendedor (
     ID INT NOT NULL auto_increment,
-    Nome VARCHAR(50) NOT NULL,
-    CNPJ VARCHAR(14) NOT NULL,
-    Email VARCHAR(50) NOT NULL,
-    Senha VARCHAR(20) NOT NULL,
-    Rua VARCHAR(30) NOT NULL,
+    Nome VARCHAR (50) NOT NULL,
+    CNPJ VARCHAR (14) NOT NULL,
+    Email VARCHAR (50) NOT NULL,
+    Senha VARCHAR (20) NOT NULL,
+    Rua VARCHAR (30) NOT NULL,
     Numero INT NOT NULL,
-    PRIMARY KEY(ID)
+    PRIMARY KEY (ID)
 );
 
 CREATE TABLE Produto (
@@ -32,17 +32,24 @@ CREATE TABLE Produto (
     Quantidade INT NOT NULL,
     Vendedor_ID INT NOT NULL,
     PRIMARY KEY (ID),
-    FOREIGN KEY (Vendedor_ID) REFERENCES Vendedor(ID)
+    FOREIGN KEY (Vendedor_ID) REFERENCES Vendedor (ID)
 );
 
-CREATE TABLE Compra (
+CREATE TABLE Carrinho (
     ID INT NOT NULL auto_increment,
     Cliente_ID INT NOT NULL,
-    Produto_ID INT NOT NULL,
-    Data_Compra DATE NOT NULL,
+    Data_Compra DATE,
     PRIMARY KEY (ID),
-    FOREIGN KEY (Cliente_ID) REFERENCES Cliente(ID),
-    FOREIGN KEY (Produto_ID) REFERENCES Produto(ID)
+    FOREIGN KEY (Cliente_ID) REFERENCES Cliente (ID)
+);
+
+CREATE TABLE CarrinhoXProduto (
+    ID INT NOT NULL auto_increment,
+    Carrinho_ID INT NOT NULL,
+    Produto_ID INT NOT NULL,
+    PRIMARY KEY (ID),
+    FOREIGN KEY (Carrinho_ID) REFERENCES Carrinho (ID),
+    FOREIGN KEY (Produto_ID) REFERENCES Produto (ID)
 );
 
 INSERT INTO Cliente (Nome, Data_Nascimento, CPF, Telefone, Email, Senha, Rua, Numero)
@@ -60,10 +67,17 @@ VALUES ("Telha", "00000001", "Ceramicas", "500", "1"),
     ("Piso1", "00000002", "Ceramicas", "700", "2"),
     ("Piso2", "00000003", "Ceramicas", "300", "1");
 
-INSERT INTO Compra (Cliente_ID, Produto_ID, Data_Compra)
-VALUES ("1", "1", "2020-11-05"),
-    ("2", "2", "2021-02-15"),
-    ("3", "3", "2018-09-28");
+INSERT INTO Carrinho (Cliente_ID, Data_Compra)
+VALUES ("1", "2020-11-05"),
+    ("2", "2021-02-15"),
+    ("3", "2018-09-28");
+
+INSERT INTO CarrinhoXProduto (Carrinho_ID, Produto_ID)
+VALUES ("1", "1"),
+    ("1", "2"),
+    ("1", "3"),
+    ("2", "2"),
+    ("3", "1");
 
 SELECT * FROM Cliente;
 SELECT * FROM Vendedor;
