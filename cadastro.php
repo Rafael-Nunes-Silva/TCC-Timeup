@@ -10,31 +10,82 @@
 </head>
 <body>
     <?php
+        require_once("dados.php");
         function allVarsSet(){
-            return (isset($_POST["usuario"]) && isset($_POST["data_nascimento"]) && isset($_POST["cpf"]) &&
-            isset($_POST["telefone"]) && isset($_POST["email"]) && isset($_POST["senha"]) &&
-            isset($_POST["rua"]) && isset($_POST["numero"]));
+            $res = true;
+            if(!isset($_POST["usuario"])){
+                if(strlen($_POST["usuario"]) <= 0){
+                    echo("O campo 'usuario' não esta valido");
+                    $res = false;
+                }
+            }
+            if(!isset($_POST["data_nascimento"])){
+                echo("O campo 'data_nascimento' não esta valido");
+                $res = false;
+            }
+            if(!isset($_POST["cpf"])){
+                if(strlen($_POST["cpf"]) < 14){
+                    echo("O campo 'cpf' não esta valido");
+                    $res = false;
+                }
+            }
+            if(!isset($_POST["telefone"])){
+                if(strlen($_POST["telefone"]) < 11){
+                    echo("O campo 'telefone' não esta valido");
+                    $res = false;
+                }
+            }
+            if(!isset($_POST["email"])){
+                echo("O campo 'email' não esta valido");
+                $res = false;
+            }
+            if(!isset($_POST["senha"])){
+                echo("O campo 'senha' não esta valido");
+                $res = false;
+            }
+            if(!isset($_POST["rua"])){
+                echo("O campo 'rua' não esta valido");
+                $res = false;
+            }
+            if(!isset($_POST["numero"])){
+                echo("O campo 'numero' não esta valido");
+                $res = false;
+            }
+            return $res;
         }
 
         if(isset($_POST["cadastrar"])){
-            Cadastrar();
+            if(allVarsSet())
+                Cadastrar();
+            else echo("Todos os campos devem estar validamente preenchidos para que o cadastro seja realizado");
         }
 
-        function Cadastrar(){ // if(allVarsSet()){
+        function Cadastrar(){
             $connection = new mysqli("localhost", "root", "", "timeupdb");
-            $usuario = $_POST["usuario"];
-            $data_nascimento = $_POST["data_nascimento"];
-            $cpf = $_POST["cpf"];
-            $telefone = $_POST["telefone"];
-            $email = $_POST["email"];
-            $senha = $_POST["senha"];
-            $rua = $_POST["rua"];
-            $numero = $_POST["numero"];
 
-            $query = "INSERT INTO Cliente (Nome, Data_Nascimento, CPF, Telefone, Email, Senha, Rua, Numero) VALUES ('$usuario', '$data_nascimento', '$cpf', '$telefone', '$email', '$senha', '$rua', '$numero')";
-            $queryRes = $connection->query($query);
+            $dadosUsuario = new UserData();
+            $dadosUsuario->usuario = $_POST["usuario"];
+            $dadosUsuario->data_nascimento = $_POST["data_nascimento"];
+            $dadosUsuario->cpf = $_POST["cpf"];
+            $dadosUsuario->telefone = $_POST["telefone"];
+            $dadosUsuario->email = $_POST["email"];
+            $dadosUsuario->senha = $_POST["senha"];
+            $dadosUsuario->rua = $_POST["rua"];
+            $dadosUsuario->numero = $_POST["numero"];
 
-            //TODO: verificar se o cadastro foi realizado com sucesso
+            $insertQuery = "INSERT INTO Cliente (Nome, Data_Nascimento, CPF, Telefone, Email, Senha, Rua, Numero) VALUES ('$dadosUsuario->usuario', '$dadosUsuario->data_nascimento', '$dadosUsuario->cpf', '$dadosUsuario->telefone', '$dadosUsuario->email', '$dadosUsuario->senha', '$dadosUsuario->rua', '$dadosUsuario->numero')";
+            $connection->query($insertQuery);
+
+            $checkQuery = "SELECT * FROM Cliente WHERE Nome = '$dadosUsuario->usuario'";
+            $queryRes = $connection->query($checkQuery);
+
+            /////////////////////////////
+            if($queryRes->num_rows > 0){
+                echo("Cadastro feito com sucesso");
+                //TODO: ir para a pagina principal
+            }
+            else echo("Cadastro falhou");
+            /////////////////////////////
 
             $connection->close();
         }
@@ -76,7 +127,7 @@
                     <label for="numero">Numero</label>
                     <input type="number" name="numero" placeholder="Numero">
                 </div>
-                <button type="submit" class="btn-cadastro" value="cadastrar">cadastro</button>
+                <button type="submit" class="btn-cadastro" name="cadastrar">cadastro</button>
             </form>
         </div>
     </div>

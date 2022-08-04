@@ -35,7 +35,7 @@ CREATE TABLE Produto (
     FOREIGN KEY (Vendedor_ID) REFERENCES Vendedor (ID)
 );
 
-CREATE TABLE Carrinho (
+CREATE TABLE Compra (
     ID INT NOT NULL auto_increment,
     Cliente_ID INT NOT NULL,
     Data_Compra DATE,
@@ -43,14 +43,16 @@ CREATE TABLE Carrinho (
     FOREIGN KEY (Cliente_ID) REFERENCES Cliente (ID)
 );
 
-CREATE TABLE CarrinhoXProduto (
+CREATE TABLE CompraXProduto (
     ID INT NOT NULL auto_increment,
-    Carrinho_ID INT NOT NULL,
+    Compra_ID INT NOT NULL,
     Produto_ID INT NOT NULL,
     PRIMARY KEY (ID),
-    FOREIGN KEY (Carrinho_ID) REFERENCES Carrinho (ID),
+    FOREIGN KEY (Compra_ID) REFERENCES Compra (ID),
     FOREIGN KEY (Produto_ID) REFERENCES Produto (ID)
 );
+
+/*Inserts para teste*/
 
 INSERT INTO Cliente (Nome, Data_Nascimento, CPF, Telefone, Email, Senha, Rua, Numero)
 VALUES ("Jorge", "2000-04-20", "11111111111", "11111111111", "jorge@gmail.com", "jorge123", "Rua Jorge", "1"),
@@ -67,12 +69,12 @@ VALUES ("Telha", "00000001", "Ceramicas", "500", "1"),
     ("Piso1", "00000002", "Ceramicas", "700", "2"),
     ("Piso2", "00000003", "Ceramicas", "300", "1");
 
-INSERT INTO Carrinho (Cliente_ID, Data_Compra)
+INSERT INTO Compra (Cliente_ID, Data_Compra)
 VALUES ("1", "2020-11-05"),
     ("2", "2021-02-15"),
     ("3", "2018-09-28");
 
-INSERT INTO CarrinhoXProduto (Carrinho_ID, Produto_ID)
+INSERT INTO CompraXProduto (Compra_ID, Produto_ID)
 VALUES ("1", "1"),
     ("1", "2"),
     ("1", "3"),

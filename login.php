@@ -10,6 +10,7 @@
 </head>
 <body>
     <?php
+        require_once("dados.php");
         if(isset($_POST["usuario"]) && isset($_POST["senha"])){
             $connection = new mysqli("localhost", "root", "", "timeupdb");
             $usuario = $_POST["usuario"];
@@ -20,6 +21,23 @@
             if($queryRes->num_rows > 0){
                 $dados = $queryRes->fetch_assoc();
                 if($senha == $dados["Senha"]){
+                    $dadosUsuario;
+                    $dadosUsuario = new UserData();
+                    $dadosUsuario->usuario = $dados["Nome"];
+                    $dadosUsuario->data_nascimento = $dados["Data_Nascimento"];
+                    $dadosUsuario->cpf = $dados["CPF"];
+                    $dadosUsuario->telefone = $dados["Telefone"];
+                    $dadosUsuario->email = $dados["Email"];
+                    $dadosUsuario->senha = $dados["Senha"];
+                    $dadosUsuario->rua = $dados["Rua"];
+                    $dadosUsuario->numero = $dados["Numero"];
+                    include("updatePerfil.php");
+                    header("Location: updatePerfil.php");
+                    // header("updatePerfil.php");
+                    exit();
+
+                    /*TODO: ir para a pagina principal
+                    //////////////////////////////////////////////////
                     echo("Usuario $usuario esta cadastrado e senha fornecida esta correta<br>");
                     echo("Dados adicionais:<br>");
                     echo("<ul>");
@@ -32,11 +50,9 @@
                     echo("<li>Rua: ". $dados["Rua"]. "</li>");
                     echo("<li>Numero: ". $dados["Numero"]. "</li>");
                     echo("</ul>");
-
-                    header("location: cadastro.php", true);
-                    exit();
+                    ///////////////////////////////////////////////*/
                 }
-                else echo("Senha incorreta");
+                else echo("Dados incorretos");
             }
             else echo("Usuario $usuario não esta cadastrado<br>");
             
