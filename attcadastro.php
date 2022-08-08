@@ -105,10 +105,6 @@
                     <input type="text" name="email" placeholder="Email">
                 </div>
                 <div class="textfield">
-                    <label for="senha">Senha</label>
-                    <input type="text" name="senha" placeholder="Senha">
-                </div>
-                <div class="textfield">
                     <label for="rua">Rua</label>
                     <input type="text" name="rua" placeholder="Rua">
                 </div>
