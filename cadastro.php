@@ -11,44 +11,67 @@
 <body>
     <?php
         require_once("dados.php");
+        function ValidateCPF(){
+            $cpf = $_POST["cpf"];
+
+            $sum1 = 0;
+            $sum2 = 0;
+            for($i = 0, $j = 1; $i<9 && $j<10; $i++, $j++){
+                $sum1 += $cpf[$i]*(10-$i);
+                $sum2 += $cpf[$j]*(10-$i);
+            }
+            $r = $sum1%11;
+            $s = $sum2%11;
+            $d1 = ($r <= 1 ? 0 : 11-$r);
+            $d2 = ($s <= 1 ? 0 : 11-$s);
+
+            echo("CPF: ".$cpf."<br>");
+            echo($cpf[9]." == ".$d1."<br>");
+            echo($cpf[10]." == ".$d2."<br>");
+
+            return ($cpf[9] == $d1 && $cpf[10] == $d2);
+        }
+        function ValidadeTelefone(){
+            //TODO: Verificar se o numero de telefone inserido no campo 'Telefone' é valido enviando uma
+            //menssagem de verificação
+            return true;
+        }
+        function ValidadeEmail(){
+            //TODO: Verificar se o email inserido no campo 'Email' é valido enviando um email de verificação
+            return true;
+        }
         function allVarsSet(){
             $res = true;
-            if(!isset($_POST["usuario"])){
-                if(strlen($_POST["usuario"]) <= 0){
-                    echo("O campo 'usuario' não esta valido");
-                    $res = false;
-                }
-            }
-            if(!isset($_POST["data_nascimento"])){
-                echo("O campo 'data_nascimento' não esta valido");
+            if(!isset($_POST["nome"]) || strlen($_POST["nome"]) <= 0){
+                echo("O campo 'Nome' não esta valido<br>");
                 $res = false;
             }
-            if(!isset($_POST["cpf"])){
-                if(strlen($_POST["cpf"]) < 14){
-                    echo("O campo 'cpf' não esta valido");
-                    $res = false;
-                }
+            if(!isset($_POST["data_nascimento"])){
+                echo("O campo 'data de nascimento' não esta valido<br>");
+                $res = false;
             }
-            if(!isset($_POST["telefone"])){
-                if(strlen($_POST["telefone"]) < 11){
-                    echo("O campo 'telefone' não esta valido");
-                    $res = false;
-                }
+            if(!isset($_POST["cpf"]) || strlen($_POST["cpf"]) != 11 || !ValidateCPF()){
+                echo("O campo 'CPF' não esta valido<br>");
+                $res = false;
             }
-            if(!isset($_POST["email"])){
-                echo("O campo 'email' não esta valido");
+            if(!isset($_POST["telefone"]) || strlen($_POST["telefone"]) != 11 || !ValidadeTelefone()){
+                echo("O campo 'Telefone' não esta valido<br>");
+                $res = false;
+            }
+            if(!isset($_POST["email"]) || strlen($_POST["email"]) <= 0 || !ValidadeEmail()){
+                echo("O campo 'Email' não esta valido<br>");
                 $res = false;
             }
             if(!isset($_POST["senha"])){
-                echo("O campo 'senha' não esta valido");
+                echo("O campo 'Senha' não esta valido<br>");
                 $res = false;
             }
             if(!isset($_POST["rua"])){
-                echo("O campo 'rua' não esta valido");
+                echo("O campo 'Rua' não esta valido<br>");
                 $res = false;
             }
             if(!isset($_POST["numero"])){
-                echo("O campo 'numero' não esta valido");
+                echo("O campo 'Número' não esta valido<br>");
                 $res = false;
             }
             return $res;
@@ -64,19 +87,29 @@
             $connection = new mysqli("localhost", "root", "", "timeupdb");
 
             $dadosUsuario = new UserData();
-            $dadosUsuario->usuario = $_POST["usuario"];
-            $dadosUsuario->data_nascimento = $_POST["data_nascimento"];
-            $dadosUsuario->cpf = $_POST["cpf"];
-            $dadosUsuario->telefone = $_POST["telefone"];
-            $dadosUsuario->email = $_POST["email"];
-            $dadosUsuario->senha = $_POST["senha"];
-            $dadosUsuario->rua = $_POST["rua"];
-            $dadosUsuario->numero = $_POST["numero"];
+            $dadosUsuario->Nome = $_POST["nome"];
+            $dadosUsuario->Data_Nascimento = $_POST["data_nascimento"];
+            $dadosUsuario->CPF = $_POST["cpf"];
+            $dadosUsuario->Telefone = $_POST["telefone"];
+            $dadosUsuario->Email = $_POST["email"];
+            $dadosUsuario->Senha = $_POST["senha"];
+            $dadosUsuario->Rua = $_POST["rua"];
+            $dadosUsuario->Numero = $_POST["numero"];
 
-            $insertQuery = "INSERT INTO Cliente (Nome, Data_Nascimento, CPF, Telefone, Email, Senha, Rua, Numero) VALUES ('$dadosUsuario->usuario', '$dadosUsuario->data_nascimento', '$dadosUsuario->cpf', '$dadosUsuario->telefone', '$dadosUsuario->email', '$dadosUsuario->senha', '$dadosUsuario->rua', '$dadosUsuario->numero')";
+            $existCheck = "SELECT CPF FROM Cliente WHERE Nome = '$dadosUsuario->Nome'";
+            $checkRes = $connection->query($existCheck);
+
+            if($checkRes->num_rows > 0){
+                if($checkRes->fetch_assoc()["CPF"] == $dadosUsuario->CPF)
+                    echo("Usuário já existe, faça login");
+                $connection->close();
+                return;
+            }
+
+            $insertQuery = "INSERT INTO Cliente (Nome, Data_Nascimento, CPF, Telefone, Email, Senha, Rua, Numero) VALUES ('$dadosUsuario->Nome', '$dadosUsuario->Data_Nascimento', '$dadosUsuario->CPF', '$dadosUsuario->Telefone', '$dadosUsuario->Email', '$dadosUsuario->Senha', '$dadosUsuario->Rua', '$dadosUsuario->Numero')";
             $connection->query($insertQuery);
 
-            $checkQuery = "SELECT * FROM Cliente WHERE Nome = '$dadosUsuario->usuario'";
+            $checkQuery = "SELECT * FROM Cliente WHERE Nome = '$dadosUsuario->Nome'";
             $queryRes = $connection->query($checkQuery);
 
             /////////////////////////////
@@ -96,8 +129,8 @@
             <form class="card-cadastro" method="post">
                 <h1>cadastro</h1>
                 <div class="textfield">
-                    <label for="usuario">Usuário</label>
-                    <input type="text" name="usuario" placeholder="Nome">
+                    <label for="nome">Nome</label>
+                    <input type="text" name="nome" placeholder="Nome">
                 </div>
                 <div class="textfield">
                     <label for="data_nascimento">Data de Nascimento</label>

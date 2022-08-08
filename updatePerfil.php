@@ -11,14 +11,19 @@
 <body>
     <?php
         require_once("dados.php");
-        echo($dadosUsuario->usuario);
-        echo($dadosUsuario->data_nascimento);
-        echo($dadosUsuario->cpf);
-        echo($dadosUsuario->telefone);
-        echo($dadosUsuario->email);
-        echo($dadosUsuario->senha);
-        echo($dadosUsuario->rua);
-        echo($dadosUsuario->numero);
+
+        // Teste: passando dados de usuário entre páginas com $_SESSION
+        session_start();
+        $dadosUsuario = $_SESSION["userData"];
+        echo($dadosUsuario->Nome."<br>");
+        echo($dadosUsuario->Data_Nascimento."<br>");
+        echo($dadosUsuario->CPF."<br>");
+        echo($dadosUsuario->Telefone."<br>");
+        echo($dadosUsuario->Email."<br>");
+        echo($dadosUsuario->Senha."<br>");
+        echo($dadosUsuario->Rua."<br>");
+        echo($dadosUsuario->Numero."<br>");
+        ////////////////////////////////////////////////
     ?>
     
     <nav>

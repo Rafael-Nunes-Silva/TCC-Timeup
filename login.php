@@ -11,34 +11,39 @@
 <body>
     <?php
         require_once("dados.php");
-        if(isset($_POST["usuario"]) && isset($_POST["senha"])){
+
+        if(isset($_POST["nome"]) && isset($_POST["senha"])){
             $connection = new mysqli("localhost", "root", "", "timeupdb");
-            $usuario = $_POST["usuario"];
+            $nome = $_POST["nome"];
             $senha = $_POST["senha"];
 
-            $query = "SELECT * FROM Cliente WHERE Nome = '$usuario'";
+            $query = "SELECT * FROM Cliente WHERE Nome = '$nome'";
             $queryRes = $connection->query($query);
             if($queryRes->num_rows > 0){
                 $dados = $queryRes->fetch_assoc();
                 if($senha == $dados["Senha"]){
-                    $dadosUsuario;
                     $dadosUsuario = new UserData();
-                    $dadosUsuario->usuario = $dados["Nome"];
-                    $dadosUsuario->data_nascimento = $dados["Data_Nascimento"];
-                    $dadosUsuario->cpf = $dados["CPF"];
-                    $dadosUsuario->telefone = $dados["Telefone"];
-                    $dadosUsuario->email = $dados["Email"];
-                    $dadosUsuario->senha = $dados["Senha"];
-                    $dadosUsuario->rua = $dados["Rua"];
-                    $dadosUsuario->numero = $dados["Numero"];
+                    $dadosUsuario->Nome = $dados["Nome"];
+                    $dadosUsuario->Data_Nascimento = $dados["Data_Nascimento"];
+                    $dadosUsuario->CPF = $dados["CPF"];
+                    $dadosUsuario->Telefone = $dados["Telefone"];
+                    $dadosUsuario->Email = $dados["Email"];
+                    $dadosUsuario->Senha = $dados["Senha"];
+                    $dadosUsuario->Rua = $dados["Rua"];
+                    $dadosUsuario->Numero = $dados["Numero"];
+
+                    // Teste: passando dados de usuário entre páginas com $_SESSION
+                    session_start();
+                    $_SESSION["userData"] = $dadosUsuario;
+                    ////////////////////////////////////////////////
+
                     include("updatePerfil.php");
                     header("Location: updatePerfil.php");
-                    // header("updatePerfil.php");
                     exit();
 
                     /*TODO: ir para a pagina principal
                     //////////////////////////////////////////////////
-                    echo("Usuario $usuario esta cadastrado e senha fornecida esta correta<br>");
+                    echo("Usuario $nome esta cadastrado e senha fornecida esta correta<br>");
                     echo("Dados adicionais:<br>");
                     echo("<ul>");
                     echo("<li>ID: ". $dados["ID"]. "</li>");
@@ -54,7 +59,7 @@
                 }
                 else echo("Dados incorretos");
             }
-            else echo("Usuario $usuario não esta cadastrado<br>");
+            else echo("Usuario $nome não esta cadastrado<br>");
             
             $connection->close();
         }
@@ -72,8 +77,8 @@
             <form class="card-login" method="post">
                 <h1>LOGIN</h1>
                 <div class="textfield">
-                    <label for="usuario">Usuário</label>
-                    <input type="text" name="usuario" placeholder="Usuário">
+                    <label for="nome">Nome</label>
+                    <input type="text" name="nome" placeholder="Nome">
                 </div>
                 <div class="textfield">
                     <label for="senha">Senha</label>
