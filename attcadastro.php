@@ -95,7 +95,7 @@
         <div class="cadastro">
             <form class="card-cadastro" method="post">
                 <a href="index.html">Atualizar Dados</a>
-                <p>Altere os seus dados !</p>
+                <p>Altere os seus dados!</p>
                 <div class="textfield">
                     <label for="telefone">Telefone</label>
                     <input type="text" name="telefone" placeholder="Telefone">
@@ -103,6 +103,10 @@
                 <div class="textfield">
                     <label for="email">Email</label>
                     <input type="text" name="email" placeholder="Email">
+                </div>
+                <div class="textfield">
+                    <label for="senha">Senha</label>
+                    <input type="text" name="senha" placeholder="Senha">
                 </div>
                 <div class="textfield">
                     <label for="rua">Rua</label>

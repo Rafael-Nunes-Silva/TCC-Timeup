@@ -33,29 +33,13 @@
                     $dadosUsuario->Numero = $dados["Numero"];
 
                     // Teste: passando dados de usuário entre páginas com $_SESSION
-                    session_start();
-                    $_SESSION["userData"] = $dadosUsuario;
+                    // session_start();
+                    // $_SESSION["userData"] = $dadosUsuario;
                     ////////////////////////////////////////////////
 
-                    include("updatePerfil.php");
-                    header("Location: updatePerfil.php");
+                    include("index.html");
+                    header("Location: index.html");
                     exit();
-
-                    /*TODO: ir para a pagina principal
-                    //////////////////////////////////////////////////
-                    echo("Usuario $nome esta cadastrado e senha fornecida esta correta<br>");
-                    echo("Dados adicionais:<br>");
-                    echo("<ul>");
-                    echo("<li>ID: ". $dados["ID"]. "</li>");
-                    echo("<li>Nome: ". $dados["Nome"]. "</li>");
-                    echo("<li>Data de Nascimento: ". $dados["Data_Nascimento"]. "</li>");
-                    echo("<li>CPF: ". $dados["CPF"]. "</li>");
-                    echo("<li>Telefone: ". $dados["Telefone"]. "</li>");
-                    echo("<li>Email: ". $dados["Email"]. "</li>");
-                    echo("<li>Rua: ". $dados["Rua"]. "</li>");
-                    echo("<li>Numero: ". $dados["Numero"]. "</li>");
-                    echo("</ul>");
-                    ///////////////////////////////////////////////*/
                 }
                 else echo("Dados incorretos");
             }
