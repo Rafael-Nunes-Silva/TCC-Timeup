@@ -11,82 +11,56 @@
 <body>
     <?php
         require_once("dados.php");
+        require_once("utilidades.php");
+
         function allVarsSet(){
             $res = true;
-            if(!isset($_POST["usuario"])){
-                if(strlen($_POST["usuario"]) <= 0){
-                    echo("O campo 'usuario' não esta valido");
-                    $res = false;
-                }
-            }
-            if(!isset($_POST["data_nascimento"])){
-                echo("O campo 'data_nascimento' não esta valido");
+            $errMsg = "Erro no preenchimento do formulário de cadastro\\n";
+            if(!isset($_POST["telefone"]) || strlen($_POST["telefone"]) != 11 || !ValidadeTelefone()){
+                $errMsg .= "O campo 'Telefone' não está válido\\n";
                 $res = false;
             }
-            if(!isset($_POST["cpf"])){
-                if(strlen($_POST["cpf"]) < 14){
-                    echo("O campo 'cpf' não esta valido");
-                    $res = false;
-                }
-            }
-            if(!isset($_POST["telefone"])){
-                if(strlen($_POST["telefone"]) < 11){
-                    echo("O campo 'telefone' não esta valido");
-                    $res = false;
-                }
-            }
-            if(!isset($_POST["email"])){
-                echo("O campo 'email' não esta valido");
+            if(!isset($_POST["email"]) || strlen($_POST["email"]) <= 0 || !ValidadeEmail()){
+                $errMsg .= "O campo 'Email' não está válido\\n";
                 $res = false;
             }
-            if(!isset($_POST["senha"])){
-                echo("O campo 'senha' não esta valido");
+            if(!isset($_POST["senha"]) || strlen($_POST["senha"]) <= 0){
+                $errMsg .= "O campo 'Senha' não está válido\\n";
                 $res = false;
             }
-            if(!isset($_POST["rua"])){
-                echo("O campo 'rua' não esta valido");
+            if(!isset($_POST["rua"]) || strlen($_POST["rua"]) <= 0){
+                $errMsg .= "O campo 'Rua' não está válido\\n";
                 $res = false;
             }
-            if(!isset($_POST["numero"])){
-                echo("O campo 'numero' não esta valido");
+            if(!isset($_POST["numero"]) || strlen($_POST["numero"]) <= 0){
+                $errMsg .= "O campo 'Número' não está válido\\n";
                 $res = false;
             }
             return $res;
         }
 
         if(isset($_POST["cadastrar"])){
-            if(allVarsSet())
+            if(AllVarsSet())
                 Cadastrar();
-            else echo("Todos os campos devem estar validamente preenchidos para que o cadastro seja realizado");
+            else JSAlert("Todos os campos devem estar validamente preenchidos para que o cadastro seja realizado");
         }
 
         function Cadastrar(){
             $connection = new mysqli("localhost", "root", "", "timeupdb");
 
-            $dadosUsuario = new UserData();
-            $dadosUsuario->usuario = $_POST["usuario"];
-            $dadosUsuario->data_nascimento = $_POST["data_nascimento"];
-            $dadosUsuario->cpf = $_POST["cpf"];
-            $dadosUsuario->telefone = $_POST["telefone"];
-            $dadosUsuario->email = $_POST["email"];
-            $dadosUsuario->senha = $_POST["senha"];
-            $dadosUsuario->rua = $_POST["rua"];
-            $dadosUsuario->numero = $_POST["numero"];
+            session_start();
+            $dadosUsuario = $_SESSION["userData"];
 
-            $insertQuery = "INSERT INTO Cliente (Nome, Data_Nascimento, CPF, Telefone, Email, Senha, Rua, Numero) VALUES ('$dadosUsuario->usuario', '$dadosUsuario->data_nascimento', '$dadosUsuario->cpf', '$dadosUsuario->telefone', '$dadosUsuario->email', '$dadosUsuario->senha', '$dadosUsuario->rua', '$dadosUsuario->numero')";
-            $connection->query($insertQuery);
-
-            $checkQuery = "SELECT * FROM Cliente WHERE Nome = '$dadosUsuario->usuario'";
-            $queryRes = $connection->query($checkQuery);
-
-            /////////////////////////////
-            if($queryRes->num_rows > 0){
-                echo("Cadastro feito com sucesso");
-                //TODO: ir para a pagina principal
+            $checkQuery = "SELECT * FROM Cliente WHERE Nome = '$dadosUsuario->Nome'";
+            $checkQueryRes = $connection->query($checkQuery);
+            if($checkQueryRes->num_rows > 0){
+                $updateQuery = "UPDATE Cliente SET Nome = '$dadosUsuario->Nome', Data_Nascimento = '$dadosUsuario->Data_Nascimento', CPF = '$dadosUsuario->CPF', Telefone = '$dadosUsuario->Telefone', Email = '$dadosUsuario->Email', Senha = '$dadosUsuario->Senha', Rua = '$dadosUsuario->Rua', Numero = '$dadosUsuario->Numero'";
+                $updateQueryRes = $connection->query($updateQuery);
+                if ($updateQueryRes === TRUE)
+                    JSAlert("Cadastro atualizado com sucesso");
+                else JSAlert("Erro ao atualizar cadastro: " . $connection->error);
             }
-            else echo("Cadastro falhou");
-            /////////////////////////////
-
+            
             $connection->close();
         }
     ?>
