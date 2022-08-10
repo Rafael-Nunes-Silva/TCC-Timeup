@@ -10,131 +10,115 @@
 </head>
 <body>
     <?php
-        require_once("dados.php");
-
-        function ValidateCPF(){
-            $cpf = $_POST["cpf"];
-
-            $sum1 = 0;
-            $sum2 = 0;
-            for($i = 0, $j = 1; $i<9 && $j<10; $i++, $j++){
-                $sum1 += $cpf[$i]*(10-$i);
-                $sum2 += $cpf[$j]*(10-$i);
-            }
-            $r = $sum1%11;
-            $s = $sum2%11;
-            $d1 = ($r <= 1 ? 0 : 11-$r);
-            $d2 = ($s <= 1 ? 0 : 11-$s);
-
-            return ($cpf[9] == $d1 && $cpf[10] == $d2);
+    require_once("dados.php");
+    require_once("utilidades.php");
+    session_start();
+        
+    function AllVarsSet(){
+        $res = true;
+        $errMsg = "Erro no preenchimento do formulário de cadastro\\n";
+        if(!isset($_POST["nome"]) || strlen($_POST["nome"]) <= 0){
+            $errMsg .= "O campo 'Nome' não está válido\\n";
+            $res = false;
         }
-        function ValidadeTelefone(){
-            //TODO: Verificar se o numero de telefone inserido no campo 'Telefone' é valido enviando uma
-            //menssagem de verificação
-            return true;
+        if(!isset($_POST["data_nascimento"])){
+            $errMsg .= "O campo 'data de nascimento' não está válido\\n";
+            $res = false;
         }
-        function ValidadeEmail(){
-            //TODO: Verificar se o email inserido no campo 'Email' é valido enviando um email de verificação
-            return true;
+        if(!isset($_POST["cpf"]) || strlen($_POST["cpf"]) != 11 || !ValidateCPF()){
+            $errMsg .= "O campo 'CPF' não está válido\\n";
+            $res = false;
         }
-        function AllVarsSet(){
-            $res = true;
-            $errMsg = "Erro no preenchimento do formulário de cadastro\\n";
-            if(!isset($_POST["nome"]) || strlen($_POST["nome"]) <= 0){
-                $errMsg .= "O campo 'Nome' não está válido\\n";
-                $res = false;
-            }
-            if(!isset($_POST["data_nascimento"])){
-                $errMsg .= "O campo 'data de nascimento' não está válido\\n";
-                $res = false;
-            }
-            if(!isset($_POST["cpf"]) || strlen($_POST["cpf"]) != 11 || !ValidateCPF()){
-                $errMsg .= "O campo 'CPF' não está válido\\n";
-                $res = false;
-            }
-            if(!isset($_POST["telefone"]) || strlen($_POST["telefone"]) != 11 || !ValidadeTelefone()){
-                $errMsg .= "O campo 'Telefone' não está válido\\n";
-                $res = false;
-            }
-            if(!isset($_POST["email"]) || strlen($_POST["email"]) <= 0 || !ValidadeEmail()){
-                $errMsg .= "O campo 'Email' não está válido\\n";
-                $res = false;
-            }
-            if(!isset($_POST["senha"]) || strlen($_POST["senha"]) <= 0){
-                $errMsg .= "O campo 'Senha' não está válido\\n";
-                $res = false;
-            }
-            if(!isset($_POST["rua"]) || strlen($_POST["rua"]) <= 0){
-                $errMsg .= "O campo 'Rua' não está válido\\n";
-                $res = false;
-            }
-            if(!isset($_POST["numero"]) || strlen($_POST["numero"]) <= 0){
-                $errMsg .= "O campo 'Número' não está válido\\n";
-                $res = false;
-            }
-            if(!$res)
-                JSAlert($errMsg);
-            
-            return $res;
+        if(!isset($_POST["telefone"]) || strlen($_POST["telefone"]) != 11 || !ValidadeTelefone()){
+            $errMsg .= "O campo 'Telefone' não está válido\\n";
+            $res = false;
         }
-
-        function JSAlert($msg){
-            echo("<script type='text/javascript'>alert(\"".$msg."\")</script>");
+        if(!isset($_POST["email"]) || strlen($_POST["email"]) <= 0 || !ValidadeEmail()){
+            $errMsg .= "O campo 'Email' não está válido\\n";
+            $res = false;
         }
-
-        if(isset($_POST["cadastrar"])){
-            if(AllVarsSet())
-                Cadastrar();
-            else JSAlert("Todos os campos devem estar validamente preenchidos para que o cadastro seja realizado");
+        if(!isset($_POST["senha"]) || strlen($_POST["senha"]) <= 0){
+            $errMsg .= "O campo 'Senha' não está válido\\n";
+            $res = false;
         }
+        if(!isset($_POST["rua"]) || strlen($_POST["rua"]) <= 0){
+            $errMsg .= "O campo 'Rua' não está válido\\n";
+            $res = false;
+        }
+        if(!isset($_POST["numero"]) || strlen($_POST["numero"]) <= 0){
+            $errMsg .= "O campo 'Número' não está válido\\n";
+            $res = false;
+        }
+        if(!$res)
+            JSAlert($errMsg);
+        
+        return $res;
+    }
 
-        function Cadastrar(){
-            $connection = new mysqli("localhost", "root", "", "timeupdb");
+    if(isset($_POST["cadastrar"])){
+        if(AllVarsSet())
+            Cadastrar();
+        else JSAlert("Todos os campos devem estar validamente preenchidos para que o cadastro seja realizado");
+    }
 
-            $dadosUsuario = new UserData();
-            $dadosUsuario->Nome = $_POST["nome"];
-            $dadosUsuario->Data_Nascimento = $_POST["data_nascimento"];
-            $dadosUsuario->CPF = $_POST["cpf"];
-            $dadosUsuario->Telefone = $_POST["telefone"];
-            $dadosUsuario->Email = $_POST["email"];
-            $dadosUsuario->Senha = $_POST["senha"];
-            $dadosUsuario->Rua = $_POST["rua"];
-            $dadosUsuario->Numero = $_POST["numero"];
+    function Cadastrar(){
+        // Inicia conexão com o banco de dados
+        $connection = new mysqli("localhost", "root", "", "timeupdb");
 
-            // Checa se o usuário já está cadastrado
-            $existCheck = "SELECT CPF FROM Cliente WHERE Nome = '$dadosUsuario->Nome'";
-            $checkRes = $connection->query($existCheck);
-            if($checkRes->num_rows > 0){
-                if($checkRes->fetch_assoc()["CPF"] == $dadosUsuario->CPF)
-                    echo("Usuário já existe, faça login");
-                $connection->close();
-                return;
-            }
-            /////////////////////////////
+        // Inicializa um struct com os dados do usuario
+        $dadosUsuario = new UserData();
+        $dadosUsuario->Nome = $_POST["nome"];
+        $dadosUsuario->Data_Nascimento = $_POST["data_nascimento"];
+        $dadosUsuario->CPF = $_POST["cpf"];
+        $dadosUsuario->Telefone = $_POST["telefone"];
+        $dadosUsuario->Email = $_POST["email"];
+        $dadosUsuario->Senha = $_POST["senha"];
+        $dadosUsuario->Rua = $_POST["rua"];
+        $dadosUsuario->Numero = $_POST["numero"];
 
-            // Efetua o cadastro
-            $insertQuery = "INSERT INTO Cliente (Nome, Data_Nascimento, CPF, Telefone, Email, Senha, Rua, Numero) VALUES ('$dadosUsuario->Nome', '$dadosUsuario->Data_Nascimento', '$dadosUsuario->CPF', '$dadosUsuario->Telefone', '$dadosUsuario->Email', '$dadosUsuario->Senha', '$dadosUsuario->Rua', '$dadosUsuario->Numero')";
-            $connection->query($insertQuery);
-            // Checa se o cadastro foi efetuado com sucesso
-            $checkQuery = "SELECT * FROM Cliente WHERE Nome = '$dadosUsuario->Nome'";
-            $queryRes = $connection->query($checkQuery);
-            if($queryRes->num_rows > 0){
-                header("Location: index.html");
-                exit();
-            }
-            else JSAlert("Cadastro falhou");
+        // Checa se o usuário já está cadastrado
+        $existCheck = "SELECT CPF FROM Cliente WHERE CPF = '$dadosUsuario->CPF'";
+        $existCheckRes = $connection->query($existCheck);
 
+        // Se ja estiver cadastrado, exibir menssagem para o usuario e cancelar o cadastro
+        if($existCheckRes->num_rows > 0 && $existCheckRes->fetch_assoc()["CPF"] == $dadosUsuario->CPF){
+            JSAlert("Usuário já existe, faça login");
             $connection->close();
+            return;
         }
+
+        // Efetua o cadastro
+        $insertQuery = "INSERT INTO Cliente (Nome, Data_Nascimento, CPF, Telefone, Email, Senha, Rua, Numero) VALUES ('$dadosUsuario->Nome', '$dadosUsuario->Data_Nascimento', '$dadosUsuario->CPF', '$dadosUsuario->Telefone', '$dadosUsuario->Email', '$dadosUsuario->Senha', '$dadosUsuario->Rua', '$dadosUsuario->Numero')";
+        $connection->query($insertQuery);
+
+        // Checa se o cadastro foi efetuado com sucesso
+        $checkQuery = "SELECT * FROM Cliente WHERE Nome = '$dadosUsuario->Nome'";
+        $queryRes = $connection->query($checkQuery);
+
+        // Se o cadastro foi efetuado, a conexão com o banco de dados é terminada e a próxima página é carregada
+        if($queryRes->num_rows > 0){
+            $_SESSION["dadosUsuario"] = $dadosUsuario;
+            $connection->close();
+            header("Location: perfil.html");
+            exit();
+        }
+        else JSAlert("Cadastro falhou");
+
+        // Termina conexão com o banco de dados
+        $connection->close();
+    }
     ?>
 
+    <nav>
+        <a href="index.html" class="time">Timeup</a>
+    </nav>
     <div class="painel-cadastro">
         <div class="cadastro">
             <form class="card-cadastro" method="post">
-                <h1>cadastro</h1>
+                <h1>Cadastro</h1>
                 <div class="textfield">
                     <label for="nome">Nome</label>
-                    <input type="text" name="nome" placeholder="Nome">
+                    <input type="text" name="nome" maxlength="50" placeholder="Nome">
                 </div>
                 <div class="textfield">
                     <label for="data_nascimento">Data de Nascimento</label>
@@ -142,23 +126,23 @@
                 </div>
                 <div class="textfield">
                     <label for="cpf">CPF</label>
-                    <input type="text" name="cpf" placeholder="CPF">
+                    <input type="text" name="cpf" maxlength="11" placeholder="CPF">
                 </div>
                 <div class="textfield">
                     <label for="telefone">Telefone</label>
-                    <input type="text" name="telefone" placeholder="Telefone">
+                    <input type="text" name="telefone" maxlength="11" placeholder="Telefone">
                 </div>
                 <div class="textfield">
                     <label for="email">Email</label>
-                    <input type="text" name="email" placeholder="Email">
+                    <input type="email" name="email" maxlength="50" placeholder="Email">
                 </div>
                 <div class="textfield">
                     <label for="senha">Senha</label>
-                    <input type="text" name="senha" placeholder="Senha">
+                    <input type="password" name="senha" maxlength="20" placeholder="Senha">
                 </div>
                 <div class="textfield">
                     <label for="rua">Rua</label>
-                    <input type="text" name="rua" placeholder="Rua">
+                    <input type="text" name="rua" maxlength="30" placeholder="Rua">
                 </div>
                 <div class="textfield">
                     <label for="numero">Numero</label>

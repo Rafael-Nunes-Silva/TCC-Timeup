@@ -10,11 +10,30 @@
 </head>
 <body>
     <?php
-    
+    require_once("dados.php");
+    session_start();
+
+    $dadosUsuario = $_SESSION["dadosUsuario"];
+    if($dadosUsuario){
+        echo("Nome: ".$dadosUsuario->Nome."<br>");
+        echo("Data de Nascimento: ".$dadosUsuario->Data_Nascimento."<br>");
+        echo("CPF: ".$dadosUsuario->CPF."<br>");
+        echo("Telefone: ".$dadosUsuario->Telefone."<br>");
+        echo("Email: ".$dadosUsuario->Email."<br>");
+        echo("Senha: ".$dadosUsuario->Senha."<br>");
+        echo("Rua: ".$dadosUsuario->Rua."<br>");
+        echo("Número: ".$dadosUsuario->Numero."<br>");
+    }
     ?>
     
     <nav>
         <a href="index.html" class="time">Timeup</a>
+    </nav>
+
+    <nav>
+        <a href="attcadastro.php">Atualizar Cadastro</a>
+        <a href="attsenha.php">Mudar Senha</a>
+        <a href="delcadastro.php">Deletar Cadastro</a>
     </nav>
     
 </body>

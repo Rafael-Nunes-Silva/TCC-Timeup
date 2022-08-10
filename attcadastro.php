@@ -10,87 +10,104 @@
 </head>
 <body>
     <?php
-        require_once("dados.php");
-        require_once("utilidades.php");
+    require_once("dados.php");
+    require_once("utilidades.php");
+    session_start();
 
-        function allVarsSet(){
-            $res = true;
-            $errMsg = "Erro no preenchimento do formulário de cadastro\\n";
-            if(!isset($_POST["telefone"]) || strlen($_POST["telefone"]) != 11 || !ValidadeTelefone()){
-                $errMsg .= "O campo 'Telefone' não está válido\\n";
-                $res = false;
-            }
-            if(!isset($_POST["email"]) || strlen($_POST["email"]) <= 0 || !ValidadeEmail()){
-                $errMsg .= "O campo 'Email' não está válido\\n";
-                $res = false;
-            }
-            if(!isset($_POST["senha"]) || strlen($_POST["senha"]) <= 0){
-                $errMsg .= "O campo 'Senha' não está válido\\n";
-                $res = false;
-            }
-            if(!isset($_POST["rua"]) || strlen($_POST["rua"]) <= 0){
-                $errMsg .= "O campo 'Rua' não está válido\\n";
-                $res = false;
-            }
-            if(!isset($_POST["numero"]) || strlen($_POST["numero"]) <= 0){
-                $errMsg .= "O campo 'Número' não está válido\\n";
-                $res = false;
-            }
-            return $res;
+    function AllVarsSet(){
+        $res = true;
+        $errMsg = "Erro no preenchimento do formulário de cadastro\\n";
+        if(!isset($_POST["telefone"]) || strlen($_POST["telefone"]) != 11 || !ValidadeTelefone()){
+            $errMsg .= "O campo 'Telefone' não está válido\\n";
+            $res = false;
         }
-
-        if(isset($_POST["cadastrar"])){
-            if(AllVarsSet())
-                Cadastrar();
-            else JSAlert("Todos os campos devem estar validamente preenchidos para que o cadastro seja realizado");
+        if(!isset($_POST["email"]) || strlen($_POST["email"]) <= 0 || !ValidadeEmail()){
+            $errMsg .= "O campo 'Email' não está válido\\n";
+            $res = false;
         }
+        if(!isset($_POST["senha"]) || strlen($_POST["senha"]) <= 0){
+            $errMsg .= "O campo 'Senha' não está válido\\n";
+            $res = false;
+        }
+        if(!isset($_POST["rua"]) || strlen($_POST["rua"]) <= 0){
+            $errMsg .= "O campo 'Rua' não está válido\\n";
+            $res = false;
+        }
+        if(!isset($_POST["numero"]) || strlen($_POST["numero"]) <= 0){
+            $errMsg .= "O campo 'Número' não está válido\\n";
+            $res = false;
+        }
+        return $res;
+    }
 
-        function Cadastrar(){
-            $connection = new mysqli("localhost", "root", "", "timeupdb");
+    if(isset($_POST["attcadastro"])){
+        if(AllVarsSet())
+            AtualizarCadastrar();
+        else JSAlert("Todos os campos devem estar validamente preenchidos para que o cadastro seja realizado");
+    }
 
-            session_start();
-            $dadosUsuario = $_SESSION["userData"];
+    function AtualizarCadastrar(){
+        // Inicia conexão com o banco de dados
+        $connection = new mysqli("localhost", "root", "", "timeupdb");
 
-            $checkQuery = "SELECT * FROM Cliente WHERE Nome = '$dadosUsuario->Nome'";
-            $checkQueryRes = $connection->query($checkQuery);
-            if($checkQueryRes->num_rows > 0){
-                $updateQuery = "UPDATE Cliente SET Nome = '$dadosUsuario->Nome', Data_Nascimento = '$dadosUsuario->Data_Nascimento', CPF = '$dadosUsuario->CPF', Telefone = '$dadosUsuario->Telefone', Email = '$dadosUsuario->Email', Senha = '$dadosUsuario->Senha', Rua = '$dadosUsuario->Rua', Numero = '$dadosUsuario->Numero'";
-                $updateQueryRes = $connection->query($updateQuery);
-                if ($updateQueryRes === TRUE)
-                    JSAlert("Cadastro atualizado com sucesso");
-                else JSAlert("Erro ao atualizar cadastro: " . $connection->error);
+        $dadosUsuario = $_SESSION["dadosUsuario"];
+
+        // Checa se o usuario ja esta cadastrado
+        $checkQuery = "SELECT * FROM Cliente WHERE CPF = '$dadosUsuario->CPF'";
+        $checkQueryRes = $connection->query($checkQuery);
+
+        $dadosUsuario->Telefone = $_POST["telefone"];
+        $dadosUsuario->Email = $_POST["email"];
+        $dadosUsuario->Rua = $_POST["rua"];
+        $dadosUsuario->Numero = $_POST["numero"];
+
+        if($checkQueryRes->fetch_assoc()["Senha"] != $dadosUsuario->Senha)
+            JSAlert("Senha incorreta");
+
+        // Se existe, o cadastro sera atualizado com os dados fornecidos
+        if($checkQueryRes->num_rows > 0){
+            $updateQuery = "UPDATE Cliente SET Telefone = '$dadosUsuario->Telefone', Email = '$dadosUsuario->Email', Rua = '$dadosUsuario->Rua', Numero = '$dadosUsuario->Numero' WHERE CPF = '$dadosUsuario->CPF'";
+            $updateQueryRes = $connection->query($updateQuery);
+            if ($updateQueryRes === TRUE){
+                JSAlert("Cadastro atualizado com sucesso");
+                header("Location: perfil.php");
+                exit();
             }
+            else JSAlert("Erro ao atualizar cadastro: ".$connection->error);
+        }
             
-            $connection->close();
-        }
+        // Termina a conexão com o banco de dados
+        $connection->close();
+    }
     ?>
 
     <div class="painel-cadastro">
         <div class="cadastro">
             <form class="card-cadastro" method="post">
-                <a href="index.html">Atualizar Dados</a>
-                <p>Altere os seus dados!</p>
+                <a href="perfil.php">Atualizar Dados</a>
+                <p>Atualize seus dados!</p>
                 <div class="textfield">
                     <label for="telefone">Telefone</label>
-                    <input type="text" name="telefone" placeholder="Telefone">
+                    <input type="text" name="telefone" maxlength="11" placeholder="Telefone">
                 </div>
                 <div class="textfield">
                     <label for="email">Email</label>
-                    <input type="text" name="email" placeholder="Email">
-                </div>
-                <div class="textfield">
-                    <label for="senha">Senha</label>
-                    <input type="text" name="senha" placeholder="Senha">
+                    <input type="email" name="email" maxlength="50" placeholder="Email">
                 </div>
                 <div class="textfield">
                     <label for="rua">Rua</label>
-                    <input type="text" name="rua" placeholder="Rua">
+                    <input type="text" name="rua" maxlength="30" placeholder="Rua">
                 </div>
                 <div class="textfield">
                     <label for="numero">Numero</label>
                     <input type="number" name="numero" placeholder="Numero">
                 </div>
-                <button type="submit" class="btn-cadastro" name="cadastrar">Atualizar</button>
+                <br><br><br>
+                <div class="textfield">
+                    <label for="senha">Senha Atual</label>
+                    <input type="text" name="senha" placeholder="Senha">
+                </div>
+                <button type="submit" class="btn-attcadastro" name="attcadastro">Atualizar</button>
             </form>
         </div>
     </div>

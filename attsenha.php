@@ -10,91 +10,79 @@
 </head>
 <body>
     <?php
-        require_once("dados.php");
-        function allVarsSet(){
-            $res = true;
-            if(!isset($_POST["usuario"])){
-                if(strlen($_POST["usuario"]) <= 0){
-                    echo("O campo 'usuario' não esta valido");
-                    $res = false;
-                }
-            }
-            if(!isset($_POST["data_nascimento"])){
-                echo("O campo 'data_nascimento' não esta valido");
-                $res = false;
-            }
-            if(!isset($_POST["cpf"])){
-                if(strlen($_POST["cpf"]) < 14){
-                    echo("O campo 'cpf' não esta valido");
-                    $res = false;
-                }
-            }
-            if(!isset($_POST["telefone"])){
-                if(strlen($_POST["telefone"]) < 11){
-                    echo("O campo 'telefone' não esta valido");
-                    $res = false;
-                }
-            }
-            if(!isset($_POST["email"])){
-                echo("O campo 'email' não esta valido");
-                $res = false;
-            }
-            if(!isset($_POST["senha"])){
-                echo("O campo 'senha' não esta valido");
-                $res = false;
-            }
-            if(!isset($_POST["rua"])){
-                echo("O campo 'rua' não esta valido");
-                $res = false;
-            }
-            if(!isset($_POST["numero"])){
-                echo("O campo 'numero' não esta valido");
-                $res = false;
-            }
-            return $res;
+    require_once("dados.php");
+    require_once("utilidades.php");
+    session_start();
+
+    function AllVarsSet(){
+        $res = true;
+        $errMsg = "Erro no preenchimento do formulário de atualização cadastral\\n";
+        if(!isset($_POST["senha-atual"]) || strlen($_POST["senha-atual"]) <= 0){
+            $errMsg .= "O campo 'Digite a sua senha atual' não está válido\\n";
+            $res = false;
         }
-
-        if(isset($_POST["cadastrar"])){
-            if(allVarsSet())
-                Cadastrar();
-            else echo("Todos os campos devem estar validamente preenchidos para que o cadastro seja realizado");
+        if(!isset($_POST["senha-nova"]) || strlen($_POST["senha-nova"]) <= 0){
+            $errMsg .= "O campo 'Digite a sua senha nova' não está válido\\n";
+            $res = false;
         }
-
-        function Cadastrar(){
-            $connection = new mysqli("localhost", "root", "", "timeupdb");
-
-            $dadosUsuario = new UserData();
-            $dadosUsuario->usuario = $_POST["usuario"];
-            $dadosUsuario->data_nascimento = $_POST["data_nascimento"];
-            $dadosUsuario->cpf = $_POST["cpf"];
-            $dadosUsuario->telefone = $_POST["telefone"];
-            $dadosUsuario->email = $_POST["email"];
-            $dadosUsuario->senha = $_POST["senha"];
-            $dadosUsuario->rua = $_POST["rua"];
-            $dadosUsuario->numero = $_POST["numero"];
-
-            $insertQuery = "INSERT INTO Cliente (Nome, Data_Nascimento, CPF, Telefone, Email, Senha, Rua, Numero) VALUES ('$dadosUsuario->usuario', '$dadosUsuario->data_nascimento', '$dadosUsuario->cpf', '$dadosUsuario->telefone', '$dadosUsuario->email', '$dadosUsuario->senha', '$dadosUsuario->rua', '$dadosUsuario->numero')";
-            $connection->query($insertQuery);
-
-            $checkQuery = "SELECT * FROM Cliente WHERE Nome = '$dadosUsuario->usuario'";
-            $queryRes = $connection->query($checkQuery);
-
-            /////////////////////////////
-            if($queryRes->num_rows > 0){
-                echo("Cadastro feito com sucesso");
-                //TODO: ir para a pagina principal
-            }
-            else echo("Cadastro falhou");
-            /////////////////////////////
-
-            $connection->close();
+        if(!isset($_POST["senha-nova-confirma"]) || strlen($_POST["senha-nova-confirma"]) <= 0){
+            $errMsg .= "O campo 'Repita a senha nova' não está válido\\n";
+            $res = false;
         }
+        if(!$res)
+            JSAlert($errMsg);
+        
+        return $res;
+    }
+
+    if(isset($_POST["attsenha"])){
+        if(AllVarsSet())
+            Cadastrar();
+        else echo("Todos os campos devem estar validamente preenchidos para que a senha seja atualizada");
+    }
+
+    function Cadastrar(){
+        // Inicia conexão com o banco de dados
+        $connection = new mysqli("localhost", "root", "", "timeupdb");
+
+        $dadosUsuario = $_SESSION["dadosUsuario"];
+            
+        // Verifica se as senhas estão preenchidas corretamente
+        $senhaAtual = $_POST["senha-atual"];
+        $senhaNova = $_POST["senha-nova"];
+        $senhaNovaConfirma = $_POST["senha-nova-confirma"];
+
+        // Emite uma menssagem de erro caso algum campo esteja preenchido incorretamente
+        $err = false;
+        $errMsg = "";
+        if($senhaAtual != $dadosUsuario->Senha){
+            $errMsg .= "O campo 'Digite a sua senha atual' precisa conter a senha atual";
+            $err = true;
+        }
+        if($senhaNova != $senhaNovaConfirma){
+            $errMsg .= "Os campos 'Digite a sua senha nova' e 'Repita a senha nova' precisam ser iguais";
+            $err = true;
+        }
+        if($err)
+            JSAlert($errMsg);
+
+        // Efetua a atualização no banco de dados
+        $dadosUsuario->Senha = $senhaNova;
+        $updateQuery = "UPDATE Cliente SET Senha = '$senhaNova' WHERE CPF = '$dadosUsuario->CPF'";
+        $updateQueryRes = $connection->query($updateQuery);
+        if ($updateQueryRes === TRUE){
+            JSAlert("Senha atualizada com sucesso");
+            header("Location: perfil.php");
+            exit();
+        }
+        else JSAlert("Erro ao atualizar a senha: ".$connection->error);
+    }
     ?>
 
     <div class="painel-cadastro">
         <div class="cadastro">
             <form class="card-cadastro" method="post">
-                <a href="index.html">Trocar de senha</a>
+                <a href="perfil.php">Trocar de senha</a>
                 <p>Altere a sua senha !</p>
                 <div class="textfield">
                     <label for="telefone">Senha</label>
@@ -106,9 +94,9 @@
                 </div>
                 <div class="textfield">
                     <label for="rua">Repita a senha nova</label>
-                    <input type="text" name="senha-nova" placeholder="Repita a senha nova">
+                    <input type="text" name="senha-nova-confirma" placeholder="Repita a senha nova">
                 </div>
-                <button type="submit" class="btn-cadastro" name="cadastrar">Alterar</button>
+                <button type="submit" class="btn-attsenha" name="attsenha">Alterar</button>
             </form>
         </div>
     </div>
