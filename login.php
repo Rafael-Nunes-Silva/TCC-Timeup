@@ -14,35 +14,25 @@
     require_once("utilidades.php");
     session_start();
 
-    if(isset($_POST["nome"]) && isset($_POST["senha"])){
-        $connection = new mysqli("localhost", "root", "", "timeupdb");
+    if(isset($_POST["nome"]) && strlen($_POST["nome"]) > 0 && isset($_POST["senha"]) && strlen($_POST["senha"]) > 0){
         $nome = $_POST["nome"];
         $senha = $_POST["senha"];
 
-        $query = "SELECT * FROM Cliente WHERE Nome = '$nome'";
-        $queryRes = $connection->query($query);
-        if($queryRes->num_rows > 0){
-            $dados = $queryRes->fetch_assoc();
-            if($senha == $dados["Senha"]){
-                $dadosUsuario = new UserData();
-                $dadosUsuario->Nome = $dados["Nome"];
-                $dadosUsuario->Data_Nascimento = $dados["Data_Nascimento"];
-                $dadosUsuario->CPF = $dados["CPF"];
-                $dadosUsuario->Telefone = $dados["Telefone"];
-                $dadosUsuario->Email = $dados["Email"];
-                $dadosUsuario->Senha = $dados["Senha"];
-                $dadosUsuario->Rua = $dados["Rua"];
-                $dadosUsuario->Numero = $dados["Numero"];
-                $_SESSION["dadosUsuario"] = $dadosUsuario;
-                // echo('<script>window.location.href = "perfil.php";</script>');
-                header("Location: perfil.php");
-                exit();
-            }
-            else JSAlert("Dados incorretos");
+        if(!DBCadastroExiste($nome)){
+            JSAlert("Usuario ".$nome." não esta cadastrado<br>");
+            exit();
         }
-        else JSAlert("Usuario ".$nome." não esta cadastrado<br>");
-            
-        $connection->close();
+
+        $dadosUsuario = DBRecuperarUsuario($nome);
+
+        if($dadosUsuario->Senha != $senha){
+            JSAlert("Senha incorreta");
+            exit();
+        }
+
+        $_SESSION["dadosUsuario"] = $dadosUsuario;
+        header("Location: perfil.php");
+        exit();
     }
     ?>
     

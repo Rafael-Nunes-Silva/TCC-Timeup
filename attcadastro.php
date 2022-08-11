@@ -52,32 +52,23 @@
 
         $dadosUsuario = $_SESSION["dadosUsuario"];
 
-        // Checa se o usuario ja esta cadastrado
-        $checkQuery = "SELECT * FROM Cliente WHERE CPF = '$dadosUsuario->CPF'";
-        $checkQueryRes = $connection->query($checkQuery);
-
+        if(DBRecuperarUsuario($dadosUsuario->Nome)->Senha != $_POST["senha"]){
+            JSAlert("Senha incorreta");
+            exit();
+        }
+        
         $dadosUsuario->Telefone = $_POST["telefone"];
         $dadosUsuario->Email = $_POST["email"];
         $dadosUsuario->Rua = $_POST["rua"];
         $dadosUsuario->Numero = $_POST["numero"];
 
-        if($checkQueryRes->fetch_assoc()["Senha"] != $dadosUsuario->Senha)
-            JSAlert("Senha incorreta");
-
-        // Se existe, o cadastro sera atualizado com os dados fornecidos
-        if($checkQueryRes->num_rows > 0){
-            $updateQuery = "UPDATE Cliente SET Telefone = '$dadosUsuario->Telefone', Email = '$dadosUsuario->Email', Rua = '$dadosUsuario->Rua', Numero = '$dadosUsuario->Numero' WHERE CPF = '$dadosUsuario->CPF'";
-            $updateQueryRes = $connection->query($updateQuery);
-            if ($updateQueryRes === TRUE){
-                JSAlert("Cadastro atualizado com sucesso");
-                header("Location: perfil.php");
-                exit();
-            }
-            else JSAlert("Erro ao atualizar cadastro: ".$connection->error);
+        if(!DBAtualizarUsuario($dadosUsuario)){
+            JSAlert("Houve um erro ao realizar a atualização do cadastro, tente novamente");
+            exit();
         }
-            
-        // Termina a conexão com o banco de dados
-        $connection->close();
+        
+        header("Location: perfil.php");
+        exit();
     }
     ?>
 

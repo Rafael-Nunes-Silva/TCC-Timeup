@@ -62,10 +62,11 @@
     }
 
     function Cadastrar(){
-        // Inicia conexão com o banco de dados
-        $connection = new mysqli("localhost", "root", "", "timeupdb");
+        if(DBCadastroExiste($_POST["nome"])){
+            JSAlert("Usuário já existe, faça login");
+            exit();
+        }
 
-        // Inicializa um struct com os dados do usuario
         $dadosUsuario = new UserData();
         $dadosUsuario->Nome = $_POST["nome"];
         $dadosUsuario->Data_Nascimento = $_POST["data_nascimento"];
@@ -75,37 +76,14 @@
         $dadosUsuario->Senha = $_POST["senha"];
         $dadosUsuario->Rua = $_POST["rua"];
         $dadosUsuario->Numero = $_POST["numero"];
-
-        // Checa se o usuário já está cadastrado
-        $existCheck = "SELECT CPF FROM Cliente WHERE CPF = '$dadosUsuario->CPF'";
-        $existCheckRes = $connection->query($existCheck);
-
-        // Se ja estiver cadastrado, exibir menssagem para o usuario e cancelar o cadastro
-        if($existCheckRes->num_rows > 0 && $existCheckRes->fetch_assoc()["CPF"] == $dadosUsuario->CPF){
-            JSAlert("Usuário já existe, faça login");
-            $connection->close();
-            return;
-        }
-
-        // Efetua o cadastro
-        $insertQuery = "INSERT INTO Cliente (Nome, Data_Nascimento, CPF, Telefone, Email, Senha, Rua, Numero) VALUES ('$dadosUsuario->Nome', '$dadosUsuario->Data_Nascimento', '$dadosUsuario->CPF', '$dadosUsuario->Telefone', '$dadosUsuario->Email', '$dadosUsuario->Senha', '$dadosUsuario->Rua', '$dadosUsuario->Numero')";
-        $connection->query($insertQuery);
-
-        // Checa se o cadastro foi efetuado com sucesso
-        $checkQuery = "SELECT * FROM Cliente WHERE Nome = '$dadosUsuario->Nome'";
-        $queryRes = $connection->query($checkQuery);
-
-        // Se o cadastro foi efetuado, a conexão com o banco de dados é terminada e a próxima página é carregada
-        if($queryRes->num_rows > 0){
-            $_SESSION["dadosUsuario"] = $dadosUsuario;
-            $connection->close();
-            header("Location: perfil.html");
+        if(!DBRegistrarUsuario($dadosUsuario)){
+            JSAlert("Houve um erro na hora do cadastro, tente novamente");
             exit();
         }
-        else JSAlert("Cadastro falhou");
 
-        // Termina conexão com o banco de dados
-        $connection->close();
+        $_SESSION["dadosUsuario"] = $dadosUsuario;
+        header("Location: perfil.php");
+        exit();
     }
     ?>
 

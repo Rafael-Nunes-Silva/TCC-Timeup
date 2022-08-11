@@ -42,11 +42,8 @@
     }
 
     function Cadastrar(){
-        // Inicia conexão com o banco de dados
-        $connection = new mysqli("localhost", "root", "", "timeupdb");
-
         $dadosUsuario = $_SESSION["dadosUsuario"];
-            
+        
         // Verifica se as senhas estão preenchidas corretamente
         $senhaAtual = $_POST["senha-atual"];
         $senhaNova = $_POST["senha-nova"];
@@ -66,16 +63,14 @@
         if($err)
             JSAlert($errMsg);
 
-        // Efetua a atualização no banco de dados
         $dadosUsuario->Senha = $senhaNova;
-        $updateQuery = "UPDATE Cliente SET Senha = '$senhaNova' WHERE CPF = '$dadosUsuario->CPF'";
-        $updateQueryRes = $connection->query($updateQuery);
-        if ($updateQueryRes === TRUE){
-            JSAlert("Senha atualizada com sucesso");
-            header("Location: perfil.php");
+        if(!DBAtualizarSenha($dadosUsuario)){
+            JSAlert("Houve um erro ao atualizar a senha, tente novamente");
             exit();
         }
-        else JSAlert("Erro ao atualizar a senha: ".$connection->error);
+        
+        header("Location: perfil.php");
+        exit();
     }
     ?>
 
@@ -85,16 +80,16 @@
                 <a href="perfil.php">Trocar de senha</a>
                 <p>Altere a sua senha !</p>
                 <div class="textfield">
-                    <label for="telefone">Senha</label>
-                    <input type="text" name="senha-atual" placeholder="Digite a sua senha atual">
+                    <label for="senha-atual">Senha</label>
+                    <input type="password" name="senha-atual" placeholder="Digite a sua senha atual">
                 </div>
                 <div class="textfield">
-                    <label for="email">Senha nova</label>
-                    <input type="text" name="senha-nova" placeholder="Digite a sua senha nova">
+                    <label for="senha-nova">Senha nova</label>
+                    <input type="password" name="senha-nova" placeholder="Digite a sua senha nova">
                 </div>
                 <div class="textfield">
-                    <label for="rua">Repita a senha nova</label>
-                    <input type="text" name="senha-nova-confirma" placeholder="Repita a senha nova">
+                    <label for="senha-nova-confirma">Repita a senha nova</label>
+                    <input type="password" name="senha-nova-confirma" placeholder="Repita a senha nova">
                 </div>
                 <button type="submit" class="btn-attsenha" name="attsenha">Alterar</button>
             </form>

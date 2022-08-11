@@ -19,13 +19,10 @@
 
         if($_POST["senha"] != $dadosUsuario->Senha){
             JSAlert("A senha está incorreta");
-            return;
+            exit();
         }
         
-        $connection = new mysqli("localhost", "root", "", "timeupdb");
-
-        $delQuery = "DELETE FROM Cliente WHERE CPF = '$dadosUsuario->CPF'";
-        $connection->query($delQuery);
+        DBDeletarUsuario($dadosUsuario);
 
         $dadosUsuario->Nome = "";
         $dadosUsuario->Data_Nascimento = "";
@@ -35,9 +32,7 @@
         $dadosUsuario->Senha = "";
         $dadosUsuario->Rua = "";
         $dadosUsuario->Numero = "";
-
-        $connection->close();
-        JSAlert("Seu cadastro foi deletado");
+        
         header("Location: index.html");
         exit();
     }
@@ -50,7 +45,7 @@
                 <p>Tem certeza que deseja deletar seu cadastro?</p>
                 <div class="textfield">
                     <label for="senha">Senha Atual</label>
-                    <input type="text" name="senha" placeholder="Senha">
+                    <input type="password" name="senha" placeholder="Senha">
                 </div>
                 <button type="submit" class="btn-delcadastro" name="delcadastro">Deletar</button>
             </form>
