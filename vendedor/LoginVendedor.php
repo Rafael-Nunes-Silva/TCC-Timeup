@@ -15,12 +15,16 @@
     require_once("../Utilidades.php");
     session_start();
 
-    if($_SESSION["dadosVendedor"] && strlen($_SESSION["dadosVendedor"]->CNPJ) == 18){
+    if(isset($_SESSION["dadosVendedor"]) && strlen($_SESSION["dadosVendedor"]->CNPJ) == 18){
         header("Location: PerfilVendedor.php");
         exit();
     }
 
     if(isset($_POST["cnpj"]) && strlen($_POST["cnpj"]) == 18 && isset($_POST["senha"]) && strlen($_POST["senha"]) > 0){
+        Login();
+    }
+
+    function Login(){
         $cnpj = $_POST["cnpj"];
         $senha = $_POST["senha"];
 
@@ -55,7 +59,7 @@
                 <h1>LOGIN</h1>
                 <div class="textfield">
                     <label for="cnpj">CNPJ</label>
-                    <input type="text" name="cnpj" placeholder="11.222.333/4444-55" oninput="MascaraCNPJ(this)">
+                    <input type="text" name="cnpj" maxlength="18" placeholder="11.222.333/4444-55" oninput="MascaraCNPJ(this)">
                 </div>
                 <div class="textfield">
                     <label for="senha">Senha</label>

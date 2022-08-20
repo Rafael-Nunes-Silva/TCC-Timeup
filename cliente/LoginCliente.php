@@ -15,12 +15,16 @@
     require_once("../Utilidades.php");
     session_start();
 
-    if($_SESSION["dadosCliente"] && strlen($_SESSION["dadosCliente"]->CPF) == 14){
+    if(isset($_SESSION["dadosCliente"]) && strlen($_SESSION["dadosCliente"]->CPF) == 14){
         header("Location: PerfilCliente.php");
         exit();
     }
 
     if(isset($_POST["cpf"]) && strlen($_POST["cpf"]) == 14 && isset($_POST["senha"]) && strlen($_POST["senha"]) > 0){
+        Login();
+    }
+    
+    function Login(){
         $cpf = $_POST["cpf"];
         $senha = $_POST["senha"];
 
