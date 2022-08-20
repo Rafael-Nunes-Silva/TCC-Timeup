@@ -15,23 +15,23 @@
     session_start();
     
     if(isset($_POST["delcadastro"])){
-        $dadosUsuario = $_SESSION["dadosUsuario"];
+        $dadosVendedor = $_SESSION["dadosVendedor"];
 
-        if($_POST["senha"] != $dadosUsuario->Senha){
+        if($_POST["senha"] != $dadosVendedor->Senha){
             JSAlert("A senha está incorreta");
             exit();
         }
         
-        DBDeletarCliente($dadosUsuario->CPF);
+        DBDeletarVendedor($dadosVendedor->CNPJ);
 
-        $dadosUsuario->Nome = "";
-        $dadosUsuario->Data_Nascimento = "";
-        $dadosUsuario->CPF = "";
-        $dadosUsuario->Telefone = "";
-        $dadosUsuario->Email = "";
-        $dadosUsuario->Senha = "";
-        $dadosUsuario->Rua = "";
-        $dadosUsuario->Numero = "";
+        $dadosVendedor->Nome = "";
+        $dadosVendedor->Data_Nascimento = "";
+        $dadosVendedor->CPF = "";
+        $dadosVendedor->Telefone = "";
+        $dadosVendedor->Email = "";
+        $dadosVendedor->Senha = "";
+        $dadosVendedor->Rua = "";
+        $dadosVendedor->Numero = "";
         
         header("Location: ../index.html");
         exit();
@@ -41,7 +41,7 @@
     <div class="painel-cadastro">
         <div class="cadastro">
             <form class="card-cadastro" method="post">
-                <a href="PerfilCliente.php">Deletar Cadastro</a>
+                <a href="PerfilVendedor.php">Deletar Cadastro</a>
                 <p>Tem certeza que deseja deletar seu cadastro?</p>
                 <div class="textfield">
                     <label for="senha">Senha Atual</label>

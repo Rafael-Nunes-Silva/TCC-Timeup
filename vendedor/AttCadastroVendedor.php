@@ -17,10 +17,6 @@
     function AllVarsSet(){
         $res = true;
         $errMsg = "Erro no preenchimento do formulário de cadastro\\n";
-        if(!isset($_POST["telefone"]) || strlen($_POST["telefone"]) != 11 || !ValidarTelefone()){
-            $errMsg .= "O campo 'Telefone' não está válido\\n";
-            $res = false;
-        }
         if(!isset($_POST["email"]) || strlen($_POST["email"]) <= 0 || !ValidarEmail()){
             $errMsg .= "O campo 'Email' não está válido\\n";
             $res = false;
@@ -47,27 +43,25 @@
     }
 
     function AtualizarCadastro(){
-        $dadosCliente = $_SESSION["dadosCliente"];
+        $dadosVendedor = $_SESSION["dadosVendedor"];
 
-        if(DBRecuperarCliente($dadosCliente->CPF)->Senha != $_POST["senha"]){
+        if(DBRecuperarVendedor($dadosVendedor->CNPJ)->Senha != $_POST["senha"]){
             JSAlert("Senha incorreta");
             exit();
         }
         
-        $dadosCliente->Telefone = $_POST["telefone"];
-        $dadosCliente->Email = $_POST["email"];
-        $dadosCliente->Rua = $_POST["rua"];
-        $dadosCliente->Numero = $_POST["numero"];
+        $dadosVendedor->Email = $_POST["email"];
+        $dadosVendedor->Rua = $_POST["rua"];
+        $dadosVendedor->Numero = $_POST["numero"];
 
-        if(!DBAtualizarCliente($dadosCliente->CPF, DadosCliente::Telefone, $dadosCliente->Telefone)
-        || !DBAtualizarCliente($dadosCliente->CPF, DadosCliente::Email, $dadosCliente->Email)
-        || !DBAtualizarCliente($dadosCliente->CPF, DadosCliente::Rua, $dadosCliente->Rua)
-        || !DBAtualizarCliente($dadosCliente->CPF, DadosCliente::Numero, $dadosCliente->Numero)){
+        if(!DBAtualizarVendedor($dadosVendedor->CNPJ, DadosVendedor::Email, $dadosVendedor->Email)
+        || !DBAtualizarVendedor($dadosVendedor->CNPJ, DadosVendedor::Rua, $dadosVendedor->Rua)
+        || !DBAtualizarVendedor($dadosVendedor->CNPJ, DadosVendedor::Numero, $dadosVendedor->Numero)){
             JSAlert("Houve um erro ao realizar a atualização do cadastro, tente novamente");
-            return;
+            exit();
         }
         
-        header("Location: PerfilCliente.php");
+        header("Location: PerfilVendedor.php");
         exit();
     }
     ?>
@@ -75,23 +69,19 @@
     <div class="painel-cadastro">
         <div class="cadastro">
             <form class="card-cadastro" method="post">
-                <a href="PerfilCliente.php">Atualizar Dados</a>
+                <a href="PerfilVendedor.php">Atualizar Dados</a>
                 <p>Atualize seus dados!</p>
                 <div class="textfield">
-                    <label for="telefone">Telefone</label>
-                    <input type="text" name="telefone" maxlength="11" value="<?php echo($_SESSION["dadosCliente"]->Telefone)?>" oninput="MascaraTelefone(this)">
-                </div>
-                <div class="textfield">
                     <label for="email">Email</label>
-                    <input type="email" name="email" maxlength="50" value="<?php echo($_SESSION["dadosCliente"]->Email)?>">
+                    <input type="email" name="email" maxlength="50" placeholder="Email">
                 </div>
                 <div class="textfield">
                     <label for="rua">Rua</label>
-                    <input type="text" name="rua" maxlength="30" value="<?php echo($_SESSION["dadosCliente"]->Rua)?>">
+                    <input type="text" name="rua" maxlength="30" placeholder="Rua">
                 </div>
                 <div class="textfield">
                     <label for="numero">Numero</label>
-                    <input type="number" name="numero" value="<?php echo($_SESSION["dadosCliente"]->Numero)?>">
+                    <input type="number" name="numero" placeholder="Numero">
                 </div>
                 <br><br><br>
                 <div class="textfield">

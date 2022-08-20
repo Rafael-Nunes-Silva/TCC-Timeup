@@ -15,29 +15,29 @@
     require_once("../Utilidades.php");
     session_start();
 
-    if($_SESSION["dadosCliente"] && strlen($_SESSION["dadosCliente"]->CPF) == 14){
-        header("Location: PerfilCliente.php");
+    if($_SESSION["dadosVendedor"] && strlen($_SESSION["dadosVendedor"]->CNPJ) == 18){
+        header("Location: PerfilVendedor.php");
         exit();
     }
 
-    if(isset($_POST["cpf"]) && strlen($_POST["cpf"]) == 14 && isset($_POST["senha"]) && strlen($_POST["senha"]) > 0){
-        $cpf = $_POST["cpf"];
+    if(isset($_POST["cnpj"]) && strlen($_POST["cnpj"]) == 18 && isset($_POST["senha"]) && strlen($_POST["senha"]) > 0){
+        $cnpj = $_POST["cnpj"];
         $senha = $_POST["senha"];
 
-        if(!DBClienteExiste($cpf)){
-            JSAlert("Usuario portador do CPF ".$cpf." não está cadastrado<br>");
+        if(!DBVendedorExiste($cnpj)){
+            JSAlert("O CNPJ ".$cnpj." não esta cadastrado<br>");
             return;
         }
 
-        $dadosCliente = DBRecuperarCliente($cpf);
+        $dadosVendedor = DBRecuperarVendedor($cnpj);
 
-        if($dadosCliente->Senha != $senha){
+        if($dadosVendedor->Senha != $senha){
             JSAlert("Senha incorreta");
             return;
         }
 
-        $_SESSION["dadosCliente"] = $dadosCliente;
-        header("Location: PerfilCliente.php");
+        $_SESSION["dadosVendedor"] = $dadosVendedor;
+        header("Location: PerfilVendedor.php");
         exit();
     }
     ?>
@@ -54,15 +54,15 @@
             <form class="card-login" method="post">
                 <h1>LOGIN</h1>
                 <div class="textfield">
-                    <label for="cpf">CPF</label>
-                    <input type="text" name="cpf" maxlength="14" placeholder="111.222.333-44" oninput="MascaraCPF(this)">
+                    <label for="cnpj">CNPJ</label>
+                    <input type="text" name="cnpj" placeholder="11.222.333/4444-55" oninput="MascaraCNPJ(this)">
                 </div>
                 <div class="textfield">
                     <label for="senha">Senha</label>
-                    <input type="password" name="senha" placeholder="Senha">
+                    <input type="password" name="senha" placeholder="">
                 </div>
                 <button class="btn-login">Login</button>
-                <p>Caso não tenha, <a href="CadastroCliente.php">clique aqui</a></p>
+                <p>Caso não tenha, <a href="CadastroVendedor.php">clique aqui</a></p>
             </form>
         </div>
     </div>

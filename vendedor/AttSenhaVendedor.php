@@ -42,7 +42,7 @@
     }
 
     function Cadastrar(){
-        $dadosCliente = $_SESSION["dadosCliente"];
+        $dadosVendedor = $_SESSION["dadosVendedor"];
         
         // Verifica se as senhas estão preenchidas corretamente
         $senhaAtual = $_POST["senha-atual"];
@@ -52,7 +52,7 @@
         // Emite uma menssagem de erro caso algum campo esteja preenchido incorretamente
         $err = false;
         $errMsg = "";
-        if($senhaAtual != $dadosCliente->Senha){
+        if($senhaAtual != $dadosVendedor->Senha){
             $errMsg .= "O campo 'Digite a sua senha atual' precisa conter a senha atual";
             $err = true;
         }
@@ -60,15 +60,16 @@
             $errMsg .= "Os campos 'Digite a sua senha nova' e 'Repita a senha nova' precisam ser iguais";
             $err = true;
         }
-        if($err) JSAlert($errMsg);
+        if($err)
+            JSAlert($errMsg);
 
-        $dadosCliente->Senha = $senhaNova;
-        if(!DBAtualizarCliente($dadosCliente->CPF, dadosCliente::Senha, $dadosCliente->Senha)){
+        $dadosVendedor->Senha = $senhaNova;
+        if(!DBAtualizarVendedor($dadosVendedor->CNPJ, DadosVendedor::Senha, $dadosVendedor->Senha)){
             JSAlert("Houve um erro ao atualizar a senha, tente novamente");
             exit();
         }
         
-        header("Location: PerfilCliente.php");
+        header("Location: PerfilVendedor.php");
         exit();
     }
     ?>
@@ -76,7 +77,7 @@
     <div class="painel-cadastro">
         <div class="cadastro">
             <form class="card-cadastro" method="post">
-                <a href="PerfilCliente.php">Trocar de senha</a>
+                <a href="PerfilVendedor.php">Trocar de senha</a>
                 <p>Altere a sua senha !</p>
                 <div class="textfield">
                     <label for="senha-atual">Senha</label>

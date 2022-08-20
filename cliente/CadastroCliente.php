@@ -4,14 +4,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="estilo/cadastro.css">
+    <link rel="stylesheet" href="../estilo/cadastro.css">
     <link rel="shortcut icon" href="icones/oie_7TZtpCUaslPH.jpg" type="image/x-icon">
+    <script src="../scripts/mascaras.js"></script>
     <title>Timeup - cadastro</title>
 </head>
 <body>
     <?php
-    require_once("dados.php");
-    require_once("utilidades.php");
+    require_once("../Dados.php");
+    require_once("../Utilidades.php");
     session_start();
         
     function AllVarsSet(){
@@ -25,15 +26,15 @@
             $errMsg .= "O campo 'data de nascimento' não está válido\\n";
             $res = false;
         }
-        if(!isset($_POST["cpf"]) || strlen($_POST["cpf"]) != 11 || !ValidateCPF()){
+        if(!isset($_POST["cpf"]) || strlen($_POST["cpf"]) != 14 || !ValidarCPF($_POST["cpf"])){
             $errMsg .= "O campo 'CPF' não está válido\\n";
             $res = false;
         }
-        if(!isset($_POST["telefone"]) || strlen($_POST["telefone"]) != 11 || !ValidadeTelefone()){
+        if(!isset($_POST["telefone"]) || strlen($_POST["telefone"]) != 13 || !ValidarTelefone()){
             $errMsg .= "O campo 'Telefone' não está válido\\n";
             $res = false;
         }
-        if(!isset($_POST["email"]) || strlen($_POST["email"]) <= 0 || !ValidadeEmail()){
+        if(!isset($_POST["email"]) || strlen($_POST["email"]) <= 0 || !ValidarEmail()){
             $errMsg .= "O campo 'Email' não está válido\\n";
             $res = false;
         }
@@ -55,6 +56,11 @@
         return $res;
     }
 
+    if(isset($_SESSION["dadosCliente"]) && strlen($_SESSION["dadosCliente"]->CPF) == 14){
+        header("Location: PerfilCliente.php");
+        exit();
+    }
+
     if(isset($_POST["cadastrar"])){
         if(AllVarsSet())
             Cadastrar();
@@ -62,33 +68,35 @@
     }
 
     function Cadastrar(){
-        if(DBCadastroExiste($_POST["nome"])){
+        if(DBClienteExiste($_POST["cpf"])){
             JSAlert("Usuário já existe, faça login");
+            header("Location: LoginCliente.php");
             exit();
         }
 
-        $dadosUsuario = new UserData();
-        $dadosUsuario->Nome = $_POST["nome"];
-        $dadosUsuario->Data_Nascimento = $_POST["data_nascimento"];
-        $dadosUsuario->CPF = $_POST["cpf"];
-        $dadosUsuario->Telefone = $_POST["telefone"];
-        $dadosUsuario->Email = $_POST["email"];
-        $dadosUsuario->Senha = $_POST["senha"];
-        $dadosUsuario->Rua = $_POST["rua"];
-        $dadosUsuario->Numero = $_POST["numero"];
-        if(!DBRegistrarUsuario($dadosUsuario)){
+        $dadosCliente = new ObjCliente();
+        $dadosCliente->Nome = $_POST["nome"];
+        $dadosCliente->Data_Nascimento = $_POST["data_nascimento"];
+        $dadosCliente->CPF = $_POST["cpf"];
+        $dadosCliente->Telefone = $_POST["telefone"];
+        $dadosCliente->Email = $_POST["email"];
+        $dadosCliente->Senha = $_POST["senha"];
+        $dadosCliente->Rua = $_POST["rua"];
+        $dadosCliente->Numero = $_POST["numero"];
+        $_SESSION["dadosCliente"] = $dadosCliente;
+
+        if(!DBRegistrarCliente($dadosCliente)){
             JSAlert("Houve um erro na hora do cadastro, tente novamente");
-            exit();
+            return;
         }
 
-        $_SESSION["dadosUsuario"] = $dadosUsuario;
-        header("Location: perfil.php");
+        header("Location: PerfilCliente.php");
         exit();
     }
     ?>
 
     <nav>
-        <a href="index.html" class="time">Timeup</a>
+        <a href="../index.html" class="time">Timeup</a>
     </nav>
     <div class="painel-cadastro">
         <div class="cadastro">
@@ -96,35 +104,35 @@
                 <h1>Cadastro</h1>
                 <div class="textfield">
                     <label for="nome">Nome</label>
-                    <input type="text" name="nome" maxlength="50" placeholder="Nome">
+                    <input type="text" name="nome" maxlength="50" value="<?php echo(isset($_SESSION["dadosCliente"]) ? $_SESSION["dadosCliente"]->Nome : '')?>" placeholder="Nome">
                 </div>
                 <div class="textfield">
                     <label for="data_nascimento">Data de Nascimento</label>
-                    <input type="date" name="data_nascimento" placeholder="dd/mm/aaaa">
+                    <input type="date" name="data_nascimento" value="<?php echo(isset($_SESSION["dadosCliente"]) ? $_SESSION["dadosCliente"]->Data_Nascimento : '')?>" placeholder="dd/mm/aaaa">
                 </div>
                 <div class="textfield">
                     <label for="cpf">CPF</label>
-                    <input type="text" name="cpf" maxlength="11" placeholder="CPF">
+                    <input type="text" name="cpf" maxlength="14" value="<?php echo(isset($_SESSION["dadosCliente"]) ? $_SESSION["dadosCliente"]->CPF : '')?>" placeholder="111.222.333-44" onload="ReporCPF(this)" oninput="MascaraCPF(this)">
                 </div>
                 <div class="textfield">
                     <label for="telefone">Telefone</label>
-                    <input type="text" name="telefone" maxlength="11" placeholder="Telefone">
+                    <input type="text" name="telefone" maxlength="13" value="<?php echo(isset($_SESSION["dadosCliente"]) ? $_SESSION["dadosCliente"]->Telefone : '')?>" placeholder="10 12345-6789" oninput="MascaraTelefone(this)">
                 </div>
                 <div class="textfield">
                     <label for="email">Email</label>
-                    <input type="email" name="email" maxlength="50" placeholder="Email">
+                    <input type="email" name="email" maxlength="50" value="<?php echo(isset($_SESSION["dadosCliente"]) ? $_SESSION["dadosCliente"]->Email : '')?>" placeholder="Email">
                 </div>
                 <div class="textfield">
                     <label for="senha">Senha</label>
-                    <input type="password" name="senha" maxlength="20" placeholder="Senha">
+                    <input type="password" name="senha" maxlength="20" value="<?php echo(isset($_SESSION["dadosCliente"]) ? $_SESSION["dadosCliente"]->Senha : '')?>" placeholder="">
                 </div>
                 <div class="textfield">
                     <label for="rua">Rua</label>
-                    <input type="text" name="rua" maxlength="30" placeholder="Rua">
+                    <input type="text" name="rua" maxlength="30" value="<?php echo(isset($_SESSION["dadosCliente"]) ? $_SESSION["dadosCliente"]->Rua : '')?>" placeholder="Rua">
                 </div>
                 <div class="textfield">
                     <label for="numero">Numero</label>
-                    <input type="number" name="numero" placeholder="Numero">
+                    <input type="number" name="numero" value="<?php echo(isset($_SESSION["dadosCliente"]) ? $_SESSION["dadosCliente"]->Numero : '')?>" placeholder="">
                 </div>
                 <button type="submit" class="btn-cadastro" name="cadastrar">cadastro</button>
             </form>

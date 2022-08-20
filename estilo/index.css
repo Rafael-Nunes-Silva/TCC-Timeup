@@ -35,7 +35,8 @@
 }
 
 body{
-    background-color: #0f0426f3;
+    
+    background-color: #0f0426fc;
     font-family: 'Noto Sans';
     padding: 0px;
     margin: 0px;
@@ -57,8 +58,9 @@ header > h1{
     font-family: 'Noto Sans';
     font-weight: bold;
     margin: 4px;
-    padding-left: 13px;
+    margin-left: 13px;
 }
+
 
 header > p{
     font-weight: 550;
@@ -90,6 +92,11 @@ nav > a {
 }
 
 nav > a:hover{
-    background-color: var(--cor17);
-    color: var(--cor18);
+    background-color: var(--cor13);
+    color: #77ffc0;
+}
+
+.main > h1{
+    color: white;
+    
 }

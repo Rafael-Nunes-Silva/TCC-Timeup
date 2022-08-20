@@ -13,21 +13,19 @@
     require_once("../Dados.php");
     session_start();
 
-    $dadosCliente = $_SESSION["dadosCliente"];
-    if($dadosCliente){
-        echo("Nome: ".$dadosCliente->Nome."<br>");
-        echo("Data de Nascimento: ".$dadosCliente->Data_Nascimento."<br>");
-        echo("CPF: ".$dadosCliente->CPF."<br>");
-        echo("Telefone: ".$dadosCliente->Telefone."<br>");
-        echo("Email: ".$dadosCliente->Email."<br>");
-        echo("Senha: ".$dadosCliente->Senha."<br>");
-        echo("Rua: ".$dadosCliente->Rua."<br>");
-        echo("Número: ".$dadosCliente->Numero."<br>");
+    $dadosVendedor = $_SESSION["dadosVendedor"];
+    if($dadosVendedor){
+        echo("Nome: ".$dadosVendedor->Nome."<br>");
+        echo("CNPJ: ".$dadosVendedor->CNPJ."<br>");
+        echo("Email: ".$dadosVendedor->Email."<br>");
+        echo("Senha: ".$dadosVendedor->Senha."<br>");
+        echo("Rua: ".$dadosVendedor->Rua."<br>");
+        echo("Número: ".$dadosVendedor->Numero."<br>");
     }
 
     if(isset($_POST["sair"])){
-        $_SESSION["dadosCliente"] = new ObjCliente();
-        unset($_SESSION["dadosCliente"]);
+        $_SESSION["dadosVendedor"] = new ObjVendedor();
+        unset($_SESSION["dadosVendedor"]);
         header("Location: ../index.html");
         exit();
     }
@@ -38,14 +36,12 @@
     </nav>
 
     <nav>
-        <a href="AttCadastroCliente.php">Atualizar Cadastro</a>
-        <a href="AttSenhaCliente.php">Mudar Senha</a>
-        <a href="DelCadastroCliente.php">Deletar Cadastro</a>
+        <a href="AttCadastroVendedor.php">Atualizar Cadastro</a>
+        <a href="AttSenhaVendedor.php">Mudar Senha</a>
+        <a href="DelCadastroVendedor.php">Deletar Cadastro</a>
     </nav>
-
     <form method="post">
         <button type="submit" class="btn-sair" name="sair">Sair</button>
     </form>
-    
 </body>
 </html>
