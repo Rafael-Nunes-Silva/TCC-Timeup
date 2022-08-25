@@ -73,15 +73,15 @@
                 <p>Atualize seus dados!</p>
                 <div class="textfield">
                     <label for="email">Email</label>
-                    <input type="email" name="email" maxlength="50" placeholder="Email">
+                    <input type="email" name="email" maxlength="50" value="<?php echo($_SESSION["dadosVendedor"]->Email)?>" oninput="MascaraTelefone(this)">
                 </div>
                 <div class="textfield">
                     <label for="rua">Rua</label>
-                    <input type="text" name="rua" maxlength="30" placeholder="Rua">
+                    <input type="text" name="rua" maxlength="30" value="<?php echo($_SESSION["dadosVendedor"]->Rua)?>">
                 </div>
                 <div class="textfield">
                     <label for="numero">Numero</label>
-                    <input type="number" name="numero" placeholder="Numero">
+                    <input type="number" name="numero" value="<?php echo($_SESSION["dadosVendedor"]->Numero)?>">
                 </div>
                 <br><br><br>
                 <div class="textfield">

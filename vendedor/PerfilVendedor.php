@@ -11,12 +11,13 @@
 <body>
     <?php
     require_once("../Dados.php");
+    require_once("../Utilidades.php");
     session_start();
 
     $dadosVendedor = $_SESSION["dadosVendedor"];
     if($dadosVendedor){
         echo("Nome: ".$dadosVendedor->Nome."<br>");
-        echo("CNPJ: ".$dadosVendedor->CNPJ."<br>");
+        echo("CNPJ: ".FormatarCNPJ($dadosVendedor->CNPJ)."<br>");
         echo("Email: ".$dadosVendedor->Email."<br>");
         echo("Senha: ".$dadosVendedor->Senha."<br>");
         echo("Rua: ".$dadosVendedor->Rua."<br>");
