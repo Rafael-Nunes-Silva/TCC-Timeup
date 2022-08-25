@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../estilo/cadastro.css">
     <link rel="shortcut icon" href="icones/oie_7TZtpCUaslPH.jpg" type="image/x-icon">
+    <script src="../scripts/mascaras.js"></script>
     <title>Timeup - Atualizar Informações</title>
 </head>
 <body>

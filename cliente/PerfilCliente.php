@@ -11,14 +11,15 @@
 <body>
     <?php
     require_once("../Dados.php");
+    require_once("../Utilidades.php");
     session_start();
 
     $dadosCliente = $_SESSION["dadosCliente"];
     if($dadosCliente){
         echo("Nome: ".$dadosCliente->Nome."<br>");
         echo("Data de Nascimento: ".$dadosCliente->Data_Nascimento."<br>");
-        echo("CPF: ".$dadosCliente->CPF."<br>");
-        echo("Telefone: ".$dadosCliente->Telefone."<br>");
+        echo("CPF: ".FormatarCPF($dadosCliente->CPF)."<br>");
+        echo("Telefone: ".FormatarTelefone($dadosCliente->Telefone)."<br>");
         echo("Email: ".$dadosCliente->Email."<br>");
         echo("Senha: ".$dadosCliente->Senha."<br>");
         echo("Rua: ".$dadosCliente->Rua."<br>");

@@ -15,23 +15,23 @@
     session_start();
     
     if(isset($_POST["delcadastro"])){
-        $dadosUsuario = $_SESSION["dadosUsuario"];
+        $dadosCliente = $_SESSION["dadosCliente"];
 
-        if($_POST["senha"] != $dadosUsuario->Senha){
+        if($_POST["senha"] != $dadosCliente->Senha){
             JSAlert("A senha está incorreta");
             exit();
         }
         
-        DBDeletarCliente($dadosUsuario->CPF);
+        DBDeletarCliente($dadosCliente->CPF);
 
-        $dadosUsuario->Nome = "";
-        $dadosUsuario->Data_Nascimento = "";
-        $dadosUsuario->CPF = "";
-        $dadosUsuario->Telefone = "";
-        $dadosUsuario->Email = "";
-        $dadosUsuario->Senha = "";
-        $dadosUsuario->Rua = "";
-        $dadosUsuario->Numero = "";
+        $dadosCliente->Nome = "";
+        $dadosCliente->Data_Nascimento = "";
+        $dadosCliente->CPF = "";
+        $dadosCliente->Telefone = "";
+        $dadosCliente->Email = "";
+        $dadosCliente->Senha = "";
+        $dadosCliente->Rua = "";
+        $dadosCliente->Numero = "";
         
         header("Location: ../index.html");
         exit();
