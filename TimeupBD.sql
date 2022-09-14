@@ -1,6 +1,3 @@
-CREATE DATABASE TimeupDB;
-USE TimeupDB;
-
 CREATE TABLE Cliente (
     ID INT NOT NULL auto_increment,
     Nome VARCHAR (50) NOT NULL,
