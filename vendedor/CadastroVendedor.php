@@ -12,6 +12,7 @@
 <body>
     <?php
     require_once("../Dados.php");
+    require_once("../BDConector.php");
     require_once("../Utilidades.php");
     session_start();
         
@@ -60,7 +61,7 @@
     }
 
     function Cadastrar(){
-        if(DBVendedorExiste($_POST["cnpj"])){
+        if(BDVendedorExiste($_POST["cnpj"])){
             JSAlert("Usuário já existe, faça login");
             return;
         }
@@ -72,7 +73,7 @@
         $dadosVendedor->Senha = $_POST["senha"];
         $dadosVendedor->Rua = $_POST["rua"];
         $dadosVendedor->Numero = $_POST["numero"];
-        if(!DBRegistrarVendedor($dadosVendedor)){
+        if(!BDRegistrarVendedor($dadosVendedor)){
             JSAlert("Houve um erro na hora do cadastro, tente novamente");
             return;
         }

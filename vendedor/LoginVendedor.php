@@ -12,6 +12,7 @@
 <body>
     <?php
     require_once("../Dados.php");
+    require_once("../BDConector.php");
     require_once("../Utilidades.php");
     session_start();
 
@@ -28,12 +29,12 @@
         $cnpj = $_POST["cnpj"];
         $senha = $_POST["senha"];
 
-        if(!DBVendedorExiste($cnpj)){
+        if(!BDVendedorExiste($cnpj)){
             JSAlert("O CNPJ ".$cnpj." não esta cadastrado<br>");
             return;
         }
 
-        $dadosVendedor = DBRecuperarVendedor($cnpj);
+        $dadosVendedor = BDRecuperarVendedor($cnpj);
 
         if($dadosVendedor->Senha != $senha){
             JSAlert("Senha incorreta");

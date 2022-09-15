@@ -11,6 +11,7 @@
 <body>
     <?php
     require_once("../Dados.php");
+    require_once("../BDConector.php");
     require_once("../Utilidades.php");
     session_start();
     
@@ -22,9 +23,10 @@
             exit();
         }
         
-        DBDeletarCliente($dadosCliente->CPF);
+        BDDeletarCliente($dadosCliente->CPF);
 
         $dadosCliente->Nome = "";
+        $dadosCliente->Foto = "";
         $dadosCliente->Data_Nascimento = "";
         $dadosCliente->CPF = "";
         $dadosCliente->Telefone = "";

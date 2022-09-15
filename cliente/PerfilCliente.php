@@ -11,11 +11,13 @@
 <body>
     <?php
     require_once("../Dados.php");
+    require_once("../BDConector.php");
     require_once("../Utilidades.php");
     session_start();
 
     $dadosCliente = $_SESSION["dadosCliente"];
     if($dadosCliente){
+        echo("Foto: <img src='../uploads/cliente/".$dadosCliente->Nome."/foto_perfil/".BDRecuperarFoto($dadosCliente->Foto)."' height='200px' width='200px'><br>");
         echo("Nome: ".$dadosCliente->Nome."<br>");
         echo("Data de Nascimento: ".$dadosCliente->Data_Nascimento."<br>");
         echo("CPF: ".FormatarCPF($dadosCliente->CPF)."<br>");

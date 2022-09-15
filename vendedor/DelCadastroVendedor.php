@@ -11,6 +11,7 @@
 <body>
     <?php
     require_once("../Dados.php");
+    require_once("../BDConector.php");
     require_once("../Utilidades.php");
     session_start();
     
@@ -22,7 +23,7 @@
             exit();
         }
         
-        DBDeletarVendedor($dadosVendedor->CNPJ);
+        BDDeletarVendedor($dadosVendedor->CNPJ);
 
         $dadosVendedor->Nome = "";
         $dadosVendedor->Data_Nascimento = "";

@@ -11,6 +11,7 @@
 <body>
     <?php
     require_once("../Dados.php");
+    require_once("../BDConector.php");
     require_once("../Utilidades.php");
     session_start();
 
@@ -63,7 +64,7 @@
         if($err) JSAlert($errMsg);
 
         $dadosCliente->Senha = $senhaNova;
-        if(!DBAtualizarCliente($dadosCliente->CPF, dadosCliente::Senha, $dadosCliente->Senha)){
+        if(!BDAtualizarCliente($dadosCliente->CPF, dadosCliente::Senha, $dadosCliente->Senha)){
             JSAlert("Houve um erro ao atualizar a senha, tente novamente");
             exit();
         }

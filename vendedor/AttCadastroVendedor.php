@@ -11,6 +11,7 @@
 <body>
     <?php
     require_once("../Dados.php");
+    require_once("../BDConector.php");
     require_once("../Utilidades.php");
     session_start();
 
@@ -45,7 +46,7 @@
     function AtualizarCadastro(){
         $dadosVendedor = $_SESSION["dadosVendedor"];
 
-        if(DBRecuperarVendedor($dadosVendedor->CNPJ)->Senha != $_POST["senha"]){
+        if(BDRecuperarVendedor($dadosVendedor->CNPJ)->Senha != $_POST["senha"]){
             JSAlert("Senha incorreta");
             exit();
         }
@@ -54,9 +55,9 @@
         $dadosVendedor->Rua = $_POST["rua"];
         $dadosVendedor->Numero = $_POST["numero"];
 
-        if(!DBAtualizarVendedor($dadosVendedor->CNPJ, DadosVendedor::Email, $dadosVendedor->Email)
-        || !DBAtualizarVendedor($dadosVendedor->CNPJ, DadosVendedor::Rua, $dadosVendedor->Rua)
-        || !DBAtualizarVendedor($dadosVendedor->CNPJ, DadosVendedor::Numero, $dadosVendedor->Numero)){
+        if(!BDAtualizarVendedor($dadosVendedor->CNPJ, DadosVendedor::Email, $dadosVendedor->Email)
+        || !BDAtualizarVendedor($dadosVendedor->CNPJ, DadosVendedor::Rua, $dadosVendedor->Rua)
+        || !BDAtualizarVendedor($dadosVendedor->CNPJ, DadosVendedor::Numero, $dadosVendedor->Numero)){
             JSAlert("Houve um erro ao realizar a atualização do cadastro, tente novamente");
             exit();
         }

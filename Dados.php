@@ -1,5 +1,6 @@
 <?php
 abstract class DadosCliente{
+    const Foto = "Foto";
     const Nome = "Nome";
     const Data_Nascimento = "Data_Nascimento";
     const CPF = "CPF";
@@ -10,6 +11,7 @@ abstract class DadosCliente{
     const Numero = "Numero";
 }
 class ObjCliente{
+    public $Foto;
     public $Nome;
     public $Data_Nascimento;
     public $CPF;
@@ -20,6 +22,7 @@ class ObjCliente{
     public $Numero;
 }
 abstract class DadosVendedor{
+    const Foto = "Foto";
     const Nome = "Nome";
     const CNPJ = "CNPJ";
     const Email = "Email";
@@ -28,6 +31,7 @@ abstract class DadosVendedor{
     const Numero = "Numero";
 }
 class ObjVendedor{
+    public $Foto;
     public $Nome;
     public $CNPJ;
     public $Email;

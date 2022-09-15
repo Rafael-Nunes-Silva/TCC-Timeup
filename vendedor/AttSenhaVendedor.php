@@ -11,6 +11,7 @@
 <body>
     <?php
     require_once("../Dados.php");
+    require_once("../BDConector.php");
     require_once("../Utilidades.php");
     session_start();
 
@@ -64,7 +65,7 @@
             JSAlert($errMsg);
 
         $dadosVendedor->Senha = $senhaNova;
-        if(!DBAtualizarVendedor($dadosVendedor->CNPJ, DadosVendedor::Senha, $dadosVendedor->Senha)){
+        if(!BDAtualizarVendedor($dadosVendedor->CNPJ, DadosVendedor::Senha, $dadosVendedor->Senha)){
             JSAlert("Houve um erro ao atualizar a senha, tente novamente");
             exit();
         }

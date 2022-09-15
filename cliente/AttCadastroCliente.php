@@ -12,13 +12,18 @@
 <body>
     <?php
     require_once("../Dados.php");
+    require_once("../BDConector.php");
     require_once("../Utilidades.php");
     session_start();
 
     function AllVarsSet(){
         $res = true;
         $errMsg = "Erro no preenchimento do formulário de cadastro\\n";
-        if(!isset($_POST["telefone"]) || strlen($_POST["telefone"]) != 11 || !ValidarTelefone()){
+        if($_FILES["foto"]["size"] == 0 || $_FILES["foto"]["error"] != 0){
+            $errMsg .= "O campo 'Foto' não está válido\\n";
+            $res = false;
+        }
+        if(!isset($_POST["telefone"]) || strlen($_POST["telefone"]) != 13 || !ValidarTelefone()){
             $errMsg .= "O campo 'Telefone' não está válido\\n";
             $res = false;
         }
@@ -50,20 +55,21 @@
     function AtualizarCadastro(){
         $dadosCliente = $_SESSION["dadosCliente"];
 
-        if(DBRecuperarCliente($dadosCliente->CPF)->Senha != $_POST["senha"]){
+        if(BDRecuperarCliente($dadosCliente->CPF)->Senha != $_POST["senha"]){
             JSAlert("Senha incorreta");
             exit();
         }
         
+        BDAtualizarFoto($dadosCliente->Foto, BDRecuperarFoto($dadosCliente->Foto), $_FILES["foto"]["tmp_name"], "../uploads/cliente/".$dadosCliente->Nome."/foto_perfil/");
         $dadosCliente->Telefone = $_POST["telefone"];
         $dadosCliente->Email = $_POST["email"];
         $dadosCliente->Rua = $_POST["rua"];
         $dadosCliente->Numero = $_POST["numero"];
 
-        if(!DBAtualizarCliente($dadosCliente->CPF, DadosCliente::Telefone, $dadosCliente->Telefone)
-        || !DBAtualizarCliente($dadosCliente->CPF, DadosCliente::Email, $dadosCliente->Email)
-        || !DBAtualizarCliente($dadosCliente->CPF, DadosCliente::Rua, $dadosCliente->Rua)
-        || !DBAtualizarCliente($dadosCliente->CPF, DadosCliente::Numero, $dadosCliente->Numero)){
+        if(!BDAtualizarCliente($dadosCliente->CPF, DadosCliente::Telefone, $dadosCliente->Telefone)
+        || !BDAtualizarCliente($dadosCliente->CPF, DadosCliente::Email, $dadosCliente->Email)
+        || !BDAtualizarCliente($dadosCliente->CPF, DadosCliente::Rua, $dadosCliente->Rua)
+        || !BDAtualizarCliente($dadosCliente->CPF, DadosCliente::Numero, $dadosCliente->Numero)){
             JSAlert("Houve um erro ao realizar a atualização do cadastro, tente novamente");
             return;
         }
@@ -75,9 +81,13 @@
 
     <div class="painel-cadastro">
         <div class="cadastro">
-            <form class="card-cadastro" method="post">
+            <form class="card-cadastro" method="post" enctype="multipart/form-data">
                 <a href="PerfilCliente.php">Atualizar Dados</a>
                 <p>Atualize seus dados!</p>
+                <div class="textfield">
+                    <label for="foto">Foto</label>
+                    <input type="file" name="foto" accept="image/jpeg">
+                </div>
                 <div class="textfield">
                     <label for="telefone">Telefone</label>
                     <input type="text" name="telefone" maxlength="11" value="<?php echo($_SESSION["dadosCliente"]->Telefone)?>" oninput="MascaraTelefone(this)">

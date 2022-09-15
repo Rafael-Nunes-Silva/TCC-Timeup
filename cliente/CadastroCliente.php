@@ -12,12 +12,17 @@
 <body>
     <?php
     require_once("../Dados.php");
+    require_once("../BDConector.php");
     require_once("../Utilidades.php");
     session_start();
         
     function AllVarsSet(){
         $res = true;
         $errMsg = "Erro no preenchimento do formulário de cadastro\\n";
+        if($_FILES["foto"]["size"] == 0 || $_FILES["foto"]["error"] != 0){
+            $errMsg .= "O campo 'Foto' não está válido\\n";
+            $res = false;
+        }
         if(!isset($_POST["nome"]) || strlen($_POST["nome"]) <= 0){
             $errMsg .= "O campo 'Nome' não está válido\\n";
             $res = false;
@@ -68,13 +73,20 @@
     }
 
     function Cadastrar(){
-        if(DBClienteExiste($_POST["cpf"])){
+        if(BDClienteExiste($_POST["cpf"])){
             JSAlert("Usuário já existe, faça login");
             header("Location: LoginCliente.php");
             exit();
         }
 
+        $fotoID = BDRegistrarFoto(basename($_FILES["foto"]["name"]), $_FILES["foto"]["tmp_name"], "../uploads/cliente/".$_POST["nome"]."/foto_perfil/");
+        if($fotoID == 0){
+            JSAlert("Erro ao inserir foto no banco de dados");
+            return;
+        }
+
         $dadosCliente = new ObjCliente();
+        $dadosCliente->Foto = $fotoID;
         $dadosCliente->Nome = $_POST["nome"];
         $dadosCliente->Data_Nascimento = $_POST["data_nascimento"];
         $dadosCliente->CPF = $_POST["cpf"];
@@ -85,7 +97,7 @@
         $dadosCliente->Numero = $_POST["numero"];
         $_SESSION["dadosCliente"] = $dadosCliente;
 
-        if(!DBRegistrarCliente($dadosCliente)){
+        if(!BDRegistrarCliente($dadosCliente)){
             JSAlert("Houve um erro na hora do cadastro, tente novamente");
             return;
         }
@@ -100,8 +112,12 @@
     </nav>
     <div class="painel-cadastro">
         <div class="cadastro">
-            <form class="card-cadastro" method="post">
+            <form class="card-cadastro" method="post" enctype="multipart/form-data">
                 <h1>Cadastro</h1>
+                <div class="textfield">
+                    <label for="foto">Foto</label>
+                    <input type="file" name="foto" accept="image/jpeg">
+                </div>
                 <div class="textfield">
                     <label for="nome">Nome</label>
                     <input type="text" name="nome" maxlength="50" value="<?php echo(isset($_SESSION["dadosCliente"]) ? $_SESSION["dadosCliente"]->Nome : '')?>" placeholder="Nome">

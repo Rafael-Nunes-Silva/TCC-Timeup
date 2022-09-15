@@ -12,6 +12,7 @@
 <body>
     <?php
     require_once("../Dados.php");
+    require_once("../BDConector.php");
     require_once("../Utilidades.php");
     session_start();
 
@@ -28,12 +29,12 @@
         $cpf = $_POST["cpf"];
         $senha = $_POST["senha"];
 
-        if(!DBClienteExiste($cpf)){
+        if(!BDClienteExiste($cpf)){
             JSAlert("Usuario portador do CPF ".$cpf." não está cadastrado<br>");
             return;
         }
 
-        $dadosCliente = DBRecuperarCliente($cpf);
+        $dadosCliente = BDRecuperarCliente($cpf);
 
         if($dadosCliente->Senha != $senha){
             JSAlert("Senha incorreta");
