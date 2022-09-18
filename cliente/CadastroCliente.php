@@ -86,7 +86,7 @@
         }
 
         $dadosCliente = new ObjCliente();
-        $dadosCliente->Foto = $fotoID;
+        $dadosCliente->Foto_ID = $fotoID;
         $dadosCliente->Nome = $_POST["nome"];
         $dadosCliente->Data_Nascimento = $_POST["data_nascimento"];
         $dadosCliente->CPF = $_POST["cpf"];
@@ -144,7 +144,7 @@
                 </div>
                 <div class="textfield">
                     <label for="rua">Rua</label>
-                    <input type="text" name="rua" maxlength="30" value="<?php echo(isset($_SESSION["dadosCliente"]) ? $_SESSION["dadosCliente"]->Rua : '')?>" placeholder="Rua">
+                    <input type="text" name="rua" maxlength="50" value="<?php echo(isset($_SESSION["dadosCliente"]) ? $_SESSION["dadosCliente"]->Rua : '')?>" placeholder="Rua">
                 </div>
                 <div class="textfield">
                     <label for="numero">Numero</label>
