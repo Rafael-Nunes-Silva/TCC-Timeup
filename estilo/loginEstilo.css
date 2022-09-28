@@ -1,0 +1,212 @@
+@charset "utf-8";
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&family=Oswald:wght@200&display=swap');
+
+@font-face {
+    font-family:  'titulo';
+    src: url(../fonte/Oswald/Oswald-VariableFont_wght.ttf);
+}
+
+:root{
+    --cor1: #D2D8D9;
+    --cor2: #B7C8D5;
+    --cor3: #95B3BF;
+    --cor4: #4D7A8C; 
+    --cor5: #065688;
+    --cor6: #000000;
+    
+    --cor7: #5D77B3;
+    --cor8: #B8CDFF;
+    --cor9: #9EBBFF;
+    --cor10: #B3944B;
+    --cor11: #FFE29E;
+
+    --cor12: #864ad9b6;
+    --cor13: #190740ef;
+    --cor14: #0F0426;
+    --cor15: #250C59;
+    --cor16: #3C268C;
+
+    --cor17: #201b2c;
+    --cor18: #77ffc0;
+    --cor19: #2f2841;
+    --cor20: #00ff88;
+    --cor21: #2b134b;
+}
+
+body{
+    background: var(--cor14);
+    font-family: 'Noto Sans', sans-serif;
+    color: white;
+    margin: 0;
+    overflow: hidden;
+    width: 100%
+}
+
+body * {
+    box-sizing: border-box;
+}
+
+nav{
+    margin: 10px;
+    display: flex;
+}
+
+nav > a{
+    text-decoration: none;
+    color: #77ffc0;
+    padding: 5px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+nav > a:hover{
+    background-color: #2f2841;
+}
+
+.painel-login{
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--cor14);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.esquerda-login{
+    width: 50vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.esquerda-login > h1 {
+    font-size: 35px;
+    color: #77ffc0;
+    margin-bottom: 10px;
+    margin-top: -40px;
+}
+
+
+.esquerda-login > a:hover{
+    text-decoration: dashed;
+}
+
+.esquerda-login-image{
+    width: 35vw;
+}
+
+.direita-login{
+    width: 50vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+a{
+   color:#00ff88;
+    text-decoration: none;
+}
+
+.card-login{
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 30px 35px;
+    background: var(--cor19);
+    border-radius: 20px;
+    box-shadow: 0px 10px 40px #00000056;
+}
+
+.card-login > h1{
+    color: #00ff88;
+    font-weight: 800;
+    margin: 0;
+}
+
+.textfield{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    margin: 10px 0px;
+}
+
+.textfield > input{
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+    padding: 15px;
+    background: #514869;
+    color: #f0ffffde;
+    font-size: 12pt;
+    box-shadow: 0px 10px 40px #00000056;
+    box-sizing: border-box;
+}
+
+.textfield > label{
+    color: #f0ffffde;
+    margin-bottom: 10px;
+}
+
+.textfield > input::placeholder{
+    color: #f0ffff94;
+}
+
+.btn-login{
+    width: 100%;
+    padding: 16px 0px;
+    margin: 25px;
+    border: none;
+    border-radius: 8px;
+    text-transform: uppercase;
+    font-weight: 800;
+    letter-spacing: 3px;
+    color: #2b134b;
+    background: #00ff88;
+    cursor: pointer;
+    box-shadow: 0px 10px 40px -12px #00ff8052;
+}
+
+@media only screen and (max-width: 950px){
+    .card-login{
+        width: 85%;
+    }
+}
+
+@media only screen and (max-width: 950px){
+    .main-login{
+        flex-direction: column;
+    }
+    .left-login > h1{
+        display: none;
+    }
+    .left-login{
+        width: 100%;
+        height: auto;
+    }
+    .rigth-login{
+        width: 100%;
+        height: auto;
+    }
+    .left-login-image{
+        width: 50vw;
+    }
+    .card-login{
+        width: 90%;
+    }
+}
+
+.painel-login > a{
+    text-decoration: none;
+    color: #77ffc0;
+    padding: 5px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 50px;
+}

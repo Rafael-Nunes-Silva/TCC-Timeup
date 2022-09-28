@@ -1,0 +1,113 @@
+@charset "utf-8";
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&family=Oswald:wght@200&display=swap');
+
+@font-face {
+    font-family:  'titulo';
+    src: url(../fonte/Oswald/Oswald-VariableFont_wght.ttf);
+}
+
+:root{
+    --cor1: #D2D8D9;
+    --cor2: #B7C8D5;
+    --cor3: #95B3BF;
+    --cor4: #4D7A8C; 
+    --cor5: #065688;
+    --cor6: #000000;
+    
+    --cor7: #5D77B3;
+    --cor8: #B8CDFF;
+    --cor9: #9EBBFF;
+    --cor10: #B3944B;
+    --cor11: #FFE29E;
+
+    --cor12: #864ad9b6;
+    --cor13: #190740ef;
+    --cor14: #0F0426;
+    --cor15: #250C59;
+    --cor16: #3C268C;
+
+    --cor17: #201b2c;
+    --cor18: #77ffc0;
+    --cor19: #2f2841;
+    --cor20: #00ff88;
+    --cor21: #2b134b;
+}
+
+body{
+    background-color: #0f0426fc;
+    font-family: 'Noto Sans', sans-serif;
+}
+
+h2{
+    color: white;
+}
+
+.label{
+
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+}
+
+.nav{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+label{
+    color: white;
+}
+
+a{
+    text-decoration: none;
+    color: #77ffc0;
+    padding: 5px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 30px;
+}
+
+nav{
+    margin: 10px;
+    display: flex;
+}
+
+nav > a{
+    text-decoration: none;
+    color: #77ffc0;
+    padding: 5px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+nav > a:hover{
+    background-color: #2f2841;
+}
+
+.produto{
+    display: inline-block;
+    
+    background-color: white;
+    
+    text-align: center;
+    border-radius: 5px;
+    
+    max-width: 210px;
+}
+.produto>img{
+    margin: 5px 5px 5px 5px;
+}
+.produto>p{
+    margin: 2px 0px;
+}
+.produto_nome{
+    font-size: 25px;
+}
+.produto_valor{
+    font-size: 20px;
+}
+.produto_vendedor{
+    font-size: 15px;
+}

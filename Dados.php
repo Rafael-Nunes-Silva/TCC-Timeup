@@ -47,30 +47,16 @@ abstract class DadosProduto{
     const ID = "ID";
     const Foto_ID = "Foto_ID";
     const Nome = "Nome";
-    const Codigo = "Codigo";
+    const Valor = "Valor";
     const Categoria = "Categoria";
-    const Quantidade = "Quantidade";
     const Vendedor_ID = "Vendedor_ID";
 }
 class ObjProduto{
     public $ID;
     public $Foto_ID;
     public $Nome;
-    public $Codigo;
+    public $Valor;
     public $Categoria;
-    public $Quantidade;
     public $Vendedor_ID;
-}
-abstract class DadosCompra{
-    const ID = "ID";
-    const Cliente_ID = "Cliente_ID";
-    const Vendedor_ID = "Vendedor_ID";
-    const Data_Compra = "Data_Compra";
-}
-class ObjCompra{
-    public $ID;
-    public $Cliente_ID;
-    public $Prodto_ID;
-    public $Data_Compra;
 }
 ?>

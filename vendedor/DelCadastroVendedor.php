@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../estilo/cadastro.css">
+    <link rel="stylesheet" href="../estilo/cadastroEstilo.css">
     <link rel="shortcut icon" href="icones/oie_7TZtpCUaslPH.jpg" type="image/x-icon">
     <title>Timeup - Atualizar Informações</title>
 </head>
@@ -34,7 +34,7 @@
         $dadosVendedor->Rua = "";
         $dadosVendedor->Numero = "";
         
-        header("Location: ../index.html");
+        header("Location: ../index.php");
         exit();
     }
     ?>

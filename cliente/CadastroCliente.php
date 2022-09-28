@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../estilo/cadastro.css">
+    <link rel="stylesheet" href="../estilo/cadastroEstilo.css">
     <link rel="shortcut icon" href="icones/oie_7TZtpCUaslPH.jpg" type="image/x-icon">
     <script src="../scripts/mascaras.js"></script>
-    <title>Timeup - cadastro</title>
+    <title>Timeup - cadastro cliente</title>
 </head>
 <body>
     <?php
@@ -108,7 +108,7 @@
     ?>
 
     <nav>
-        <a href="../index.html" class="time">Timeup</a>
+        <a href="../index.php" class="time">Timeup</a>
     </nav>
     <div class="painel-cadastro">
         <div class="cadastro">
@@ -144,7 +144,7 @@
                 </div>
                 <div class="textfield">
                     <label for="rua">Rua</label>
-                    <input type="text" name="rua" maxlength="50" value="<?php echo(isset($_SESSION["dadosCliente"]) ? $_SESSION["dadosCliente"]->Rua : '')?>" placeholder="Rua">
+                    <input type="text" name="rua" maxlength="100" value="<?php echo(isset($_SESSION["dadosCliente"]) ? $_SESSION["dadosCliente"]->Rua : '')?>" placeholder="Rua">
                 </div>
                 <div class="textfield">
                     <label for="numero">Numero</label>

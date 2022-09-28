@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../estilo/login.css">
+    <link rel="stylesheet" href="../estilo/loginEstilo.css">
     <link rel="shortcut icon" href="icones/oie_7TZtpCUaslPH.jpg" type="image/x-icon">
     <script src="../scripts/mascaras.js"></script>
     <title>Timeup - Login</title>
@@ -48,7 +48,7 @@
     ?>
     
     <nav>
-        <a href="../index.html" class="time">Timeup</a>
+        <a href="../index.php" class="time">Timeup</a>
     </nav>
     <div class="painel-login">
         <div class="esquerda-login">

@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../estilo/cadastro.css">
+    <link rel="stylesheet" href="../estilo/cadastroEstilo.css">
     <link rel="shortcut icon" href="icones/oie_7TZtpCUaslPH.jpg" type="image/x-icon">
     <script src="../scripts/mascaras.js"></script>
-    <title>Timeup - cadastro</title>
+    <title>Timeup - cadastro vendedor</title>
 </head>
 <body>
     <?php
@@ -19,6 +19,10 @@
     function AllVarsSet(){
         $res = true;
         $errMsg = "Erro no preenchimento do formulário de cadastro\\n";
+        if($_FILES["foto"]["size"] == 0 || $_FILES["foto"]["error"] != 0){
+            $errMsg .= "O campo 'Foto' não está válido\\n";
+            $res = false;
+        }
         if(!isset($_POST["nome"]) || strlen($_POST["nome"]) <= 0){
             $errMsg .= "O campo 'Nome' não está válido\\n";
             $res = false;
@@ -62,11 +66,18 @@
 
     function Cadastrar(){
         if(BDVendedorExiste($_POST["cnpj"])){
-            JSAlert("Usuário já existe, faça login");
+            JSAlert("Vendedor já existe, faça login");
+            return;
+        }
+
+        $fotoID = BDRegistrarFoto(basename($_FILES["foto"]["name"]), $_FILES["foto"]["tmp_name"], "../uploads/vendedor/".$_POST["nome"]."/foto_perfil/");
+        if($fotoID == 0){
+            JSAlert("Erro ao inserir foto no banco de dados");
             return;
         }
 
         $dadosVendedor = new ObjVendedor();
+        $dadosVendedor->Foto_ID = $fotoID;
         $dadosVendedor->Nome = $_POST["nome"];
         $dadosVendedor->CNPJ = $_POST["cnpj"];
         $dadosVendedor->Email = $_POST["email"];
@@ -85,12 +96,16 @@
     ?>
 
     <nav>
-        <a href="../index.html" class="time">Timeup</a>
+        <a href="../index.php" class="time">Timeup</a>
     </nav>
     <div class="painel-cadastro">
         <div class="cadastro">
-            <form class="card-cadastro" method="post">
+            <form class="card-cadastro" method="post" enctype="multipart/form-data">
                 <h1>Cadastro</h1>
+                <div class="textfield">
+                    <label for="foto">Foto</label>
+                    <input type="file" name="foto" accept="image/jpeg">
+                </div>
                 <div class="textfield">
                     <label for="nome">Nome</label>
                     <input type="text" name="nome" maxlength="50" value="<?php echo(isset($_SESSION["dadosVendedor"]) ? $_SESSION["dadosVendedor"]->Nome : '')?>" placeholder="Nome">
@@ -109,7 +124,7 @@
                 </div>
                 <div class="textfield">
                     <label for="rua">Rua</label>
-                    <input type="text" name="rua" maxlength="30" value="<?php echo(isset($_SESSION["dadosVendedor"]) ? $_SESSION["dadosVendedor"]->Rua : '')?>" placeholder="Rua">
+                    <input type="text" name="rua" maxlength="100" value="<?php echo(isset($_SESSION["dadosVendedor"]) ? $_SESSION["dadosVendedor"]->Rua : '')?>" placeholder="Rua">
                 </div>
                 <div class="textfield">
                     <label for="numero">Numero</label>

@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../estilo/perfil.css">
+    <link rel="stylesheet" href="../estilo/perfilEstilo.css">
     <link rel="shortcut icon" href="icones/oie_7TZtpCUaslPH.jpg" type="image/x-icon">
+    
     <title>Timeup - Perfil</title>
 </head>
 <body>
@@ -17,38 +18,60 @@
 
     $dadosCliente = $_SESSION["dadosCliente"];
     if($dadosCliente){
-        echo("Foto: <img src='../uploads/cliente/".$dadosCliente->Nome."/foto_perfil/".BDRecuperarFoto($dadosCliente->Foto_ID)."' height='200px' width='200px'><br>");
-        echo("Nome: ".$dadosCliente->Nome."<br>");
-        echo("Data de Nascimento: ".$dadosCliente->Data_Nascimento."<br>");
-        echo("CPF: ".FormatarCPF($dadosCliente->CPF)."<br>");
-        echo("Telefone: ".FormatarTelefone($dadosCliente->Telefone)."<br>");
-        echo("Email: ".$dadosCliente->Email."<br>");
-        echo("Senha: ".$dadosCliente->Senha."<br>");
-        echo("Rua: ".$dadosCliente->Rua."<br>");
-        echo("Número: ".$dadosCliente->Numero."<br>");
+        echo("
+            <nav>
+                <a href='../index.php' class='time'>Timeup</a>
+            </nav>
+            <div class='label'>
+                <img src='../uploads/cliente/".$dadosCliente->Nome."/foto_perfil/".BDRecuperarFoto($dadosCliente->Foto_ID)."' id='foto' height='300px' width='300px'>
+                <h2 id='nome'>Nome: $dadosCliente->Nome</h2>
+                <h2 id='data'>Data de Nascimento: $dadosCliente->Data_Nascimento</h2>
+                <h2 id='cpf'>CPF: $dadosCliente->CPF</h2>
+                <h2 id='telefone'>Telefone: $dadosCliente->Telefone</h2>
+                <h2 id='email'>Email: $dadosCliente->Email</h2>
+                <h2 id='rua'>Rua: $dadosCliente->Rua</h2>
+                <h2 id='numero'>Número: $dadosCliente->Numero</h2>
+            </div>
+        ");
+    }
+    else{
+        $_SESSION["dadosCliente"] = null;
+        unset($_SESSION["dadosCliente"]);
+        header("Location: LoginCliente.php");
+        exit();
     }
 
     if(isset($_POST["sair"])){
-        $_SESSION["dadosCliente"] = new ObjCliente();
+        $_SESSION["dadosCliente"] = null;
         unset($_SESSION["dadosCliente"]);
-        header("Location: ../index.html");
+        header("Location: ../index.php");
         exit();
     }
     ?>
-    
+    <!--
     <nav>
         <a href="../index.html" class="time">Timeup</a>
     </nav>
-
+    <div class="label">
+        <img src="" alt="" id="foto" height='400px' width='400px'>
+        <h2 id="nome">label</h2>
+        <h2 id="data">label</h2>
+        <h2 id="cpf">label</h2>
+        <h2 id="telefone">label</h2>
+        <h2 id="email">label</h2>
+        <h2 id="rua">label</h2>
+        <h2 id="numero">label</h2>
+    </div>
+    <div class="nav"> 
+    -->
     <nav>
         <a href="AttCadastroCliente.php">Atualizar Cadastro</a>
         <a href="AttSenhaCliente.php">Mudar Senha</a>
         <a href="DelCadastroCliente.php">Deletar Cadastro</a>
     </nav>
-
+    </div>
     <form method="post">
         <button type="submit" class="btn-sair" name="sair">Sair</button>
     </form>
-    
 </body>
 </html>
