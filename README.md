@@ -14,10 +14,10 @@
 <details>
 <summary>Foto</summary><br>
 
-| Tipo de dados   | Comprimento     | Restrições   | Valor padrão   | Descrição                                                 |
-|:---------------:|:---------------:|:------------:|:--------------:|:---------------------------------------------------------:|
-| ID              | Default do INT  | PK, NOT NULL | auto_increment | Número de identificação da foto, definido automaticamente |
-| Nome            | 255             | NOT NULL     | N/A            | Nome do arquivo de imagem armazenado no host do site      |
+| Nome dos dados | Tipo de dados | Comprimento | Restrições   | Valor padrão   | Descrição                                                 |
+|:--------------:|:-------------:|:-----------:|:------------:|:--------------:|:---------------------------------------------------------:|
+| ID             | INT           | Default     | PK, NOT NULL | auto_increment | Número de identificação da foto, definido automaticamente |
+| Nome           | INT           | 255         | NOT NULL     | N/A            | Nome do arquivo de imagem armazenado no host do site      |
 
 </details>
 
