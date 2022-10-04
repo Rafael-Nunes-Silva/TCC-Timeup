@@ -121,7 +121,7 @@ nav > a:hover{
 }
 
 .btn-attcadastro{
-    width: 100%;
+    width: 20%;
     padding: 16px 0px;
     margin: 25px;
     border: none;
@@ -133,6 +133,7 @@ nav > a:hover{
     background: #00ff88;
     cursor: pointer;
     box-shadow: 0px 10px 40px -12px #00ff8052;
+    margin-left: 150px;
 }
 
 

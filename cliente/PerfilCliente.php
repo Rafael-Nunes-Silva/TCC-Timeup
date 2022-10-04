@@ -23,7 +23,7 @@
                 <a href='../index.php' class='time'>Timeup</a>
             </nav>
             <div class='label'>
-                <img src='../uploads/cliente/".$dadosCliente->Nome."/foto_perfil/".BDRecuperarFoto($dadosCliente->Foto_ID)."' id='foto' height='300px' width='300px'>
+                <img src='".ClienteFotoCaminho($dadosCliente->Nome, $dadosCliente->Foto_ID)."' id='foto' height='300px' width='300px'>
                 <h2 id='nome'>Nome: $dadosCliente->Nome</h2>
                 <h2 id='data'>Data de Nascimento: $dadosCliente->Data_Nascimento</h2>
                 <h2 id='cpf'>CPF: $dadosCliente->CPF</h2>
@@ -65,6 +65,7 @@
     <div class="nav"> 
     -->
     <nav>
+        <a href='../Produtos.php'>Produtos</a>
         <a href="AttCadastroCliente.php">Atualizar Cadastro</a>
         <a href="AttSenhaCliente.php">Mudar Senha</a>
         <a href="DelCadastroCliente.php">Deletar Cadastro</a>

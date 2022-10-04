@@ -14,16 +14,15 @@
     require_once("BDConector.php");
     session_start();
 
-    if(isset($_SESSION["dadosCliente"]) && strlen($_SESSION["dadosCliente"]->CPF) == 14){
+    if(isset($_SESSION["dadosCliente"]) && strlen($_SESSION["dadosCliente"]->CPF) == 14 && isset($_SESSION["dadosOrcamento"])){
+        /* mostrar o orçamento
         echo("<header>
                 <a href='../index.php' class='time'>Timeup</a>
                 <nav>
                     <a href='index.php'>Inicio</a>
                     <a href='#'>Menu</a>
                     <a href='#'>Contato</a>
-                    <form action='cliente/PerfilCliente.php'>
-                        <input class='botaoPerfil' width='50px' height='50px' type='image' src='".ClienteFotoCaminho($_SESSION["dadosCliente"]->Nome, $_SESSION["dadosCliente"]->Foto_ID)."'></input>
-                    </form>
+                    <a href='cliente/PerfilCliente.php'>".$_SESSION["dadosCliente"]->Nome."</a>
                 </nav>
             </header>
             <main>");
@@ -37,29 +36,23 @@
                 <p class='produto_vendedor'>".$dadosVendedor->Nome."</p>
                 </div>");   
         }
+        */
         echo("<form method='post'>
                 <button type='submit' name='fazer-orcamento'>Orçamento</button>
             </form>");
         echo("</main>");
-        echo("<script>
-                var idList = [];
-                for(let i=0; i<".count($produtos)."; i++){
-                    idList[i] = false;
-                }
-            </script>");
     }
     else{
         header("Location: index.php");
         exit();
     }
     
-    if(isset($_POST["fazer-orcamento"])){
+    if(isset($_POST["salvar-orcamento"])){
         
         header("Location: Orcamento.php");
         exit();
     }
     ?>
-    <!--
     <header>
         <a href="../index.php" class="time">Timeup</a>
 
@@ -77,12 +70,5 @@
             <p class="produto_vendedor">Vendedor</p>
         </div>
     </main>
-    -->
-    <script>
-        function clicado(id){
-            idList[id] = !idList[id];
-            console.log(idList);
-        }
-    </script>
 </body>
 </html>

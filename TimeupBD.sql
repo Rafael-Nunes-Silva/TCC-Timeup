@@ -43,11 +43,11 @@ CREATE TABLE Produto (
     FOREIGN KEY (Foto_ID) REFERENCES Foto (ID)
 );
 
-CREATE TABLE Compra (
+CREATE TABLE Orcamento (
     ID INT NOT NULL auto_increment,
     Cliente_ID INT NOT NULL,
     Produto_ID INT NOT NULL,
-    Data_Compra DATE,
+    Data_Orcamento DATE,
     PRIMARY KEY (ID),
     FOREIGN KEY (Cliente_ID) REFERENCES Cliente (ID),
     FOREIGN KEY (Produto_ID) REFERENCES Produto (ID)
@@ -57,4 +57,4 @@ SELECT * FROM Foto;
 SELECT * FROM Cliente;
 SELECT * FROM Vendedor;
 SELECT * FROM Produto;
-SELECT * FROM Compra;
+SELECT * FROM Orcamento;

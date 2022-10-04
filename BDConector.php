@@ -78,8 +78,7 @@ function BDRegistrarCliente($dadosCliente){
     $dadosCliente->CPF = DesformatarCPF($dadosCliente->CPF);
     $dadosCliente->Telefone = DesformatarTelefone($dadosCliente->Telefone);
     $connection = BDConnect();
-    JSAlert($dadosCliente->Foto_ID);
-    $queryRes = $connection->query("INSERT INTO Cliente (Nome, Foto_ID, Data_Nascimento, CPF, Telefone, Email, Senha, Rua, Numero) VALUES ('$dadosCliente->Foto_ID', '$dadosCliente->Nome', '$dadosCliente->Data_Nascimento', '$dadosCliente->CPF', '$dadosCliente->Telefone', '$dadosCliente->Email', '$dadosCliente->Senha', '$dadosCliente->Rua', '$dadosCliente->Numero')");
+    $queryRes = $connection->query("INSERT INTO Cliente (Foto_ID, Nome, Data_Nascimento, CPF, Telefone, Email, Senha, Rua, Numero) VALUES ('$dadosCliente->Foto_ID', '$dadosCliente->Nome', '$dadosCliente->Data_Nascimento', '$dadosCliente->CPF', '$dadosCliente->Telefone', '$dadosCliente->Email', '$dadosCliente->Senha', '$dadosCliente->Rua', '$dadosCliente->Numero')");
     BDDisconnect($connection);
     return $queryRes;
 }
@@ -242,6 +241,7 @@ function BDListarProdutos(){
     $i = 0;
     while($produto = $queryRes->fetch_assoc()){
         $list[$i] = new ObjProduto();
+        $list[$i]->ID = $produto["ID"];
         $list[$i]->Foto_ID = $produto["Foto_ID"];
         $list[$i]->Nome = $produto["Nome"];
         $list[$i]->Valor = $produto["Valor"];

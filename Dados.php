@@ -59,4 +59,16 @@ class ObjProduto{
     public $Categoria;
     public $Vendedor_ID;
 }
+abstract class DadosOrcamento{
+    const ID = "ID";
+    const Cliente_ID = "Cliente_ID";
+    const Produtos_IDs = "Produtos_IDs";
+    const Data = "Data";
+}
+class ObjOrcamento{
+    public $ID;
+    public $Cliente_ID;
+    public $Produtos_IDs;
+    public $Data;
+}
 ?>

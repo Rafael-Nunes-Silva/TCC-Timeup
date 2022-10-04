@@ -1,4 +1,5 @@
 <?php
+require_once("BDConector.php");
 // Verifica se o CPF é válido
 function ValidarCPF($CPF){
     $CPF = DesformatarCPF($CPF);
@@ -76,6 +77,19 @@ function DesformatarTelefone($Telefone){
 function ValidarEmail(){
     //TODO: Verificar se o email inserido no campo 'Email' é valido enviando um email de verificação
     return true;
+}
+
+// Retorna a URL onde está armazenada a foto do cliente
+function ClienteFotoCaminho($ClienteNome, $ClienteFoto_ID){
+    return "../uploads/cliente/".$ClienteNome."/foto_perfil/".BDRecuperarFoto($ClienteFoto_ID);
+}
+// Retorna a URL onde está armazenada a foto do vendedor
+function VendedorFotoCaminho($VendedorNome, $VendedorFoto_ID){
+    return "../uploads/vendedor/".$VendedorNome."/foto_perfil/".BDRecuperarFoto($VendedorFoto_ID);
+}
+// Retorna a URL onde está armazenada a foto do vendedor
+function ProdutoFotoCaminho($VendedorNome, $ProdutoNome, $ProdutoFoto_ID){
+    return "../uploads/produto/".$VendedorNome."/".$ProdutoNome."/".BDRecuperarFoto($ProdutoFoto_ID);
 }
 
 // Cria uma alert box com javascript

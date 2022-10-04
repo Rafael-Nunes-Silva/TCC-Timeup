@@ -15,7 +15,7 @@
     require_once("../BDConector.php");
     require_once("../Utilidades.php");
     session_start();
-        
+    
     function AllVarsSet(){
         $res = true;
         $errMsg = "Erro no preenchimento do formulário de cadastro\\n";
@@ -48,7 +48,7 @@
     }
 
     function Cadastrar(){
-        $fotoID = BDRegistrarFoto(basename($_FILES["foto"]["name"]), $_FILES["foto"]["tmp_name"], "../uploads/produto/".$_SESSION["dadosVendedor"]->Nome."/".$_POST["nome"]);
+        $fotoID = BDRegistrarFoto(basename($_FILES["foto"]["name"]), $_FILES["foto"]["tmp_name"], "../uploads/produto/".$_SESSION["dadosVendedor"]->Nome."/".$_POST["nome"]."/");
         if($fotoID == 0){
             JSAlert("Erro ao inserir foto no banco de dados");
             return;
