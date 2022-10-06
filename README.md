@@ -78,6 +78,7 @@
 | Nome           | VARCHAR       | 50          | NOT NULL     | N/A            | Nome de identificação do orçamento, definido pelo usuário             |
 | Cliente_ID     | INT           | Default     | NOT NULL     | N/A            | Número de identificação do cliente gerador do orçamento               |
 | Produto_ID     | INT           | Default     | NOT NULL     | N/A            | Número de identificação do produto escolhido para o orçamento         |
+| Quantidade     | INT           | Default     | NOT NULL     | N/A            | Quantidade do produto escolhido para o orçamento                      |
 | Data_Orcamento | DATE          | 50          | NOT NULL     | N/A            | Data em que o orçamento foi gerado                                    |
 
 </details>
