@@ -49,7 +49,7 @@
                     <label for="senha">Senha Atual</label>
                     <input type="password" name="senha" placeholder="Senha">
                 </div>
-                <button type="submit" class="btn-delcadastro" name="delcadastro">Deletar</button>
+                <button type="submit" class="btn-cadastro" name="delcadastro">Deletar</button>
             </form>
         </div>
     </div>

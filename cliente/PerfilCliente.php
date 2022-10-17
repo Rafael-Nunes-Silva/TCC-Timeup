@@ -66,6 +66,7 @@
     -->
     <nav>
         <a href='../Produtos.php'>Produtos</a>
+        <a href='../Orcamentos/ListaOrcamentos.php'>Orçamentos</a>
         <a href="AttCadastroCliente.php">Atualizar Cadastro</a>
         <a href="AttSenhaCliente.php">Mudar Senha</a>
         <a href="DelCadastroCliente.php">Deletar Cadastro</a>

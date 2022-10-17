@@ -109,7 +109,7 @@
                     <label for="senha">Senha Atual</label>
                     <input type="password" name="senha" placeholder="Senha">
                 </div>
-                <button type="submit" class="btn-attcadastro" name="attcadastro">Atualizar</button>
+                <button type="submit" class="btn-cadastro" name="attcadastro">Atualizar</button>
             </form>
         </div>
     </div>

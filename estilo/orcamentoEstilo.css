@@ -93,33 +93,25 @@ nav > a:hover{
 }
 
 .produto{
-    display: inline-block;
-    
     background-color: white;
+}
+.produto_campo{
+    display: inline-block;
+    margin: 2px 5px;
     
-    text-align: center;
-    border-radius: 5px;
+    color: black;
+}
+.produto_label{
+    display: inline-block;
+    margin: 2px 0px 2px 5px;
     
-    margin: 2px;
+    color: black;
+}
+.produto_number{
+    display: inline-block;
+    margin: 2px 5px 2px 0px;
     
-    max-width: 210px;
-}
-.produto>img{
-    margin: 5px 5px 5px 5px;
-}
-.produto>p{
-    margin: 2px 0px;
-}
-.produto_nome{
-    font-size: 15px;
-}
-.produto_valor{
-    font-size: 15px;
-}
-.produto_vendedor{
-    font-size: 11px;
-}
-
-.botaoPerfil{
-    border-radius: 25px;
+    color: black;
+    
+    width: 30px;
 }

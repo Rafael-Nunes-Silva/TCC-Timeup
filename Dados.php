@@ -61,14 +61,18 @@ class ObjProduto{
 }
 abstract class DadosOrcamento{
     const ID = "ID";
+    const Nome = "Nome";
     const Cliente_ID = "Cliente_ID";
     const Produtos_IDs = "Produtos_IDs";
-    const Data = "Data";
+    const Quantidades = "Quantidades";
+    const Data_Orcamento = "Data_Orcamento";
 }
 class ObjOrcamento{
     public $ID;
+    public $Nome;
     public $Cliente_ID;
-    public $Produtos_IDs;
-    public $Data;
+    public $Produtos_IDs; // array
+    public $Quantidades; // array
+    public $Data_Orcamento;
 }
 ?>

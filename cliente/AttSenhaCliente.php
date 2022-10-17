@@ -91,7 +91,7 @@
                     <label for="senha-nova-confirma">Repita a senha nova</label>
                     <input type="password" name="senha-nova-confirma" placeholder="Repita a senha nova">
                 </div>
-                <button type="submit" class="btn-attsenha" name="attsenha">Alterar</button>
+                <button type="submit" class="btn-cadastro" name="attsenha">Alterar</button>
             </form>
         </div>
     </div>

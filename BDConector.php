@@ -232,6 +232,7 @@ function BDDeletarProduto($ID){
     BDDisconnect($connection);
     return $queryRes;
 }
+// Retorna um array de produtos
 function BDListarProdutos(){
     $connection = BDConnect();
     $queryRes = $connection->query("SELECT * FROM Produto");
@@ -249,6 +250,77 @@ function BDListarProdutos(){
         $list[$i]->Vendedor_ID = $produto["Vendedor_ID"];
         $i++;
     }
+    return $list;
+}
+
+
+// Registra um orçamento no banco de dados
+function BDRegistrarOrcamento($dadosOrcamento){
+    $connection = BDConnect();
+    
+    $err = false;
+    $errMSG  = "Erro ao inserir orçamento no banco de dados\\nNome: ".$dadosOrcamento->Nome."\\n";
+    for($i=0; $i<count($dadosOrcamento->Produtos_IDs); $i++){
+        $queryRes = $connection->query("INSERT INTO Orcamento (Nome, Cliente_ID, Produto_ID, Quantidade, Data_Orcamento) VALUES ('$dadosOrcamento->Nome', '$dadosOrcamento->Cliente_ID', '".$dadosOrcamento->Produtos_IDs[$i]."', '".$dadosOrcamento->Quantidades[$i]."', '$dadosOrcamento->Data_Orcamento')");
+        if(!$queryRes){
+            $err = true;
+            $errMSG .= "Produto ID: ".$dadosOrcamento->Produtos_IDs[$i]."\\n";
+        }
+    }
+    if($err) JSAlert($errMSG);
+    
+    BDDisconnect($connection);
+    
+    return !$err;
+}
+// Recupera dados de um orçamento baseado na data dada
+function BDRecuperarOrcamento($nome, $clienteID){
+    $connection = BDConnect();
+    $queryRes = $connection->query("SELECT * FROM Orcamento WHERE Cliente_ID = '$clienteID' AND Nome = '$nome'");
+    BDDisconnect($connection);
+    
+    $dadosOrcamento = new ObjOrcamento();
+    $dadosOrcamento->Produtos_IDs = array();
+    $dadosOrcamento->Quantidades = array();
+    
+    $i = 0;
+    while($orcamento = $queryRes->fetch_assoc()){
+        if($i == 0){
+            $dadosOrcamento->Nome = $orcamento["Nome"];
+            $dadosOrcamento->Cliente_ID = $orcamento["Cliente_ID"];
+            $dadosOrcamento->Data_Orcamento = $orcamento["Data_Orcamento"];
+        }
+        
+        array_push($dadosOrcamento->Produtos_IDs, $orcamento["Produto_ID"]);
+        array_push($dadosOrcamento->Quantidades, $orcamento["Quantidade"]);
+        $i++;
+    }
+    return $dadosOrcamento;
+}
+// Retorna uma lista de orçamentos
+function BDListarOrcamentos($clienteID){
+    $connection = BDConnect();
+    $queryRes = $connection->query("SELECT * FROM Orcamento WHERE Cliente_ID = '$clienteID'");
+    BDDisconnect($connection);
+    
+    $list = array();
+    $dadosOrcamento = new ObjOrcamento();
+    while($orcamento = $queryRes->fetch_assoc()){
+        if($dadosOrcamento->Nome != $orcamento["Nome"]){
+            if($dadosOrcamento->Nome)
+                array_push($list, clone $dadosOrcamento);
+            
+            $dadosOrcamento->Nome = $orcamento["Nome"];
+            $dadosOrcamento->Data_Orcamento = $orcamento["Data_Orcamento"];
+            $dadosOrcamento->Produtos_IDs = array();
+            $dadosOrcamento->Quantidades = array();
+        }
+        
+        array_push($dadosOrcamento->Produtos_IDs, $orcamento["Produto_ID"]);
+        array_push($dadosOrcamento->Quantidades, $orcamento["Quantidade"]);
+    }
+    array_push($list, clone $dadosOrcamento);
+    
     return $list;
 }
 

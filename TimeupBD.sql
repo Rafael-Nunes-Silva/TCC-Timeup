@@ -45,9 +45,11 @@ CREATE TABLE Produto (
 
 CREATE TABLE Orcamento (
     ID INT NOT NULL auto_increment,
+    Nome VARCHAR (50) NOT NULL,
     Cliente_ID INT NOT NULL,
     Produto_ID INT NOT NULL,
-    Data_Orcamento DATE,
+    Quantidade INT NOT NULL,
+    Data_Orcamento DATE NOT NULL,
     PRIMARY KEY (ID),
     FOREIGN KEY (Cliente_ID) REFERENCES Cliente (ID),
     FOREIGN KEY (Produto_ID) REFERENCES Produto (ID)
