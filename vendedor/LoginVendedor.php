@@ -46,30 +46,32 @@
         exit();
     }
     ?>
-    
-    <nav>
-        <a href="../index.php" class="time">Timeup</a>
-    </nav>
-    <div class="painel-login">
-        <div class="esquerda-login">
-            <h1>Faça login<br>E entre para o nosso site</h1>
-            <img src="../estilo/ecommerce-campaign-animate.svg" class="esquerda-login-image" alt="logo">
+    <header>
+        <a class="Title" href="../index.php">TimeUp</a>
+    </header>
+    <form class="loginForm" method="post">
+        <h1 style="color: white;">LOGIN</h1>
+        <div class="textfield">
+            <label for="cnpj">CNPJ</label><br>
+            <input type="text" name="cnpj" maxlength="18" placeholder="11.222.333/4444-55" oninput="MascaraCNPJ(this)">
         </div>
-        <div class="direita-login">
-            <form class="card-login" method="post">
-                <h1>LOGIN</h1>
-                <div class="textfield">
-                    <label for="cnpj">CNPJ</label>
-                    <input type="text" name="cnpj" maxlength="18" placeholder="11.222.333/4444-55" oninput="MascaraCNPJ(this)">
-                </div>
-                <div class="textfield">
-                    <label for="senha">Senha</label>
-                    <input type="password" name="senha" placeholder="">
-                </div>
-                <button class="btn-login">Login</button>
-                <p>Caso não tenha, <a href="CadastroVendedor.php">clique aqui</a></p>
-            </form>
+        <div class="textfield">
+            <label for="senha">Senha</label><br>
+            <input type="password" name="senha" placeholder="">
         </div>
-    </div>
+        <button class="Button">Login</button>
+        <p>Caso não tenha, <a href="CadastroVendedor.php">clique aqui</a></p>
+    </form>
+    <footer>
+        <div>
+            <label for="devs">Desenvolvedores</label>
+            <ul name="devs">
+                <li><a href="https://github.com/Rafael-Nunes-Silva">Rafael Nunes de Farias Silva</a></li>
+                <li><a href="https://github.com/Lincolnlau12">Lincoln Emanuel Rangel dos Santos</a></li>
+                <li><a href="https://github.com/Rodrianjos">Rodrigo Ezequiel Silva dos Anjos</a></li>
+                <li><a href="https://github.com/mauricio-goulart">Mauricio Azevedo Goulart</a></li>
+            </ul>
+        </div>
+    </footer>
 </body>
 </html>

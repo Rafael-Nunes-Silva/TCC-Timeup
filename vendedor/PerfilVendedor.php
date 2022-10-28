@@ -18,15 +18,30 @@
     $dadosVendedor = $_SESSION["dadosVendedor"];
     if($dadosVendedor){
         echo("
-            <nav>
-                <a href='../index.php' class='time'>Timeup</a>
-            </nav>
-            <div class='label'>
+            <header>
+                <a class='Title' href='../index.php'>TimeUp</a>
+            </header>
+            <div class='perfPanel'>
                 <img src='../uploads/vendedor/".$dadosVendedor->Nome."/foto_perfil/".BDRecuperarFoto($dadosVendedor->Foto_ID)."' id='foto' height='300px' width='300px'>
-                <h2 id='nome'>Nome: $dadosVendedor->Nome</h2>
-                <h2 id='email'>Email: $dadosVendedor->Email</h2>
-                <h2 id='rua'>Rua: $dadosVendedor->Rua</h2>
-                <h2 id='numero'>Número: $dadosVendedor->Numero</h2>
+                <br>
+                <nav>
+                    <a class='Button' href='CadastroProduto.php'>Cadastrar Produto</a>
+                    <a class='Button' href='AttCadastroVendedor.php'>Atualizar Cadastro</a>
+                    <a class='Button' href='AttSenhaVendedor.php'>Mudar Senha</a>
+                    <a class='Button' href='DelCadastroVendedor.php'>Deletar Cadastro</a>
+                </nav>
+                <form method='post'>
+                    <button type='submit' class='Button' name='sair'>Sair</button>
+                </form>
+                <br>
+                <label for='nome'>Nome</label><br>
+                <h2 name='nome'>$dadosVendedor->Nome</h2>
+                <label for='nome'>Email</label><br>
+                <h2 name='email'>$dadosVendedor->Email</h2>
+                <label for='nome'>Rua</label><br>
+                <h2 name='rua'>$dadosVendedor->Rua</h2>
+                <label for='nome'>Número</label><br>
+                <h2 name='numero'>$dadosVendedor->Numero</h2>
             </div>
         ");
     }
@@ -38,19 +53,16 @@
         exit();
     }
     ?>
-    
-    <nav>
-        <a href="../index.php" class="time">Timeup</a>
-    </nav>
-
-    <nav>
-        <a href="AttCadastroVendedor.php">Atualizar Cadastro</a>
-        <a href="AttSenhaVendedor.php">Mudar Senha</a>
-        <a href="DelCadastroVendedor.php">Deletar Cadastro</a>
-        <a href="CadastroProduto.php">Cadastrar Produto</a>
-    </nav>
-    <form method="post">
-        <button type="submit" class="btn-sair" name="sair">Sair</button>
-    </form>
+    <footer>
+        <div>
+            <label for="devs">Desenvolvedores</label>
+            <ul name="devs">
+                <li><a href="https://github.com/Rafael-Nunes-Silva">Rafael Nunes de Farias Silva</a></li>
+                <li><a href="https://github.com/Lincolnlau12">Lincoln Emanuel Rangel dos Santos</a></li>
+                <li><a href="https://github.com/Rodrianjos">Rodrigo Ezequiel Silva dos Anjos</a></li>
+                <li><a href="https://github.com/mauricio-goulart">Mauricio Azevedo Goulart</a></li>
+            </ul>
+        </div>
+    </footer>
 </body>
 </html>

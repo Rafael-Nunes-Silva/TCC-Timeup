@@ -75,4 +75,22 @@ class ObjOrcamento{
     public $Quantidades; // array
     public $Data_Orcamento;
 }
+abstract class DadosFiltro{
+    const Nome = "Nome";
+    const Categoria = "Categoria";
+    const OrdemValor = "OrdemValor";
+    const MinVal = "MinVal";
+    const MaxVal = "MaxVal";
+    const QtdPage = "QtdPage";
+    const Page = "Page";
+}
+class ObjFiltro{
+    public $Nome;
+    public $Categoria;
+    public $OrdemValor;
+    public $MinVal;
+    public $MaxVal;
+    public $QtdPage;
+    public $Page;
+}
 ?>

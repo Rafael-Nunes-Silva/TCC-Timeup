@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../estilo/produtosEstilo.css">
+    <link rel="stylesheet" href="../estilo/orcamentosListaEstilo.css">
     <link rel="shortcut icon" href="icones/oie_7TZtpCUaslPH.jpg" type="image/x-icon">
     <title>Timeup</title>
 </head>
@@ -17,32 +17,27 @@
     $listaOrcamentos = null;
 
     if(isset($_SESSION["dadosCliente"]) && strlen($_SESSION["dadosCliente"]->CPF) == 14){
-        echo("<a href='../index.php' class='time'>Timeup</a>
-            <nav>
-                <a href='#'>Inicio</a>
-                <a href='#'>Menu</a>
-                <a href='#'>Contato</a>
-                <form action='../cliente/PerfilCliente.php'>
-                    <input class='botaoPerfil' width='50px' height='50px' type='image' src='".ClienteFotoCaminho($_SESSION["dadosCliente"]->Nome, $_SESSION["dadosCliente"]->Foto_ID)."'></input>
-                </form>
-            </nav>
-            <main>");
+        echo("<header>
+                <a class='Title' href='../index.php'>TimeUp</a>
+                <a class='ImageButton' href='../cliente/PerfilCliente.php'><img src='".ClienteFotoCaminho($_SESSION["dadosCliente"]->Nome, $_SESSION["dadosCliente"]->Foto_ID)."'></a>
+            </header>
+            <div class='orcsPanel'>");
         $listaOrcamentos = BDListarOrcamentos($_SESSION["dadosCliente"]->ID);
         for($i = 0; $i < count($listaOrcamentos); $i++){
             $total = 0;
             for($j = 0; $j < count($listaOrcamentos[$i]->Produtos_IDs); $j++){
                 $total += BDRecuperarProduto($listaOrcamentos[$i]->Produtos_IDs[$j])->Valor * $listaOrcamentos[$i]->Quantidades[$j];
             }
-            echo("<div>
-                    <p>".$listaOrcamentos[$i]->Nome."<p>
+            echo("<div class='orc'>
+                    <p style='font-weight: bold;'>".$listaOrcamentos[$i]->Nome."<p>
                     <p>Total: ".$total."</p>
                     <form method='post'>
                         <input type='hidden' name='idOrcamento' value='".$i."'/>
-                        <button type='submit' name='abrir'>Abrir</button>
+                        <button type='submit' name='abrir' class='Button'>Abrir</button>
                     </form>
                 </div>");
         }
-        echo("</main>");
+        echo("</div>");
     }
     
     if(isset($_POST["abrir"])){
@@ -52,22 +47,16 @@
         exit();
     }
     ?>
-    <!--
-    <header>
-        <a href="../index.php" class="time">Timeup</a>
-
-        <nav>
-            <a href="#">Inicio</a>
-            <a href="#">Menu</a>
-            <a href="#">Contato</a>
-        </nav>
-    </header>
-    <main>
+    <footer>
         <div>
-            <p>Total: R$ 0,00</p>
-            <p>Nome: Teste</p>
+            <label for="devs">Desenvolvedores</label>
+            <ul name="devs">
+                <li><a href="https://github.com/Rafael-Nunes-Silva">Rafael Nunes de Farias Silva</a></li>
+                <li><a href="https://github.com/Lincolnlau12">Lincoln Emanuel Rangel dos Santos</a></li>
+                <li><a href="https://github.com/Rodrianjos">Rodrigo Ezequiel Silva dos Anjos</a></li>
+                <li><a href="https://github.com/mauricio-goulart">Mauricio Azevedo Goulart</a></li>
+            </ul>
         </div>
-    </main>
-    -->
+    </footer>
 </body>
 </html>

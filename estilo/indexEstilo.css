@@ -1,141 +1,21 @@
-@charset "utf-8";
+@import url("main.css");
 
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&family=Oswald:wght@200&display=swap');
-
-@font-face {
-    font-family:  'titulo';
-    src: url(../fonte/Oswald/Oswald-VariableFont_wght.ttf);
-}
-
-:root{
-    --cor1: #D2D8D9;
-    --cor2: #B7C8D5;
-    --cor3: #95B3BF;
-    --cor4: #4D7A8C; 
-    --cor5: #065688;
-    --cor6: #000000;
+.logoPanel > h1{
+    margin: 20px 0px 0px 50px;
     
-    --cor7: #5D77B3;
-    --cor8: #B8CDFF;
-    --cor9: #9EBBFF;
-    --cor10: #B3944B;
-    --cor11: #FFE29E;
-
-    --cor12: #864ad9b6;
-    --cor13: #190740ef;
-    --cor14: #0F0426;
-    --cor15: #250C59;
-    --cor16: #3C268C;
-
-    --cor17: #201b2c;
-    --cor18: #77ffc0;
-    --cor19: #2f2841;
-    --cor20: #00ff88;
-    --cor21: #2b134b;
-}
-
-body{
-    background-color: #0f0426fc;
-    font-family: 'Noto Sans';
-    padding: 0px;
-    margin: 0px;
-}
-
-header{
-    background-color: var(--cor14);
-    text-align: center;
-    padding: 18px;
-    display: -webkit-flex;
-    border-radius: 3px;
-    
-    
-}
-
-header > h1{
-    text-align: left;
-    color: var(--cor18);
-    font-family: 'Noto Sans';
-    font-weight: bold;
-    margin: 4px;
-    margin-left: 13px;
-}
-
-header > h1:hover{
-    border-radius: 4px;
-    background-color: var(--cor13);
-
-}
-
-
-header > p{
-    font-weight: 550;
-    text-align: left;
-    color: var(--cor18);
-    font-family: 'Noto Sans';
-    margin: 10px;
-
-}
-
-nav {
-    margin-right: 0px;
-    margin-left: auto;
-    padding-top: 19px;
-    padding-bottom: 0px;
-    padding-right: 85px;
-}
-
-nav > a {
-    color: var(--cor18);
-    text-decoration: none;
-    padding-right: 13px;
-    padding-left: 13px;
-    padding-top: 6px;
-    padding-bottom: 6px;
-    border-radius: 10px;
-    font-weight: bold;
-
-}
-
-nav > a:hover{
-    background-color: var(--cor13);
-    color: #77ffc0;
-}
-
-.section{
     color: white;
-    font-family: 'Noto Sans';
+    text-shadow: 1px 1px #707070;
+    
+    font-size: 40px;
 }
 
-.section > h1{
-    font-weight: bolder;
-    font-size: 50px;
-    margin: 40px;
-    margin-left: 80px;
+.logoPanel > img{
+    margin: -75px auto -100px 75px;
 }
 
-.section > p{
-    font-weight: 200;
-    margin-left: 80px;
-    margin-top: -20px;
-
-}
-
-.btn-attcadastro{
-    width: 20%;
-    padding: 16px 0px;
-    margin: 25px;
-    border: none;
-    border-radius: 8px;
-    text-transform: uppercase;
-    font-weight: 800;
-    letter-spacing: 3px;
-    color: #2b134b;
-    background: #00ff88;
-    cursor: pointer;
-    box-shadow: 0px 10px 40px -12px #00ff8052;
-    margin-left: 150px;
-}
-
-.botaoPerfil{
-    border-radius: 25px;
+.logoPanel > p{
+    color: white;
+    
+    margin: 10px 0px 0px 50px;
+    font-size: 18px;
 }

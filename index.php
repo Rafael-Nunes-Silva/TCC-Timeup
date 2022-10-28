@@ -16,57 +16,46 @@
     
     if(isset($_SESSION["dadosCliente"]) && strlen($_SESSION["dadosCliente"]->CPF) == 14){
         echo("<header>
-                <h1>Timeup</h1>
+                <h1 class='Title'>TimeUp</h1>
                 <nav>
-                    <a href='Produtos.php'>Produtos</a>
-                    <form action='cliente/PerfilCliente.php'>
-                        <input class='botaoPerfil' width='50px' height='50px' type='image' src='".ClienteFotoCaminho($_SESSION["dadosCliente"]->Nome, $_SESSION["dadosCliente"]->Foto_ID)."'></input>
-                    </form>
+                    <a class='Button' href='Produtos.php'>Produtos</a>
+                    <a class='ImageButton' href='cliente/PerfilCliente.php'><img src='".ClienteFotoCaminho($_SESSION["dadosCliente"]->Nome, $_SESSION["dadosCliente"]->Foto_ID)."'></a>
                 </nav>
             </header>");
     }
     else if(isset($_SESSION["dadosVendedor"]) && strlen($_SESSION["dadosVendedor"]->CNPJ) == 18){
         echo("<header>
-                <h1>Timeup</h1>
-                <nav>
-                    <form action='cliente/PerfilCliente.php'>
-                        <input class='botaoPerfil' width='50px' height='50px' type='image' src='".VendedorFotoCaminho($_SESSION["dadosVendedor"]->Nome, $_SESSION["dadosVendedor"]->Foto_ID)."'></input>
-                    </form>
-                </nav>
+                <h1 class='Title'>TimeUp</h1>
+                <a class='ImageButton' href='vendedor/PerfilVendedor.php'><img src='".VendedorFotoCaminho($_SESSION["dadosVendedor"]->Nome, $_SESSION["dadosVendedor"]->Foto_ID)."'></a>
             </header>");
     }
     else{
         echo("<header>
-                <h1>Timeup</h1>
+                <h1 class='Title'>TimeUp</h1>
                 <nav>
-                    <a href='cliente/LoginCliente.php'>Login Cliente</a>
-                    <a href='cliente/CadastroCliente.php'>Cadastro Cliente</a>
-                    <a href='vendedor/LoginVendedor.php'>Login Vendedor</a>
-                    <a href='vendedor/CadastroVendedor.php'>Cadastro Vendedor</a>
+                    <a class='Button' href='cliente/LoginCliente.php'>Login Cliente</a>
+                    <a class='Button' href='cliente/CadastroCliente.php'>Cadastro Cliente</a>
+                    <a class='Button' href='vendedor/LoginVendedor.php'>Login Vendedor</a>
+                    <a class='Button' href='vendedor/CadastroVendedor.php'>Cadastro Vendedor</a>
                 </nav>
             </header>");
     }
     ?>
-    <!--
-    <header>
-        <h1>Timeup</h1>
-        <nav>
-            <a href="Produtos.php">Produtos</a>
-            <a href="cliente/LoginCliente.php">Login Cliente</a>
-            <a href="cliente/CadastroCliente.php">Cadastro Cliente</a>
-            <a href="vendedor/LoginVendedor.php">Login Vendedor</a>
-            <a href="vendedor/CadastroVendedor.php">Cadastro Vendedor</a>
-        </nav>
-    </header>
-    -->
-    <main>
-        <div class="section">
-            <h1>Timeup 100% Digital<br>economize o seu tempo</h1>
-            <p>Com o Timeup Online você se torna realizador.<br>faça seu orçamento no seu ritmo e de onde estiver.</p>
-
-            <button class="btn-attcadastro">Comece Agora</button>
-
+    <div class="logoPanel">
+        <h1>Timeup 100% Digital<br>economize o seu tempo aqui</h1>
+        <img src="../estilo/Logo.png">
+        <p>Com o Timeup Online você faz orçamentos de forma fácil e rápida.<br>Faça seu orçamento no seu ritmo e de onde estiver.</p>
+    </div>
+    <footer>
+        <div>
+            <label for="devs">Desenvolvedores</label>
+            <ul name="devs">
+                <li><a href="https://github.com/Rafael-Nunes-Silva">Rafael Nunes de Farias Silva</a></li>
+                <li><a href="https://github.com/Lincolnlau12">Lincoln Emanuel Rangel dos Santos</a></li>
+                <li><a href="https://github.com/Rodrianjos">Rodrigo Ezequiel Silva dos Anjos</a></li>
+                <li><a href="https://github.com/mauricio-goulart">Mauricio Azevedo Goulart</a></li>
+            </ul>
         </div>
-    </main>
+    </footer>
 </body>
 </html>

@@ -39,19 +39,28 @@
         exit();
     }
     ?>
-
-    <div class="painel-cadastro">
-        <div class="cadastro">
-            <form class="card-cadastro" method="post">
-                <a href="PerfilCliente.php">Deletar Cadastro</a>
-                <p>Tem certeza que deseja deletar seu cadastro?</p>
-                <div class="textfield">
-                    <label for="senha">Senha Atual</label>
-                    <input type="password" name="senha" placeholder="Senha">
-                </div>
-                <button type="submit" class="btn-cadastro" name="delcadastro">Deletar</button>
-            </form>
+    <header>
+        <a class="Title" href="../index.php">TimeUp</a>
+    </header>
+    <form class="cadForm" method="post">
+        <h1 style="color: white;" href="PerfilVendedor.php">Deletar Cadastro</h1>
+        <p>Tem certeza que deseja deletar seu cadastro?</p>
+        <div class="textfield">
+            <label for="senha">Senha Atual</label>
+            <input type="password" name="senha" placeholder="Senha">
         </div>
-    </div>
+        <button style="background-color: red;" type="submit" class="Button" name="delcadastro">Deletar</button>
+    </form>
+    <footer>
+        <div>
+            <label for="devs">Desenvolvedores</label>
+            <ul name="devs">
+                <li><a href="https://github.com/Rafael-Nunes-Silva">Rafael Nunes de Farias Silva</a></li>
+                <li><a href="https://github.com/Lincolnlau12">Lincoln Emanuel Rangel dos Santos</a></li>
+                <li><a href="https://github.com/Rodrianjos">Rodrigo Ezequiel Silva dos Anjos</a></li>
+                <li><a href="https://github.com/mauricio-goulart">Mauricio Azevedo Goulart</a></li>
+            </ul>
+        </div>
+    </footer>
 </body>
 </html>

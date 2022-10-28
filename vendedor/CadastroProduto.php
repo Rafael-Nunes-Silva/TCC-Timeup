@@ -69,38 +69,46 @@
         exit();
     }
     ?>
-
-    <nav>
-        <a href="../index.php" class="time">Timeup</a>
-    </nav>
-    <div class="painel-cadastro">
-        <div class="cadastro">
-            <form class="card-cadastro" method="post" enctype="multipart/form-data">
-                <h1>Cadastro</h1>
-                <div class="textfield">
-                    <label for="foto">Foto</label>
-                    <input type="file" name="foto" accept="image/jpeg">
-                </div>
-                <div class="textfield">
-                    <label for="nome">Nome</label>
-                    <input type="text" name="nome" maxlength="50" value="<?php echo(isset($_SESSION["dadosProduto"]) ? $_SESSION["dadosProduto"]->Nome : '')?>" placeholder="Nome">
-                </div>
-                <div class="textfield">
-                    <label for="valor">Valor</label>
-                    <input type="number" name="valor" value="<?php echo(isset($_SESSION["dadosProduto"]) ? $_SESSION["dadosProduto"]->Valor : '')?>" placeholder="R$ 0,00">
-                </div>
-                <div class="textfield">
-                    <label for="categoria">Categoria</label>
-                    <select name="categoria">
-                        <option value="metais">Metais</option>
-                        <option value="ceramicos">Cerâmicos</option>
-                        <option value="polimeros">Polímeros</option>
-                        <option value="compositos">Compósitos</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn-cadastro" name="cadastrar">cadastro</button>
-            </form>
+    <header>
+        <a class="Title" href="PerfilVendedor.php">TimeUp</a>
+    </header>
+    <form class="cadForm" method="post" enctype="multipart/form-data">
+        <h1 style="color: white;">Cadastro</h1>
+        <div class="textfield">
+            <label for="foto">Foto</label><br>
+            <input type="file" name="foto" accept="image/jpeg">
         </div>
-    </div>
+        <div class="textfield">
+            <label for="nome">Nome</label><br>
+            <input type="text" name="nome" maxlength="50" value="<?php echo(isset($_SESSION["dadosProduto"]) ? $_SESSION["dadosProduto"]->Nome : '')?>" placeholder="Nome">
+        </div>
+        <div class="textfield">
+            <label for="valor">Valor</label><br>
+            <input type="number" name="valor" value="<?php echo(isset($_SESSION["dadosProduto"]) ? $_SESSION["dadosProduto"]->Valor : '')?>" placeholder="R$ 0,00">
+        </div>
+        <div class="textfield">
+            <label for="categoria">Categoria</label><br>
+            <select name="categoria">
+                <option value="metais">Metais</option>
+                <option value="ceramicos">Cerâmicos</option>
+                <option value="polimeros">Polímeros</option>
+                <option value="compositos">Compósitos</option>
+                <option value="pedras">Pedras</option>
+                <option value="tintas">Tintas</option>
+            </select>
+        </div>
+        <button type="submit" class="Button" name="cadastrar">cadastro</button>
+    </form>
+    <footer>
+        <div>
+            <label for="devs">Desenvolvedores</label>
+            <ul name="devs">
+                <li><a href="https://github.com/Rafael-Nunes-Silva">Rafael Nunes de Farias Silva</a></li>
+                <li><a href="https://github.com/Lincolnlau12">Lincoln Emanuel Rangel dos Santos</a></li>
+                <li><a href="https://github.com/Rodrianjos">Rodrigo Ezequiel Silva dos Anjos</a></li>
+                <li><a href="https://github.com/mauricio-goulart">Mauricio Azevedo Goulart</a></li>
+            </ul>
+        </div>
+    </footer>
 </body>
 </html>

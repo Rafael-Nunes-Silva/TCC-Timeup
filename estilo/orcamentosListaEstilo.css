@@ -1,0 +1,32 @@
+@import url("main.css");
+
+body{
+    min-height: 100vh;
+}
+
+.orcsPanel{
+    margin: 15px 0px 0px 0px;
+    
+    text-align: center;
+    
+    min-height: 80vh;
+}
+
+.orc{
+    display: inline-block;
+    
+    margin: 2px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    
+    background-color: var(--roxoFG);
+    color: white;
+    
+    text-align: center;
+    vertical-align: bottom;
+    
+    justify-content: center;
+    
+    max-width: 210px;
+    min-height: 125px;
+}

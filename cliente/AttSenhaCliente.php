@@ -73,27 +73,35 @@
         exit();
     }
     ?>
-
-    <div class="painel-cadastro">
-        <div class="cadastro">
-            <form class="card-cadastro" method="post">
-                <a href="PerfilCliente.php">Trocar de senha</a>
-                <p>Altere a sua senha !</p>
-                <div class="textfield">
-                    <label for="senha-atual">Senha</label>
-                    <input type="password" name="senha-atual" placeholder="Digite a sua senha atual">
-                </div>
-                <div class="textfield">
-                    <label for="senha-nova">Senha nova</label>
-                    <input type="password" name="senha-nova" placeholder="Digite a sua senha nova">
-                </div>
-                <div class="textfield">
-                    <label for="senha-nova-confirma">Repita a senha nova</label>
-                    <input type="password" name="senha-nova-confirma" placeholder="Repita a senha nova">
-                </div>
-                <button type="submit" class="btn-cadastro" name="attsenha">Alterar</button>
-            </form>
+    <header>
+        <a class="Title" href="PerfilCliente.php">TimeUp</a>
+    </header>
+    <form class="cadForm" method="post">
+        <h1 style="color: white;" href="PerfilVendedor.php">Trocar de senha</h1>
+        <div class="textfield">
+            <label for="senha-atual">Senha atual</label><br>
+            <input type="password" name="senha-atual" placeholder="Digite a sua senha atual">
         </div>
-    </div>
+        <div class="textfield">
+            <label for="senha-nova">Senha nova</label><br>
+            <input type="password" name="senha-nova" placeholder="Digite a sua senha nova">
+        </div>
+        <div class="textfield">
+            <label for="senha-nova-confirma">Repita a senha nova</label><br>
+            <input type="password" name="senha-nova-confirma" placeholder="Repita a senha nova">
+        </div>
+        <button type="submit" class="Button" name="attsenha">Alterar</button>
+    </form>
+    <footer>
+        <div>
+            <label for="devs">Desenvolvedores</label>
+            <ul name="devs">
+                <li><a href="https://github.com/Rafael-Nunes-Silva">Rafael Nunes de Farias Silva</a></li>
+                <li><a href="https://github.com/Lincolnlau12">Lincoln Emanuel Rangel dos Santos</a></li>
+                <li><a href="https://github.com/Rodrianjos">Rodrigo Ezequiel Silva dos Anjos</a></li>
+                <li><a href="https://github.com/mauricio-goulart">Mauricio Azevedo Goulart</a></li>
+            </ul>
+        </div>
+    </footer>
 </body>
 </html>

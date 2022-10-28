@@ -19,18 +19,37 @@
     $dadosCliente = $_SESSION["dadosCliente"];
     if($dadosCliente){
         echo("
-            <nav>
-                <a href='../index.php' class='time'>Timeup</a>
-            </nav>
-            <div class='label'>
+            <header>
+                <a class='Title' href='../index.php'>TimeUp</a>
+            </header>
+            <div class='perfPanel'>
                 <img src='".ClienteFotoCaminho($dadosCliente->Nome, $dadosCliente->Foto_ID)."' id='foto' height='300px' width='300px'>
-                <h2 id='nome'>Nome: $dadosCliente->Nome</h2>
-                <h2 id='data'>Data de Nascimento: $dadosCliente->Data_Nascimento</h2>
-                <h2 id='cpf'>CPF: $dadosCliente->CPF</h2>
-                <h2 id='telefone'>Telefone: $dadosCliente->Telefone</h2>
-                <h2 id='email'>Email: $dadosCliente->Email</h2>
-                <h2 id='rua'>Rua: $dadosCliente->Rua</h2>
-                <h2 id='numero'>Número: $dadosCliente->Numero</h2>
+                <br>
+                <nav>
+                    <a class='Button' href='../Produtos.php'>Produtos</a>
+                    <a class='Button' href='../Orcamentos/ListaOrcamentos.php'>Orçamentos</a>
+                    <a class='Button' href='AttCadastroCliente.php'>Atualizar Cadastro</a>
+                    <a class='Button' href='AttSenhaCliente.php'>Mudar Senha</a>
+                    <a class='Button' href='DelCadastroCliente.php'>Deletar Cadastro</a>
+                </nav>
+                <form method='post'>
+                    <button type='submit' class='Button' name='sair'>Sair</button>
+                </form>
+                <br>
+                <label for='nome'>Nome</label><br>
+                <h2 name='nome'>$dadosCliente->Nome</h2>
+                <label for='nome'>Data de Nascimento</label><br>
+                <h2 name='data'>$dadosCliente->Data_Nascimento</h2>
+                <label for='nome'>CPF</label><br>
+                <h2 name='cpf'>$dadosCliente->CPF</h2>
+                <label for='nome'>Telefone</label><br>
+                <h2 name='telefone'>$dadosCliente->Telefone</h2>
+                <label for='nome'>Email</label><br>
+                <h2 name='email'>$dadosCliente->Email</h2>
+                <label for='nome'>Rua</label><br>
+                <h2 name='rua'>$dadosCliente->Rua</h2>
+                <label for='nome'>Número</label><br>
+                <h2 name='numero'>$dadosCliente->Numero</h2>
             </div>
         ");
     }
@@ -48,32 +67,16 @@
         exit();
     }
     ?>
-    <!--
-    <nav>
-        <a href="../index.html" class="time">Timeup</a>
-    </nav>
-    <div class="label">
-        <img src="" alt="" id="foto" height='400px' width='400px'>
-        <h2 id="nome">label</h2>
-        <h2 id="data">label</h2>
-        <h2 id="cpf">label</h2>
-        <h2 id="telefone">label</h2>
-        <h2 id="email">label</h2>
-        <h2 id="rua">label</h2>
-        <h2 id="numero">label</h2>
-    </div>
-    <div class="nav"> 
-    -->
-    <nav>
-        <a href='../Produtos.php'>Produtos</a>
-        <a href='../Orcamentos/ListaOrcamentos.php'>Orçamentos</a>
-        <a href="AttCadastroCliente.php">Atualizar Cadastro</a>
-        <a href="AttSenhaCliente.php">Mudar Senha</a>
-        <a href="DelCadastroCliente.php">Deletar Cadastro</a>
-    </nav>
-    </div>
-    <form method="post">
-        <button type="submit" class="btn-sair" name="sair">Sair</button>
-    </form>
+    <footer>
+        <div>
+            <label for="devs">Desenvolvedores</label>
+            <ul name="devs">
+                <li><a href="https://github.com/Rafael-Nunes-Silva">Rafael Nunes de Farias Silva</a></li>
+                <li><a href="https://github.com/Lincolnlau12">Lincoln Emanuel Rangel dos Santos</a></li>
+                <li><a href="https://github.com/Rodrianjos">Rodrigo Ezequiel Silva dos Anjos</a></li>
+                <li><a href="https://github.com/mauricio-goulart">Mauricio Azevedo Goulart</a></li>
+            </ul>
+        </div>
+    </footer>
 </body>
 </html>

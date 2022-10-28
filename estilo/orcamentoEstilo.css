@@ -1,117 +1,47 @@
-@charset "utf-8";
+@import url("produtosEstilo.css");
 
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&family=Oswald:wght@200&display=swap');
-
-@font-face {
-    font-family:  'titulo';
-    src: url(../fonte/Oswald/Oswald-VariableFont_wght.ttf);
-}
-
-:root{
-    --cor1: #D2D8D9;
-    --cor2: #B7C8D5;
-    --cor3: #95B3BF;
-    --cor4: #4D7A8C; 
-    --cor5: #065688;
-    --cor6: #000000;
-    
-    --cor7: #5D77B3;
-    --cor8: #B8CDFF;
-    --cor9: #9EBBFF;
-    --cor10: #B3944B;
-    --cor11: #FFE29E;
-
-    --cor12: #864ad9b6;
-    --cor13: #190740ef;
-    --cor14: #0F0426;
-    --cor15: #250C59;
-    --cor16: #3C268C;
-
-    --cor17: #201b2c;
-    --cor18: #77ffc0;
-    --cor19: #2f2841;
-    --cor20: #00ff88;
-    --cor21: #2b134b;
-}
-
-body{
-    background-color: #0f0426fc;
-    font-family: 'Noto Sans', sans-serif;
-}
-
-h2{
-    color: white;
-}
-
-.label{
-
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-}
-
-.nav{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.orcamento{
     text-align: center;
 }
 
-label{
+.orcForm{
+    margin: 50px auto;
+    padding: 1px 0px;
+    
+    background-color: var(--roxoFG);
+    
+    border-radius: 25px;
+    
+    box-sizing: content-box;
+    
+    text-align: center;
+    
+    width: 80vw;
+}
+
+.orcForm > label{
     color: white;
 }
 
-header >a{
-    text-decoration: none;
-    color: #77ffc0;
-    padding: 15px;
-    border-radius: 5px;
-    font-weight: bold;
-    font-size: 30px;
+.orcForm > p{
+    color: white;
 }
 
-
-
-nav{
-    font-size: 25px;
-    display: flex;    
-    justify-content: flex-end;
-    padding-bottom: 50px;
-
-}
-
-nav > a{
-    text-decoration: none;
-    color: #77ffc0;
-    padding: 5px;
-    border-radius: 5px;
-    font-weight: bold;
-    padding-right: 15px;
-}
-nav > a:hover{
-    background-color: #2f2841;
+.corcForm > button{
+    font-size: 24px;
+    box-shadow: 0px 0px 75px var(--roxoBtn)
 }
 
 .produto{
-    background-color: white;
+    background-color: var(--roxoBtn);
 }
-.produto_campo{
-    display: inline-block;
-    margin: 2px 5px;
-    
-    color: black;
-}
-.produto_label{
-    display: inline-block;
-    margin: 2px 0px 2px 5px;
-    
-    color: black;
-}
+
 .produto_number{
-    display: inline-block;
-    margin: 2px 5px 2px 0px;
+    width: 40px;
+}
+
+#total{
+    margin: 5px 0px;
     
-    color: black;
-    
-    width: 30px;
+    font-size: 24px;
 }

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="estilo/orcamentoEstilo.css">
+    <link rel="stylesheet" href="../estilo/orcamentoEstilo.css">
     <link rel="shortcut icon" href="icones/oie_7TZtpCUaslPH.jpg" type="image/x-icon">
     <title>Timeup</title>
 </head>
@@ -17,40 +17,31 @@
 
     if(isset($_SESSION["dadosCliente"]) && strlen($_SESSION["dadosCliente"]->CPF) == 14 && isset($_SESSION["dadosOrcamento"])){
         echo("<header>
-                <a href='../index.php' class='time'>Timeup</a>
-                <nav>
-                    <a href='#'>Inicio</a>
-                    <a href='#'>Menu</a>
-                    <a href='#'>Contato</a>
-                    <form action='../cliente/PerfilCliente.php'>
-                        <input class='botaoPerfil' width='50px' height='50px' type='image' src='".ClienteFotoCaminho($_SESSION["dadosCliente"]->Nome, $_SESSION["dadosCliente"]->Foto_ID)."'></input>
-                    </form>
-                </nav>
+                <a class='Title' href='../index.php'>TimeUp</a>
+                <a class='ImageButton' href='../cliente/PerfilCliente.php'><img src='".ClienteFotoCaminho($_SESSION["dadosCliente"]->Nome, $_SESSION["dadosCliente"]->Foto_ID)."'></a>
             </header>
-            <main>
-                <div class='cadastro'>
-                    <form class='card-cadastro' method='post'>
-                        <h1>Orçamento</h1>
-                        <label for='nome'>Nome</label>
-                        <input type='text' name='nome'></input>");
+            <form class='orcForm' method='post'>
+                <h1 style='color: white;'>Orçamento</h1>
+                <label style='font-size: 24px' for='nome'>Nome</label><br>
+                <input style='width: 250px; height: 20px;' type='text' name='nome'></input><br><br>");
             
         for($i=0; $i<count($_SESSION["dadosOrcamento"]->Produtos_IDs); $i++){
             $produto = BDRecuperarProduto($_SESSION["dadosOrcamento"]->Produtos_IDs[$i]);
+            $dadosVendedor = BDRecuperarVendedorID($produto->Vendedor_ID);
             echo("<div class='produto'>
+                    <img src='../uploads/produto/".$dadosVendedor->Nome."/".$produto->Nome."/".BDRecuperarFoto($produto->Foto_ID)."' width='200px' height='200px'>
                     <p class='produto_nome'>".$produto->Nome."</p>
                     <p class='produto_valor' value='".$produto->Valor."'>R$ ".$produto->Valor."</p>
-                    <label class='produto_label' for='quantidade'>qtd:</label>
+                    <label class='produto_label' for='quantidade'>Quantidade:</label>
                     <input class='produto_number' type='number' name='quantidade' onchange='attOrcamento()' value='1'></input>
                 </div>");
         }
         
         echo("<p id='total'>Total: R$ 0</p>");
         echo("<input type='hidden' id='totalSalvar' name='totalSalvar' value=''></input>
-                    <input type='hidden' id='qtdList' name='qtdList' value=''/>
-                    <button type='submit' class='btn-salvar' name='salvar-orcamento'>Salvar Orçamendo</button>
-                </form>
-            </div>
-        </main>");
+                <input type='hidden' id='qtdList' name='qtdList' value=''/>
+                <button style='font-size: 24px;' type='submit' class='Button' name='salvar-orcamento'>Salvar Orçamendo</button>
+            </form>");
     }
     else{
         header("Location: Produtos.php");
@@ -70,32 +61,17 @@
         }
     }
     ?>
-    <!--
-    <header>
-        <a href="../index.php" class="time">Timeup</a>
-
-        <nav>
-            <a href="#">Inicio</a>
-            <a href="#">Menu</a>
-            <a href="#">Contato</a>
-        </nav>
-    </header>
-    <main>
-        <div class="cadastro">
-            <form class="card-cadastro" method="post" enctype="multipart/form-data">
-                <h1>Orçamento</h1>
-                <div class="produto">
-                    <p class="produto_nome">Tijolo</p>
-                    <p class="produto_valor">R$ 20</p>
-                    <label class="produto_label" for="quantidade">qtd:</label>
-                    <input class="produto_number" type="number" name="quantidade"></input>
-                </div>
-                <p id='total'>Total: R$ 0</p>
-                <button type="submit" class="btn-salvar" name="salvar-orcamento">Orçamento</button>
-            </form>
+    <footer>
+        <div>
+            <label for="devs">Desenvolvedores</label>
+            <ul name="devs">
+                <li><a href="https://github.com/Rafael-Nunes-Silva">Rafael Nunes de Farias Silva</a></li>
+                <li><a href="https://github.com/Lincolnlau12">Lincoln Emanuel Rangel dos Santos</a></li>
+                <li><a href="https://github.com/Rodrianjos">Rodrigo Ezequiel Silva dos Anjos</a></li>
+                <li><a href="https://github.com/mauricio-goulart">Mauricio Azevedo Goulart</a></li>
+            </ul>
         </div>
-    </main>
-    -->
+    </footer>
     <script>
         var qtdList = [];
         function attOrcamento(){

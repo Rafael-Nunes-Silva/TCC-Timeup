@@ -1,125 +1,100 @@
-@charset "utf-8";
+@import url("main.css");
 
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&family=Oswald:wght@200&display=swap');
-
-@font-face {
-    font-family:  'titulo';
-    src: url(../fonte/Oswald/Oswald-VariableFont_wght.ttf);
-}
-
-:root{
-    --cor1: #D2D8D9;
-    --cor2: #B7C8D5;
-    --cor3: #95B3BF;
-    --cor4: #4D7A8C; 
-    --cor5: #065688;
-    --cor6: #000000;
-    
-    --cor7: #5D77B3;
-    --cor8: #B8CDFF;
-    --cor9: #9EBBFF;
-    --cor10: #B3944B;
-    --cor11: #FFE29E;
-
-    --cor12: #864ad9b6;
-    --cor13: #190740ef;
-    --cor14: #0F0426;
-    --cor15: #250C59;
-    --cor16: #3C268C;
-
-    --cor17: #201b2c;
-    --cor18: #77ffc0;
-    --cor19: #2f2841;
-    --cor20: #00ff88;
-    --cor21: #2b134b;
-}
-
-body{
-    background-color: #0f0426fc;
-    font-family: 'Noto Sans', sans-serif;
-}
-
-h2{
-    color: white;
-}
-
-.label{
-
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-}
-
-.nav{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.orcamento{
     text-align: center;
 }
 
-label{
+.buscaForm{
+    padding: 100px 0px 0px 0px;
+    
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    
+    background-color: var(--roxoFG);
     color: white;
+    
+    text-align: center;
+    
+    width: 210px;
+    height: 100vh;
 }
 
-header >a{
-    text-decoration: none;
-    color: #77ffc0;
-    padding: 15px;
+.buscaForm > select{
+    margin: 0px auto 20px auto;
     border-radius: 5px;
-    font-weight: bold;
-    font-size: 30px;
+    
+    background-color: #515151;
+    color: white;
+    
+    text-align: center;
+    
+    width: 100px;
+    height: 25px;
 }
 
-
-
-nav{
-    font-size: 25px;
-    display: flex;    
-    justify-content: flex-end;
-    padding-bottom: 50px;
-
-}
-
-nav > a{
-    text-decoration: none;
-    color: #77ffc0;
-    padding: 5px;
+.buscaForm > input[type=number]{
+    margin: 0px auto 20px auto;
     border-radius: 5px;
-    font-weight: bold;
-    padding-right: 15px;
+    
+    background-color: #515151;
+    color: white;
+    
+    text-align: center;
+    
+    width: 75px;
+    height: 25px;
 }
-nav > a:hover{
-    background-color: #2f2841;
+
+.produtosPanel{
+    display: inline-block;
+    
+    margin: 15px 0px 0px 210px;
+    
+    text-align: center;
 }
 
 .produto{
     display: inline-block;
     
-    background-color: white;
-    
-    text-align: center;
+    margin: 2px;
     border-radius: 5px;
     
-    margin: 2px;
+    background-color: var(--roxoFG);
+    
+    text-align: center;
+    vertical-align: bottom;
+    
+    justify-content: center;
     
     max-width: 210px;
-}
-.produto>img{
-    margin: 5px 5px 5px 5px;
-}
-.produto>p{
-    margin: 2px 0px;
-}
-.produto_nome{
-    font-size: 15px;
-}
-.produto_valor{
-    font-size: 15px;
-}
-.produto_vendedor{
-    font-size: 11px;
+    min-height: 250px;
 }
 
-.botaoPerfil{
-    border-radius: 25px;
+.produto > label{
+    color: white;
+}
+
+.produto > img{
+    margin: 15px;
+    border-radius: 5px;
+    
+    background-color: var(--roxoFG);
+    
+    width: 50%;
+    height: 50%;
+}
+
+.produto > p{
+    margin: 2px 0px;
+    
+    color: white;
+}
+
+.produto_valor{
+    font-size: 18px;
+}
+
+.produto_vendedor{
+    font-size: 12px;
 }

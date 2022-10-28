@@ -95,44 +95,51 @@
     }
     ?>
 
-    <nav>
-        <a href="../index.php" class="time">Timeup</a>
-    </nav>
-    <div class="painel-cadastro">
-        <div class="cadastro">
-            <form class="card-cadastro" method="post" enctype="multipart/form-data">
-                <h1>Cadastro</h1>
-                <div class="textfield">
-                    <label for="foto">Foto</label>
-                    <input type="file" name="foto" accept="image/jpeg">
-                </div>
-                <div class="textfield">
-                    <label for="nome">Nome</label>
-                    <input type="text" name="nome" maxlength="50" value="<?php echo(isset($_SESSION["dadosVendedor"]) ? $_SESSION["dadosVendedor"]->Nome : '')?>" placeholder="Nome">
-                </div>
-                <div class="textfield">
-                    <label for="cnpj">CNPJ</label>
-                    <input type="text" name="cnpj" maxlength="18" value="<?php echo(isset($_SESSION["dadosVendedor"]) ? $_SESSION["dadosVendedor"]->CNPJ : '')?>" placeholder="11.222.333/4444-55" oninput="MascaraCNPJ(this)">
-                </div>
-                <div class="textfield">
-                    <label for="email">Email</label>
-                    <input type="email" name="email" maxlength="50" value="<?php echo(isset($_SESSION["dadosVendedor"]) ? $_SESSION["dadosVendedor"]->Email : '')?>" placeholder="Email">
-                </div>
-                <div class="textfield">
-                    <label for="senha">Senha</label>
-                    <input type="password" name="senha" maxlength="20" value="<?php echo(isset($_SESSION["dadosVendedor"]) ? $_SESSION["dadosVendedor"]->Senha : '')?>" placeholder="">
-                </div>
-                <div class="textfield">
-                    <label for="rua">Rua</label>
-                    <input type="text" name="rua" maxlength="100" value="<?php echo(isset($_SESSION["dadosVendedor"]) ? $_SESSION["dadosVendedor"]->Rua : '')?>" placeholder="Rua">
-                </div>
-                <div class="textfield">
-                    <label for="numero">Numero</label>
-                    <input type="number" name="numero" value="<?php echo(isset($_SESSION["dadosVendedor"]) ? $_SESSION["dadosVendedor"]->Numero : '')?>" placeholder="">
-                </div>
-                <button type="submit" class="btn-cadastro" name="cadastrar">cadastro</button>
-            </form>
+    <header>
+        <a class="Title" href="../index.php">TimeUp</a>
+    </header>
+    <form class="cadForm" method="post" enctype="multipart/form-data">
+        <h1 style="color: white;">Cadastro</h1>
+        <div class="textfield">
+            <label for="foto">Foto</label><br>
+            <input type="file" name="foto" accept="image/jpeg">
         </div>
-    </div>
+        <div class="textfield">
+            <label for="nome">Nome</label><br>
+            <input type="text" name="nome" maxlength="50" value="<?php echo(isset($_SESSION["dadosVendedor"]) ? $_SESSION["dadosVendedor"]->Nome : '')?>" placeholder="Nome">
+        </div>
+        <div class="textfield">
+            <label for="cnpj">CNPJ</label><br>
+            <input type="text" name="cnpj" maxlength="18" value="<?php echo(isset($_SESSION["dadosVendedor"]) ? $_SESSION["dadosVendedor"]->CNPJ : '')?>" placeholder="11.222.333/4444-55" oninput="MascaraCNPJ(this)">
+        </div>
+        <div class="textfield">
+            <label for="email">Email</label><br>
+            <input type="email" name="email" maxlength="50" value="<?php echo(isset($_SESSION["dadosVendedor"]) ? $_SESSION["dadosVendedor"]->Email : '')?>" placeholder="Email">
+        </div>
+        <div class="textfield">
+            <label for="senha">Senha (minimo 8 caracteres)</label><br>
+            <input type="password" name="senha" maxlength="20" value="<?php echo(isset($_SESSION["dadosVendedor"]) ? $_SESSION["dadosVendedor"]->Senha : '')?>" placeholder="">
+        </div>
+        <div class="textfield">
+            <label for="rua">Rua</label><br>
+            <input type="text" name="rua" maxlength="100" value="<?php echo(isset($_SESSION["dadosVendedor"]) ? $_SESSION["dadosVendedor"]->Rua : '')?>" placeholder="Rua">
+        </div>
+        <div class="textfield">
+            <label for="numero">Numero</label><br>
+            <input type="number" name="numero" value="<?php echo(isset($_SESSION["dadosVendedor"]) ? $_SESSION["dadosVendedor"]->Numero : '')?>" placeholder="">
+        </div>
+        <button type="submit" class="Button" name="cadastrar">cadastro</button>
+    </form>
+    <footer>
+        <div>
+            <label for="devs">Desenvolvedores</label>
+            <ul name="devs">
+                <li><a href="https://github.com/Rafael-Nunes-Silva">Rafael Nunes de Farias Silva</a></li>
+                <li><a href="https://github.com/Lincolnlau12">Lincoln Emanuel Rangel dos Santos</a></li>
+                <li><a href="https://github.com/Rodrianjos">Rodrigo Ezequiel Silva dos Anjos</a></li>
+                <li><a href="https://github.com/mauricio-goulart">Mauricio Azevedo Goulart</a></li>
+            </ul>
+        </div>
+    </footer>
 </body>
 </html>

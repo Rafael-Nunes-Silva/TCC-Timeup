@@ -78,40 +78,48 @@
         exit();
     }
     ?>
-
-    <div class="painel-cadastro">
-        <div class="cadastro">
-            <form class="card-cadastro" method="post" enctype="multipart/form-data">
-                <a href="PerfilCliente.php">Atualizar Dados</a>
-                <p>Atualize seus dados!</p>
-                <div class="textfield">
-                    <label for="foto">Foto</label>
-                    <input type="file" name="foto" accept="image/jpeg">
-                </div>
-                <div class="textfield">
-                    <label for="telefone">Telefone</label>
-                    <input type="text" name="telefone" maxlength="11" value="<?php echo($_SESSION["dadosCliente"]->Telefone)?>" oninput="MascaraTelefone(this)">
-                </div>
-                <div class="textfield">
-                    <label for="email">Email</label>
-                    <input type="email" name="email" maxlength="50" value="<?php echo($_SESSION["dadosCliente"]->Email)?>">
-                </div>
-                <div class="textfield">
-                    <label for="rua">Rua</label>
-                    <input type="text" name="rua" maxlength="30" value="<?php echo($_SESSION["dadosCliente"]->Rua)?>">
-                </div>
-                <div class="textfield">
-                    <label for="numero">Numero</label>
-                    <input type="number" name="numero" value="<?php echo($_SESSION["dadosCliente"]->Numero)?>">
-                </div>
-                <br><br><br>
-                <div class="textfield">
-                    <label for="senha">Senha Atual</label>
-                    <input type="password" name="senha" placeholder="Senha">
-                </div>
-                <button type="submit" class="btn-cadastro" name="attcadastro">Atualizar</button>
-            </form>
+    <header>
+        <a class="Title" href="PerfilCliente.php">TimeUp</a>
+    </header>
+    <form class="cadForm" method="post" enctype="multipart/form-data">
+        <h1 style="color: white;" href="PerfilVendedor.php">Atualizar dados</h1>
+        <div class="textfield">
+            <label for="foto">Foto</label><br>
+            <input type="file" name="foto" accept="image/jpeg">
         </div>
-    </div>
+        <div class="textfield">
+            <label for="telefone">Telefone</label><br>
+            <input type="text" name="telefone" maxlength="11" value="<?php echo($_SESSION["dadosCliente"]->Telefone)?>" oninput="MascaraTelefone(this)">
+        </div>
+        <div class="textfield">
+            <label for="email">Email</label><br>
+            <input type="email" name="email" maxlength="50" value="<?php echo($_SESSION["dadosCliente"]->Email)?>">
+        </div>
+        <div class="textfield">
+            <label for="rua">Rua</label><br>
+            <input type="text" name="rua" maxlength="30" value="<?php echo($_SESSION["dadosCliente"]->Rua)?>">
+        </div>
+        <div class="textfield">
+            <label for="numero">Numero</label><br>
+            <input type="number" name="numero" value="<?php echo($_SESSION["dadosCliente"]->Numero)?>">
+        </div>
+        <br>
+        <div class="textfield">
+            <label for="senha">Senha Atual</label><br>
+            <input type="password" name="senha" placeholder="Senha">
+        </div>
+        <button type="submit" class="Button" name="attcadastro">Atualizar</button>
+    </form>
+    <footer>
+        <div>
+            <label for="devs">Desenvolvedores</label>
+            <ul name="devs">
+                <li><a href="https://github.com/Rafael-Nunes-Silva">Rafael Nunes de Farias Silva</a></li>
+                <li><a href="https://github.com/Lincolnlau12">Lincoln Emanuel Rangel dos Santos</a></li>
+                <li><a href="https://github.com/Rodrianjos">Rodrigo Ezequiel Silva dos Anjos</a></li>
+                <li><a href="https://github.com/mauricio-goulart">Mauricio Azevedo Goulart</a></li>
+            </ul>
+        </div>
+    </footer>
 </body>
 </html>
