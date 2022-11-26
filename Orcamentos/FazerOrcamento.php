@@ -40,11 +40,11 @@
         echo("<p id='total'>Total: R$ 0</p>");
         echo("<input type='hidden' id='totalSalvar' name='totalSalvar' value=''></input>
                 <input type='hidden' id='qtdList' name='qtdList' value=''/>
-                <button style='font-size: 24px;' type='submit' class='Button' name='salvar-orcamento'>Salvar Orçamendo</button>
+                <button style='font-size: 24px;' type='submit' class='Button' name='salvar-orcamento'>Salvar Orçamento</button>
             </form>");
     }
     else{
-        header("Location: Produtos.php");
+        header("Location: ../Produtos.php");
         exit();
     }
     

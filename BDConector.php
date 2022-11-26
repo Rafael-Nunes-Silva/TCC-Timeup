@@ -46,6 +46,7 @@ function BDRecuperarFoto($ID){
 // Atualiza o nome de uma Foto com o ID especificado
 function BDAtualizarFoto($ID, $Nome, $Caminho, $Diretorio){
     $connection = BDConnect();
+    JSAlert(BDRecuperarFoto($ID));
     if(!rename($Diretorio.BDRecuperarFoto($ID), $Diretorio.$Nome)){
         JSAlert("Erro ao atualizar Foto_ID de perfil");
         BDDisconnect($connection);

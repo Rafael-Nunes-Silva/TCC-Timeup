@@ -51,6 +51,7 @@
             exit();
         }
         
+        BDAtualizarFoto($dadosVendedor->Foto_ID, BDRecuperarFoto($dadosVendedor->Foto_ID), $_FILES["foto"]["tmp_name"], "../uploads/vendedor/".$dadosVendedor->Nome."/foto_perfil/");
         $dadosVendedor->Email = $_POST["email"];
         $dadosVendedor->Rua = $_POST["rua"];
         $dadosVendedor->Numero = $_POST["numero"];

@@ -28,21 +28,53 @@
             else if($produtos[$i]->Valor > $max)
                 $max = $produtos[$i]->Valor;
         }
-        
-        $sortedProds = array();
+        /*
         if(isset($_SESSION["filtro"])){
-            for($i=(isset($_SESSION["filtro"]) ? ($_SESSION["filtro"]->QtdPage * ($_SESSION["filtro"]->Page-1)) : 0); $i<count($produtos); $i++){
+            $sortedProds = array();
+            for($i=($_SESSION["filtro"]->QtdPage * ($_SESSION["filtro"]->Page-1)); $i<count($produtos); $i++){
                 $percent = levenshtein($_SESSION["filtro"]->Nome, $produtos[$i]->Nome, 100, 500, 300);
-                if($_SESSION["filtro"]->Categoria == $produtos[$i]->Categoria){
+                if($_SESSION["filtro"]->Categoria == "todas" || $_SESSION["filtro"]->Categoria == $produtos[$i]->Categoria){
                     foreach($sortedProds as $k => $v){
                         if($percent == $k)
                             $percent--;
                     }
                     
-                    if($produtos[$i]->Valor >= $_SESSION["filtro"]->MinVal && $produtos[$i]->Valor <= $_SESSION["filtro"]->MaxVal){
-                        $sortedProds += array($percent => $produtos[$i]);
-                    }
+                    if($produtos[$i]->Valor < $_SESSION["filtro"]->MinVal || $produtos[$i]->Valor > $_SESSION["filtro"]->MaxVal)
+                        continue;
+                    
+                    $sortedProds += array($percent => $produtos[$i]);
                 }
+            }
+            
+            switch($_SESSION["filtro"]->OrdemValor){
+                    case "desordenado":
+                        ksort($sortedProds);
+                        break;
+                    case "crescente":
+                        usort($sortedProds, "PriceComparator");
+                        break;
+                    case "decrescente":
+                        usort($sortedProds, "PriceComparator");
+                        $sortedProds = array_reverse($sortedProds);
+                        break;
+                }
+        }
+        */
+        
+        if(isset($_SESSION["filtro"])){
+            $sortedProds = array();
+            for($i=0; $i<count($produtos); $i++){
+                if($_SESSION["filtro"]->Categoria != "todas" && $_SESSION["filtro"]->Categoria != $produtos[$i]->Categoria)
+                    continue;
+                if($produtos[$i]->Valor < $_SESSION["filtro"]->MinVal || $produtos[$i]->Valor > $_SESSION["filtro"]->MaxVal)
+                    continue;
+                
+                $percent = levenshtein($_SESSION["filtro"]->Nome, $produtos[$i]->Nome, 100, 500, 300);
+                foreach($sortedProds as $k => $v){
+                    if($percent == $k)
+                        $percent--;
+                }
+                $sortedProds += array($percent => $produtos[$i]);
             }
             
             switch($_SESSION["filtro"]->OrdemValor){
@@ -57,7 +89,11 @@
                     $sortedProds = array_reverse($sortedProds);
                     break;
             }
+            
+            $sortedProds = array_slice($sortedProds, $_SESSION["filtro"]->QtdPage * ($_SESSION["filtro"]->Page-1), $_SESSION["filtro"]->QtdPage, true);
         }
+        
+        
         
         echo("<header>
                 <h1 class='Title'>TimeUp</h1>
@@ -113,6 +149,10 @@
             if($_SESSION["filtro"]->Categoria == "blocos/tijolos")
                 echo("<option value='blocos/tijolos' selected>Blocos/Tijolos</option>");
             else echo("<option value='blocos/tijolos'>Blocos/Tijolos</option>");
+            
+            if($_SESSION["filtro"]->Categoria == "ferramentas")
+                echo("<option value='ferramentas' selected>Ferramentas</option>");
+            else echo("<option value='ferramentas'>Ferramentas</option>");
         }
         else{
             echo("<option value='todas'>Todas</option>
@@ -123,7 +163,8 @@
                 <option value='pedras'>Pedras</option>
                 <option value='telhas'>Telhas</option>
                 <option value='tintas'>Tintas</option>
-                <option value='blocos/tijolos'>Blocos/Tijolos</option>");
+                <option value='blocos/tijolos'>Blocos/Tijolos</option>
+                <option value='ferramentas'>Ferramentas</option>");
         }
         
         echo("</select><br>
@@ -151,13 +192,13 @@
         
         echo("</select><br>
                 <label for='minVal'>De R$</label><br>
-                <input type='number' name='minVal' min='$min' max='$max' maxlength='10' value='".(isset($_SESSION["filtro"]) ? $_SESSION["filtro"]->MinVal : $min)."' class='filt'><br>
+                <input type='number' step='0.01' name='minVal' min='$min' max='$max' maxlength='10' value='".(isset($_SESSION["filtro"]) ? $_SESSION["filtro"]->MinVal : $min)."' class='filt'><br>
                 <label for='maxVal'>A R$</label><br>
-                <input type='number' name='maxVal' min='$min' max='$max' maxlength='10' value='".(isset($_SESSION["filtro"]) ? $_SESSION["filtro"]->MaxVal : $max)."' class='filt'><br>
+                <input type='number' step='0.01' name='maxVal' min='$min' max='$max' maxlength='10' value='".(isset($_SESSION["filtro"]) ? $_SESSION["filtro"]->MaxVal : $max)."' class='filt'><br>
                 <label for='qtdPage'>Itens por página</label><br>
-                <input type='number' name='qtdPage' min='20' max='100' value='".(isset($_SESSION["filtro"]) ? $_SESSION["filtro"]->QtdPage : 40)."'><br>
+                <input type='number' step='1' name='qtdPage' min='20' max='100' value='".(isset($_SESSION["filtro"]) ? $_SESSION["filtro"]->QtdPage : 40)."'><br>
                 <label for='page'>Página</label><br>
-                <input style='width: 50px;' type='number' name='page' min='1' max='".(isset($_SESSION["filtro"]) ? (count($produtos) / $_SESSION["filtro"]->QtdPage < 1 ? 1 : count($produtos) / $_SESSION["filtro"]->QtdPage) : 1)."' value='".(isset($_SESSION["filtro"]) ? $_SESSION["filtro"]->Page : (count($produtos)/40 < 1 ? 1 : count($produtos)/40))."'><br>
+                <input style='width: 50px;' type='number' step='1' name='page' min='1' max='".(isset($_SESSION["filtro"]) ? (count($produtos) / $_SESSION["filtro"]->QtdPage < 1 ? 1 : intval(count($produtos) / $_SESSION["filtro"]->QtdPage, 10)+1) : 1)."' value='".(isset($_SESSION["filtro"]) ? $_SESSION["filtro"]->Page : (count($produtos)/20 < 1 ? 1 : intval(count($produtos)/40, 10)))."'><br>
                 <input class='Button' name='fazer-busca' type='submit' value='Buscar'></input>
                 <input class='Button' name='limpar-busca' type='submit' value='Limpar'></input><br>
                 <input type='hidden' id='idList' name='idList' value=''/>
@@ -183,7 +224,7 @@
             }
         }
         else{
-            for ($i = 0; $i < min(count($produtos), 25); $i++){
+            for ($i = 0; $i < min(count($produtos), 20); $i++){
                 $dadosVendedor = BDRecuperarVendedorID($produtos[$i]->Vendedor_ID);
                 echo("<div class='produto' type='button' onclick='clicado(".$i.", ".$produtos[$i]->ID.", this)'>
                     <img src='../uploads/produto/".$dadosVendedor->Nome."/".$produtos[$i]->Nome."/".BDRecuperarFoto($produtos[$i]->Foto_ID)."' width='200px' height='200px'>
@@ -256,11 +297,11 @@
     <script>
         function clicado(index, id, obj){
             if(idList[index] == id){
-                obj.style.backgroundColor = "#4B0082";
+                obj.style.backgroundColor = "var(--BG)";
                 idList[index] = 0;
             }
             else{
-                obj.style.backgroundColor = "#DD00DD";
+                obj.style.backgroundColor = "var(--Btn)";
                 idList[index] = id;
             }
             

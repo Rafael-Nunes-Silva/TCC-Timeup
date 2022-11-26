@@ -113,7 +113,7 @@
         <h1 style="color: white;">Cadastro</h1>
         <div class="textfield">
             <label for="foto">Foto</label><br>
-            <input type="file" name="foto" accept="image/jpeg">
+            <input type="file" name="foto" accept="image/*">
         </div>
         <div class="textfield">
             <label for="nome">Nome</label><br>

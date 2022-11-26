@@ -7,7 +7,7 @@ CREATE TABLE Foto(
 CREATE TABLE Cliente (
     ID INT NOT NULL auto_increment,
     Foto_ID INT NOT NULL,
-    Nome VARCHAR (50) NOT NULL,
+    Nome VARCHAR (100) NOT NULL,
     Data_Nascimento DATE NOT NULL,
     CPF VARCHAR (11) NOT NULL,
     Telefone VARCHAR (11) NOT NULL,
@@ -22,11 +22,11 @@ CREATE TABLE Cliente (
 CREATE TABLE Vendedor (
     ID INT NOT NULL auto_increment,
     Foto_ID INT NOT NULL,
-    Nome VARCHAR (50) NOT NULL,
+    Nome VARCHAR (100) NOT NULL,
     CNPJ VARCHAR (14) NOT NULL,
     Email VARCHAR (50) NOT NULL,
     Senha VARCHAR (20) NOT NULL,
-    Rua VARCHAR (50) NOT NULL,
+    Rua VARCHAR (100) NOT NULL,
     Numero INT NOT NULL,
     PRIMARY KEY (ID),
     FOREIGN KEY (Foto_ID) REFERENCES Foto (ID)
@@ -35,9 +35,9 @@ CREATE TABLE Vendedor (
 CREATE TABLE Produto (
     ID INT NOT NULL auto_increment,
     Foto_ID INT NOT NULL,
-    Nome VARCHAR(50) NOT NULL,
-    Valor INT NOT NULL,
-    Categoria VARCHAR(20) NOT NULL,
+    Nome VARCHAR(100) NOT NULL,
+    Valor DECIMAL(10,2) NOT NULL,
+    Categoria VARCHAR(50) NOT NULL,
     Vendedor_ID INT NOT NULL,
     PRIMARY KEY (ID),
     FOREIGN KEY (Foto_ID) REFERENCES Foto (ID)

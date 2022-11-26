@@ -1,11 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&family=Oswald:wght@200&display=swap');
 
 :root{
-    --roxoBtn: #DD00DD;
-    --roxoFG: #4B0082;
-    --roxoBG: #8A2BE2;
-    --cor5: #95A3AB;
-    --cor6: #000000;
+    /* ROXO */
+    //--Btn: #DD00DD;
+    //--FG: #4B0082;
+    //--BG: #8A2BE2;
+    
+    /* LARANJA */
+    --Btn: #E69500;
+    --FG: #BF7C00;
+    --BG: #FFA500;
 }
 
 header{
@@ -13,7 +17,7 @@ header{
     padding: 5px 5px 10px 5px;
     border: 0px;
     
-    background-color: var(--roxoFG);
+    background-color: var(--FG);
     
     color: white;
     
@@ -43,7 +47,7 @@ header{
     border: 0px;
     border-radius: 5px;
     
-    background-color: var(--roxoBtn);
+    background-color: var(--Btn);
     color: white;
     
     text-align: center;
@@ -57,7 +61,7 @@ header{
     padding: 5px 5px 0px 5px;
     border-radius: 150px;
     
-    background-color: var(--roxoBtn);
+    background-color: var(--Btn);
     
     position: absolute;
     right: 15px;
@@ -81,7 +85,7 @@ body{
     
     box-sizing: border-box;
     
-    background-color: var(--roxoBG);
+    background-color: var(--BG);
     
     font-family: 'Noto Sans';
     
@@ -93,7 +97,7 @@ footer{
     padding: 20px;
     border: 0px;
     
-    background-color: var(--roxoFG);
+    background-color: var(--FG);
     color: white;
     
     text-align: center;
@@ -122,10 +126,10 @@ footer > div > ul > li > a{
     border: none;
     border-radius: 10px;
     
-    background-color: #515151;
-    color: white;
+    background-color: #FFFFFF;
+    color: black;
     
-    box-shadow: 0px 0px 75px #515151;
+    box-shadow: 0px 0px 75px var(--BG);
     box-sizing: border-box;
     
     font-size: 12pt;

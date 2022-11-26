@@ -85,10 +85,11 @@
         $dadosVendedor->Rua = $_POST["rua"];
         $dadosVendedor->Numero = $_POST["numero"];
         if(!BDRegistrarVendedor($dadosVendedor)){
-            JSAlert("Houve um erro na hora do cadastro, tente novamente");
+            JSAlert("Houve um erro ao registrar o vendedor, tente novamente");
             return;
         }
 
+        $dadosVendedor->ID = BDRecuperarVendedor($dadosVendedor->CNPJ)->ID;
         $_SESSION["dadosVendedor"] = $dadosVendedor;
         header("Location: PerfilVendedor.php");
         exit();
@@ -102,7 +103,7 @@
         <h1 style="color: white;">Cadastro</h1>
         <div class="textfield">
             <label for="foto">Foto</label><br>
-            <input type="file" name="foto" accept="image/jpeg">
+            <input type="file" name="foto" accept="image/*">
         </div>
         <div class="textfield">
             <label for="nome">Nome</label><br>

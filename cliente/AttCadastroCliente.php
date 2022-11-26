@@ -60,7 +60,7 @@
             exit();
         }
         
-        BDAtualizarFoto($dadosCliente->Foto, BDRecuperarFoto($dadosCliente->Foto), $_FILES["foto"]["tmp_name"], "../uploads/cliente/".$dadosCliente->Nome."/foto_perfil/");
+        BDAtualizarFoto($dadosCliente->Foto_ID, BDRecuperarFoto($dadosCliente->Foto_ID), $_FILES["foto"]["tmp_name"], "../uploads/cliente/".$dadosCliente->Nome."/foto_perfil/");
         $dadosCliente->Telefone = $_POST["telefone"];
         $dadosCliente->Email = $_POST["email"];
         $dadosCliente->Rua = $_POST["rua"];

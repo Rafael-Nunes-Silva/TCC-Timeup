@@ -60,6 +60,7 @@
         $dadosProduto->Valor = $_POST["valor"];
         $dadosProduto->Categoria = $_POST["categoria"];
         $dadosProduto->Vendedor_ID = $_SESSION["dadosVendedor"]->ID;
+        
         if(!BDRegistrarProduto($dadosProduto)){
             JSAlert("Houve um erro na hora do cadastro, tente novamente");
             return;
@@ -76,25 +77,28 @@
         <h1 style="color: white;">Cadastro</h1>
         <div class="textfield">
             <label for="foto">Foto</label><br>
-            <input type="file" name="foto" accept="image/jpeg">
+            <input type="file" name="foto" accept="image/*">
         </div>
         <div class="textfield">
             <label for="nome">Nome</label><br>
-            <input type="text" name="nome" maxlength="50" value="<?php echo(isset($_SESSION["dadosProduto"]) ? $_SESSION["dadosProduto"]->Nome : '')?>" placeholder="Nome">
+            <input type="text" name="nome" maxlength="100" value="<?php echo(isset($_SESSION["dadosProduto"]) ? $_SESSION["dadosProduto"]->Nome : '')?>" placeholder="Nome">
         </div>
         <div class="textfield">
             <label for="valor">Valor</label><br>
-            <input type="number" name="valor" value="<?php echo(isset($_SESSION["dadosProduto"]) ? $_SESSION["dadosProduto"]->Valor : '')?>" placeholder="R$ 0,00">
+            <input type="number" max="99999999" step="0.01" name="valor" value="<?php echo(isset($_SESSION["dadosProduto"]) ? $_SESSION["dadosProduto"]->Valor : '')?>" placeholder="R$ 0,00">
         </div>
         <div class="textfield">
             <label for="categoria">Categoria</label><br>
             <select name="categoria">
-                <option value="metais">Metais</option>
-                <option value="ceramicos">Cerâmicos</option>
-                <option value="polimeros">Polímeros</option>
-                <option value="compositos">Compósitos</option>
-                <option value="pedras">Pedras</option>
-                <option value="tintas">Tintas</option>
+                <option value='metais'>Metais</option>
+                <option value='ceramicos'>Cerâmicos</option>
+                <option value='polimeros'>Polímeros</option>
+                <option value='compositos'>Compósitos</option>
+                <option value='pedras'>Pedras</option>
+                <option value='telhas'>Telhas</option>
+                <option value='tintas'>Tintas</option>
+                <option value='blocos/tijolos'>Blocos/Tijolos</option>
+                <option value='ferramentas'>Ferramentas</option>
             </select>
         </div>
         <button type="submit" class="Button" name="cadastrar">cadastro</button>

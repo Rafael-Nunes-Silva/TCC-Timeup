@@ -4,7 +4,7 @@
     margin: 125px auto;
     padding: 1px 0px;
     
-    background-color: var(--roxoFG);
+    background-color: var(--FG);
     
     border-radius: 25px;
     
@@ -25,5 +25,5 @@
 
 .loginForm > button{
     font-size: 24px;
-    box-shadow: 0px 0px 75px var(--roxoBtn)
+    box-shadow: 0px 0px 75px var(--Btn)
 }

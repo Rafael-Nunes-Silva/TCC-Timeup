@@ -11,7 +11,7 @@
     padding: 20px 20px;
     border-radius: 25px;
     
-    background-color: var(--roxoFG);
+    background-color: var(--FG);
     
     width: 50vw;
 }
@@ -22,7 +22,7 @@
     padding: 10px 10px 0px 10px;
     
     border-radius: 25px;
-    background-color: var(--roxoFG);
+    background-color: var(--FG);
 }
 
 .perfPanel > img{
@@ -39,7 +39,7 @@
     margin: 0px auto 20px auto;
     border-radius: 25px;
     
-    background-color: var(--roxoFG);
+    background-color: var(--FG);
     color: white;
     
     text-align: center;

@@ -8,7 +8,7 @@
     margin: 50px auto;
     padding: 1px 0px;
     
-    background-color: var(--roxoFG);
+    background-color: var(--FG);
     
     border-radius: 25px;
     
@@ -29,11 +29,11 @@
 
 .corcForm > button{
     font-size: 24px;
-    box-shadow: 0px 0px 75px var(--roxoBtn)
+    box-shadow: 0px 0px 75px var(--Btn)
 }
 
 .produto{
-    background-color: var(--roxoBtn);
+    background-color: var(--Btn);
 }
 
 .produto_number{
